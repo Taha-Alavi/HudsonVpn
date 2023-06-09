@@ -6,7 +6,7 @@ check();
 
 $robotState = $botState['botState']??"on";
 if($userInfo['step'] == "banned" && $from_id != $admin && $userInfo['isAdmin'] != true){
-    sendMessage("❌ | هی بهت گفتم آدم باش گوش نکردی ، الان مسدود شدی 😑😂");
+    sendMessage("❌ | شما نمیتوانید از ربات استفاده کنید");
     exit();
 }
 if ($joniedState== "kicked" || $joniedState== "left"){
@@ -22,7 +22,7 @@ if ($joniedState== "kicked" || $joniedState== "left"){
     exit;
 }
 if($robotState == "off" && $from_id != $admin){
-    sendMessage("🌛ربات در حال بروزرسانی می باشد ...");
+    sendMessage("ربات در حال بروزرسانی می باشد ...");
     exit();
 }
 if(strpos($text, "/start ") !== false){
@@ -57,7 +57,7 @@ if(strpos($text, "/start ") !== false){
         
         setUser("referedBy" . $inviter);
         $userInfo['step'] = "referedBy" . $inviter;
-        sendMessage("😍|تبریک یه نفر با لینک شما وارد ربات شد",null,null, $inviter);
+        sendMessage("‼️| تبریک یه نفر با لینک شما وارد ربات شد",null,null, $inviter);
     }
     
     $text = "/start";
@@ -81,7 +81,7 @@ if($userInfo['phone'] == null && $from_id != $admin && $userInfo['isAdmin'] != t
             $text = "/start";
         }
     }else{
-        sendMessage("سلام عزیزم، برای استفاده از ربات شماره تماس خود را با استفاده از کلید زیر ارسال کنید 👇", json_encode([
+        sendMessage("سلام ، برای استفاده از ربات شماره تماس خود را با استفاده از کلید زیر ارسال کنید 👇", json_encode([
 			'keyboard' => [[[
 					'text' => '☎️ ارسال شماره',
 					'request_contact' => true,
@@ -104,26 +104,14 @@ if (preg_match('/^\/([Ss]tart)/', $text) or $text == '⤵️ برگرد به م�
         $stmt->close();
     }
     if(isset($data) and $data == "mainMenu"){
-        $res = editText($message_id, 'سلااام به ربات هادسون سرویس خوش اومدی 
+        $res = editText($message_id, '🔰| سلام به ربات هادسون سرویس خوش اومدین :
 
-ما اینجاییم تا شما را بدون هیچ محدویتی به شبکه جهانی متصل کنیم ❤
-
-✅ کیفیت در ساخت انواع کانکشن ها
-📡 برقرای امنیت در ارتباط شما
-☎️ پشتیبانی تا روز آخر 
-
-🚪 /start
+        لطفا یکی از دکمه های زیر را انتخاب کنید :
 ', $mainKeys);
         if(!$res->ok){
-            sendMessage('سلااام به ربات هادسون سرویس خوش اومدی 
+            sendMessage('🔰| سلام به ربات هادسون سرویس خوش اومدین :
 
-ما اینجاییم تا شما را بدون هیچ محدویتی به شبکه جهانی متصل کنیم
-
-✅ کیفیت در ساخت انواع کانکشن ها
-📡 برقرای امنیت در ارتباط شما
-☎️ پشتیبانی تا روز آخر 
-
-🚪 /start
+            لطفا یکی از دکمه های زیر را انتخاب کنید :
 ', $mainKeys);
         }
     }else{
@@ -133,26 +121,18 @@ if (preg_match('/^\/([Ss]tart)/', $text) or $text == '⤵️ برگرد به م�
                 [['text'=>"✉️ ارسال پیام به کاربر ",'callback_data'=>'sendMessageToUser' . $from_id]]
             ]]);
             sendMessage("
-            📢 | یه گل جدید عضو ربات شد :
+            📢 | یک کاربر جدید به ربات اضافه شد :
 
 نام و نام خانوادگی: <a href='tg://user?id=$from_id'>$first_name</a>
 نام کاربری: @$username
 آیدی عددی: <code>$from_id</code>
 
-به نظرم یه پیام براش بفرست مثلا ( تبلیغی یا خوش آمد گویی ) 😍
-
             ",
             $keys, "html",$admin);
         }
-        sendMessage('سلااام به ربات هادسون سرویس خوش اومدی 
+        sendMessage('🔰| سلام به ربات هادسون سرویس خوش اومدین :
 
-ما اینجاییم تا شما را بدون هیچ محدویتی به شبکه جهانی متصل کنیم 
-
-✅ کیفیت در ساخت انواع کانکشن ها
-📡 برقرای امنیت در ارتباط شما
-☎️ پشتیبانی تا روز آخر 
-
-🚪 /start
+        لطفا یکی از دکمه های زیر را انتخاب کنید :
 ',$mainKeys);
     }
 }
@@ -163,9 +143,8 @@ if(preg_match('/^sendMessageToUser(\d+)/',$data,$match) && ($from_id == $admin |
 if(preg_match('/^sendMessageToUser(\d+)/',$userInfo['step'],$match) && ($from_id == $admin || $userInfo['isAdmin'] == true) && $text != $cancelText){
     sendMessage($text,null,null,$match[1]);
     sendMessage("پیامت به کاربر ارسال شد",$removeKeyboard);
-    sendMessage("خب برگشتم عقب اگه کاری داری بگو 😉 | اگه خواستی یکی از گزینه هارو انتخاب کن که کارتو انجام بدم
-
-🚪 /start",$adminKeys);
+    sendMessage("❕| لطفا یکی از دکمه های زیر را انتخاب کنید :
+",$adminKeys);
     setUser();
 }
 if($data=='botReports' && ($from_id == $admin || $userInfo['isAdmin'] == true)){
@@ -200,7 +179,7 @@ if($userInfo['step'] == "addNewAdmin" && $from_id === $admin && $text != $cancel
         
         sendMessage("لیست ادمین ها",getAdminsKeys());
     }else{
-        sendMessage("😡 | مگه نمیگم فقط عدد بفرس نمیفهمی؟ یا خودتو زدی به نفهمی؟");
+        sendMessage("‼️ | لطفا ایدی عددی کاربر رو به درستی وارد کنید");
     }
 }
 if(($data=="botSettings" or preg_match("/^changeBot(\w+)/",$data,$match)) && ($from_id == $admin || $userInfo['isAdmin'] == true)){
@@ -306,7 +285,7 @@ if($userInfo['step'] == "userReports" && $text != $cancelText && ($from_id == $a
             setUser();
         }else sendMessage("کاربری با این آیدی یافت نشد");
     }else{
-        sendMessage("😡|لطفا فقط عدد ارسال کن");
+        sendMessage("‼️|لطفا فقط عدد ارسال کن");
     }
 }
 if($data=="inviteSetting" && ($from_id == $admin || $userInfo['isAdmin'] == true)){
@@ -442,7 +421,7 @@ if($userInfo['step'] == "editInviteAmount"){
             ]]); 
         sendMessage("✅ تنظیمات بازاریابی",$keys);
         setUser();
-    }else sendMessage("😡 | مگه نمیگم فقط عدد بفرس نمیفهمی؟ یا خودتو زدی به نفهمی؟");
+    }else sendMessage("‼️ | لطفا ایدی عددی کاربر رو به درستی وارد کنید");
 }
 if($userInfo['step'] == "editRewardTime" && ($from_id == $admin || $userInfo['isAdmin'] == true) && $text != $cancelText){
     if(!is_numeric($text)){
@@ -543,7 +522,7 @@ if($data=="myInfo"){
             ['text'=>"برگشت 🔙",'callback_data'=>"mainMenu"]
             ]
         ]]);
-    editText($message_id, "💞 اطلاعات حساب شما:",
+    editText($message_id, "⚜️| اطلاعات حساب شما:",
             $keys,"html");
 }
 if($data=="transferMyWallet"){
@@ -565,7 +544,7 @@ if($userInfo['step'] =="transferMyWallet" && $text != $cancelText){
                 sendMessage("لطفا مبلغ مورد نظر رو وارد کن");
             }else sendMessage("کاربری با این آیدی یافت نشد");
         }else sendMessage("میخای به خودت انتقال بدی ؟؟");
-    }else sendMessage("😡 | مگه نمیگم فقط عدد بفرس نمیفهمی؟ یا خودتو زدی به نفهمی؟");
+    }else sendMessage("‼️ | لطفا ایدی عددی کاربر رو به درستی وارد کنید");
 }
 if(preg_match('/^tranfserUserAmount(\d+)/',$userInfo['step'],$match) && $text != $cancelText){
     if(is_numeric($text)){
@@ -585,16 +564,16 @@ if(preg_match('/^tranfserUserAmount(\d+)/',$userInfo['step'],$match) && $text !=
             sendMessage("✅|مبلغ " . number_format($text) . " تومان به کیف پول کاربر مورد نظر شما انتقال یافت",$removeKeyboard);
             sendMessage("لطفا یکی از کلید های زیر را انتخاب کنید",$mainKeys);
         }else sendMessage("موجودی حساب شما کم است");
-    }else sendMessage("😡 | مگه نمیگم فقط عدد بفرس نمیفهمی؟ یا خودتو زدی به نفهمی؟");
+    }else sendMessage("‼️ | لطفا ایدی عددی کاربر رو به درستی وارد کنید");
 }
 if($data=="increaseMyWallet"){
     delMessage();
-    sendMessage("🙂 عزیزم مقدار شارژ مورد نظر خود را به تومان وارد کن (بیشتر از 5000 تومان)",$cancelKey);
+    sendMessage("🙂  مقدار شارژ مورد نظر خود را به تومان وارد کن (بیشتر از 5000 تومان)",$cancelKey);
     setUser($data);
 }
 if($userInfo['step'] == "increaseMyWallet" && $text != $cancelText){
     if(!is_numeric($text)){
-        sendMessage("😡 | مگه نمیگم فقط عدد بفرس نمیفهمی؟ یا خودتو زدی به نفهمی؟");
+        sendMessage("‼️ | لطفا ایدی عددی کاربر رو به درستی وارد کنید");
         exit();
     }
     elseif($text < 5000){
@@ -664,7 +643,7 @@ if(preg_match('/increaseWalletWithCartToCart/',$data)) {
 
     delMessage();  
     setUser($data);
-    sendMessage("♻️ عزیزم یه تصویر از فیش واریزی یا شماره پیگیری -  ساعت پرداخت - نام پرداخت کننده رو در یک پیام برام ارسال کن :
+    sendMessage("♻️  یه تصویر از فیش واریزی یا شماره پیگیری -  ساعت پرداخت - نام پرداخت کننده رو در یک پیام برام ارسال کن :
 
 🔰 <code>{$paymentKeys['bankAccount']}</code> - {$paymentKeys['holderName']}
 
@@ -774,7 +753,7 @@ if($userInfo['step'] == "increaseUserWallet" && ($from_id == $admin || $userInfo
 🚪 /start',$mainKeys);
         }
     }else{
-        sendMessage("😡 | مگه نمیگم فقط عدد بفرس نمیفهمی؟ یا خودتو زدی به نفهمی؟");
+        sendMessage("‼️ | لطفا ایدی عددی کاربر رو به درستی وارد کنید");
     }
 }
 if(preg_match('/^increaseWalletUser(\d+)/',$userInfo['step'], $match) && $text != $cancelText && ($from_id == $admin || $userInfo['isAdmin'] == true)){
@@ -791,7 +770,7 @@ if(preg_match('/^increaseWalletUser(\d+)/',$userInfo['step'], $match) && $text !
 🚪 /start',$mainKeys);
         setUser();
     }else{
-        sendMessage("😡 | مگه نمیگم فقط عدد بفرس نمیفهمی؟ یا خودتو زدی به نفهمی؟");
+        sendMessage("‼️ | لطفا ایدی عددی کاربر رو به درستی وارد کنید");
     }
 }
 if($data=="editRewardChannel" && ($from_id == $admin || $userInfo['isAdmin'] == true)){
@@ -824,7 +803,7 @@ if($userInfo['step'] == "editRewardChannel" && ($from_id == $admin || $userInfo[
             exit();
         }
     }
-    sendMessage("😡|ای بابا ،ربات هنوز تو کانال عضو نشده، اول ربات رو تو کانال ادمین کن و آیدیش رو بفرست");
+    sendMessage("‼️|ای بابا ،ربات هنوز تو کانال عضو نشده، اول ربات رو تو کانال ادمین کن و آیدیش رو بفرست");
 }
 if($data=="editLockChannel" && ($from_id == $admin || $userInfo['isAdmin'] == true)){
     delMessage();
@@ -856,7 +835,7 @@ if($userInfo['step'] == "editLockChannel" && ($from_id == $admin || $userInfo['i
             exit();
         }
     }
-    sendMessage("😡|ای بابا ،ربات هنوز تو کانال عضو نشده، اول ربات رو تو کانال ادمین کن و آیدیش رو بفرست");
+    sendMessage("‼️|ای بابا ،ربات هنوز تو کانال عضو نشده، اول ربات رو تو کانال ادمین کن و آیدیش رو بفرست");
 }
 if ($data=='buySubscription' && ($botState['sellState']=="on" || ($from_id == $admin || $userInfo['isAdmin'] == true))){
     if($botState['cartToCartState'] == "off" && $botState['walletState'] == "off"){
@@ -868,7 +847,7 @@ if ($data=='buySubscription' && ($botState['sellState']=="on" || ($from_id == $a
     $respd = $stmt->get_result();
     $stmt->close();
     if($respd->num_rows==0){
-        alert("😔 | عزیز دلم هیچ سرور فعالی نداریم لطفا بعدا مجدد تست کن");
+        alert("😔 |  هیچ سرور فعالی نداریم لطفا بعدا مجدد تست کن");
         exit;
     }
     $keyboard = [];
@@ -892,7 +871,7 @@ if ($data=='createMultipleAccounts' && ($from_id == $admin || $userInfo['isAdmin
     $respd = $stmt->get_result();
     $stmt->close();
     if($respd->num_rows==0){
-        sendMessage("😔 | عزیز دلم هیچ سرور فعالی نداریم لطفا بعدا مجدد تست کن");
+        sendMessage(" هیچ سرور فعالی نداریم لطفا بعدا مجدد تست کن");
         exit;
     }
     $keyboard = [];
@@ -906,7 +885,7 @@ if ($data=='createMultipleAccounts' && ($from_id == $admin || $userInfo['isAdmin
     $keyboard = array_chunk($keyboard,1);
     editText($message_id, '  1️⃣ مرحله یک:
 
-لوکیشن مدنظرت رو برا خرید انتخاب کن: 😊', json_encode(['inline_keyboard'=>$keyboard]));
+لوکیشن مدنظرت رو برا خرید انتخاب کن:', json_encode(['inline_keyboard'=>$keyboard]));
     
 
 }
@@ -966,7 +945,7 @@ if(preg_match('/createAccCategory(\d+)_(\d+)/',$data,$match) && ($from_id == $ad
         $keyboard = array_chunk($keyboard,1);
         editText($message_id, "3️⃣ مرحله سه:
 
-یکی از پلن هارو انتخاب کن و برو برای پرداختش 🤲 🕋", json_encode(['inline_keyboard'=>$keyboard]));
+یکی از پلن هارو انتخاب کن و برو برای پرداختش ", json_encode(['inline_keyboard'=>$keyboard]));
     }
 
 }
@@ -984,12 +963,12 @@ if(preg_match('/^createAccDate(\d+)/',$userInfo['step'],$match) && $text != $can
             sendMessage("عدد باید بیشتر از 0 باشه");
         }
     }else{
-        sendMessage('😡 | مگه نمیگم فقط عدد بفرس نمیفهمی؟ یا خودتو زدی به نفهمی؟');
+        sendMessage('‼️ | لطفا ایدی عددی کاربر رو به درستی وارد کنید');
     }
 }
 if(preg_match('/^createAccVolume(\d+)_(\d+)/',$userInfo['step'],$match) && $text != $cancelText){
     if(!is_numeric($text)){
-        sendMessage("😡 | مگه نمیگم فقط عدد بفرس نمیفهمی؟ یا خودتو زدی به نفهمی؟");
+        sendMessage("‼️ | لطفا ایدی عددی کاربر رو به درستی وارد کنید");
         exit();
     }elseif($text <=0){
         sendMessage("مقداری بزرگتر از 0 وارد کن");
@@ -1003,7 +982,7 @@ if(preg_match('/^createAccVolume(\d+)_(\d+)/',$userInfo['step'],$match) && $text
 }
 if(preg_match('/^createAccAmount(\d+)_(\d+)_(\d+)/',$userInfo['step'], $match) && $text != $cancelText){
     if(!is_numeric($text)){
-        sendMessage("😡 | مگه نمیگم فقط عدد بفرس نمیفهمی؟ یا خودتو زدی به نفهمی؟");
+        sendMessage("‼️ | لطفا ایدی عددی کاربر رو به درستی وارد کنید");
         exit();
     }elseif($text <=0){
         sendMessage("مقداری بزرگتر از 0 وارد کن");
@@ -1117,7 +1096,7 @@ if(preg_match('/^createAccAmount(\d+)_(\d+)_(\d+)/',$userInfo['step'], $match) &
         }
         
         if(is_null($response)){
-            sendMessage('❌ | 🥺 گلم ، اتصال به سرور برقرار نیست لطفا مدیر رو در جریان بزار ...');
+            sendMessage('❌ | اتصال به سرور برقرار نیست لطفا مدیر رو در جریان بزار');
             break;
         }
     	if($response == "inbound not Found"){
@@ -1125,7 +1104,7 @@ if(preg_match('/^createAccAmount(\d+)_(\d+)_(\d+)/',$userInfo['step'], $match) &
             break;
     	}
     	if(!$response->success){
-            sendMessage('❌ | 😮 وای خطا داد لطفا سریع به مدیر بگو ...');
+            sendMessage('❌ |  Error ...');
             break;
         }
     
@@ -1153,7 +1132,7 @@ if(preg_match('/^createAccAmount(\d+)_(\d+)_(\d+)/',$userInfo['step'], $match) &
     if($portType == "auto"){
         file_put_contents('settings/temp.txt',$port.'-'.$last_num);
     }
-    sendMessage("☑️|❤️ اکانت های جدید با موفقیت ساخته شد",$mainKeys);
+    sendMessage("☑️| اکانت های جدید با موفقیت ساخته شد",$mainKeys);
     setUser();
 }
 if(preg_match('/payWithCartToCart(.*)/',$data,$match)) {
@@ -1208,7 +1187,7 @@ if(preg_match('/payWithCartToCart(.*)/',$data,$match)) {
     
     setUser($data);
     delMessage();
-    sendMessage("♻️ عزیزم یه تصویر از فیش واریزی یا شماره پیگیری -  ساعت پرداخت - نام پرداخت کننده رو در یک پیام برام ارسال کن :
+    sendMessage("♻️  یه تصویر از فیش واریزی یا شماره پیگیری -  ساعت پرداخت - نام پرداخت کننده رو در یک پیام برام ارسال کن :
 
 🔰 <code>{$paymentKeys['bankAccount']}</code> - {$paymentKeys['holderName']}
 
@@ -1390,7 +1369,7 @@ if($inbound_id == 0){
 }
 
 if(is_null($response)){
-    alert('❌ | 🥺 گلم ، اتصال به سرور برقرار نیست لطفا مدیر رو در جریان بزار ...');
+    alert('❌ | 🥺  ، اتصال به سرور برقرار نیست لطفا مدیر رو در جریان بزار ...');
     exit;
 }
 if($response == "inbound not Found"){
@@ -1401,7 +1380,7 @@ if(!$response->success){
     alert('❌ | 😮 وای خطا داد لطفا سریع به مدیر بگو ...');
     exit;
 }
-alert('🚀 | 😍 در حال ارسال کانفیگ به مشتری ...');
+alert('🚀 | در حال ارسال کانفیگ به مشتری ...');
 
 include 'phpqrcode/qrlib.php';
 $token = RandomString(30);
@@ -1674,7 +1653,7 @@ if($data=="messageToSpeceficUser" && ($from_id == $admin || $userInfo['isAdmin']
 }
 if($userInfo['step'] == "messageToSpeceficUser" && $text != $cancelText && ($from_id == $admin || $userInfo['isAdmin'] == true)){
     if(!is_numeric($text)){
-        sendMessage("😡 | مگه نمیگم فقط عدد بفرس نمیفهمی؟ یا خودتو زدی به نفهمی؟");
+        sendMessage("‼️ | لطفا ایدی عددی کاربر رو به درستی وارد کنید");
         exit();
     }
     $stmt = $connection->prepare("SELECT * FROM `users` WHERE `userid` = ?");
@@ -1828,7 +1807,7 @@ if(preg_match('/selectCustomePlan(\d+)_(\d+)/',$data, $match) && ($botState['sel
 }
 if(preg_match('/selectCustomPlanGB(\d+)_(\d+)/',$userInfo['step'], $match) && ($botState['sellState']=="on" ||$from_id ==$admin) && $text != $cancelText){
     if(!is_numeric($text)){
-        sendMessage("😡|لطفا فقط عدد ارسال کن");
+        sendMessage("‼️|لطفا فقط عدد ارسال کن");
         exit();
     }
     elseif($text <=0){
@@ -1911,7 +1890,7 @@ sendMessage("
         }else sendMessage("😔|کد تخفیفی که وارد کردی معتبر نیس");
     }else{
         if(!is_numeric($text)){
-            sendMessage("😡|لطفا فقط عدد ارسال کن");
+            sendMessage("‼️|لطفا فقط عدد ارسال کن");
             exit();
         }
         elseif($text <=0){
@@ -2340,7 +2319,7 @@ if(preg_match('/payCustomWithWallet(.*)/',$data, $match)){
     }
     
     if(is_null($response)){
-        alert('❌ | 🥺 گلم ، اتصال به سرور برقرار نیست لطفا مدیر رو در جریان بزار ...');
+        alert('❌ | 🥺  ، اتصال به سرور برقرار نیست لطفا مدیر رو در جریان بزار ...');
         exit;
     }
 	if($response == "inbound not Found"){
@@ -2404,19 +2383,19 @@ if($botState['subLinkState'] == "on") $acc_text .= "
     $vray_link = json_encode($vraylink);
 
 	$stmt = $connection->prepare("INSERT INTO `orders_list` 
-	    (`userid`, `token`, `transid`, `fileid`, `server_id`, `inbound_id`, `remark`, `protocol`, `expire_date`, `link`, `amount`, `status`, `date`, `notif`, `rahgozar`)
-	    VALUES (?, ?, '', ?, ?, ?, ?, ?, ?, ?, ?,1, ?, 0, ?);");
+	    (`userid`, `token`, `transid`, `fileid`, `server_id`, `inbound_id`, `remark`, `protocol`, `expire_date`, `link`, `amount`, `status`, `date`, `notif`, `rahgozar`, `limitip`)
+	    VALUES (?, ?, '', ?, ?, ?, ?, ?, ?, ?, ?,1, ?, 0, ?, 1);");
     $stmt->bind_param("ssiiissisiii", $uid, $token, $fid, $server_id, $inbound_id, $remark, $protocol, $expire_date, $vray_link, $price, $date, $rahgozar);
     $stmt->execute();
     $order = $stmt->get_result(); 
     $stmt->close();
     $keys = json_encode(['inline_keyboard'=>[
         [
-            ['text'=>"بنازم خرید جدید ❤️",'callback_data'=>"mainMenu"]
+            ['text'=>"خرید جدید",'callback_data'=>"mainMenu"]
         ],
         ]]);
     sendMessage("
-💓 خرید پلن دلخواه ( کیف پول )
+‼️| خرید پلن دلخواه ( کیف پول )
 
 ▫️آیدی کاربر: $from_id
 👨‍💼اسم کاربر: <a href='tg://user?id=$from_id'>$first_name</a>
@@ -2480,7 +2459,7 @@ if(preg_match('/payCustomWithCartToCart(.*)/',$data, $match)) {
     
     setUser($data);
     delMessage();
-    sendMessage("♻️ عزیزم یه تصویر از فیش واریزی یا شماره پیگیری -  ساعت پرداخت - نام پرداخت کننده رو در یک پیام برام ارسال کن :
+    sendMessage("♻️  یه تصویر از فیش واریزی یا شماره پیگیری -  ساعت پرداخت - نام پرداخت کننده رو در یک پیام برام ارسال کن :
 
 🔰 <code>{$paymentKeys['bankAccount']}</code> - {$paymentKeys['holderName']}
 
@@ -2671,7 +2650,7 @@ if(preg_match('/accCustom(.*)/',$data, $match) and $text != $cancelText){
     }
     
     if(is_null($response)){
-        alert('❌ | 🥺 گلم ، اتصال به سرور برقرار نیست لطفا مدیر رو در جریان بزار ...');
+        alert('❌ | 🥺  ، اتصال به سرور برقرار نیست لطفا مدیر رو در جریان بزار ...');
         exit;
     }
 	if($response == "inbound not Found"){
@@ -2906,7 +2885,7 @@ if(preg_match('/payWithWallet(.*)/',$data, $match)){
     }
     
     if(is_null($response)){
-        alert('❌ | 🥺 گلم ، اتصال به سرور برقرار نیست لطفا مدیر رو در جریان بزار ...');
+        alert('❌ | 🥺  ، اتصال به سرور برقرار نیست لطفا مدیر رو در جریان بزار ...');
         exit;
     }
 	if($response == "inbound not Found"){
@@ -3048,7 +3027,7 @@ if(preg_match('/payWithCartToCart(.*)/',$data,$match)) {
     
     setUser($data);
     delMessage();
-    sendMessage("♻️ عزیزم یه تصویر از فیش واریزی یا شماره پیگیری -  ساعت پرداخت - نام پرداخت کننده رو در یک پیام برام ارسال کن :
+    sendMessage("♻️  یه تصویر از فیش واریزی یا شماره پیگیری -  ساعت پرداخت - نام پرداخت کننده رو در یک پیام برام ارسال کن :
 
 🔰 <code>{$paymentKeys['bankAccount']}</code> - {$paymentKeys['holderName']}
 
@@ -3311,7 +3290,7 @@ if(preg_match('/accept(.*)/',$data, $match) and $text != $cancelText){
         } 
     }
     if(is_null($response)){
-        alert('❌ | 🥺 گلم ، اتصال به سرور برقرار نیست لطفا مدیر رو در جریان بزار ...');
+        alert('❌ | 🥺  ، اتصال به سرور برقرار نیست لطفا مدیر رو در جریان بزار ...');
         exit;
     }
 	if($response == "inbound not Found"){
@@ -4404,7 +4383,7 @@ if(preg_match('/^latestMsg_(.*)/',$data,$match)){
 }
 if($data == "banUser" && ($from_id == $admin || $userInfo['isAdmin'] == true)){
     delMessage();
-    sendMessage("😡 | کی باز شلوغی کرده آیدی عددی شو بفرس تا برم ...... آرهههه:", $cancelKey);
+    sendMessage("‼️ | کی باز شلوغی کرده آیدی عددی شو بفرس تا برم ...... آرهههه:", $cancelKey);
     setUser($data);
 }
 if($data=="unbanUser" && ($from_id == $admin || $userInfo['isAdmin'] == true)){
@@ -4439,7 +4418,7 @@ if($userInfo['step'] == "banUser" && ($from_id == $admin || $userInfo['isAdmin']
 
 🚪 /start",$adminKeys);
     }else{
-        sendMessage("😡 | مگه نمیگم فقط عدد بفرس نمیفهمی؟ یا خودتو زدی به نفهمی؟");
+        sendMessage("‼️ | لطفا ایدی عددی کاربر رو به درستی وارد کنید");
     }
 }
 if($data=="mainMenuButtons" && ($from_id == $admin || $userInfo['isAdmin'] == true)){
@@ -4508,7 +4487,7 @@ if($userInfo['step'] == "unbanUser" && ($from_id == $admin || $userInfo['isAdmin
 
 🚪 /start",$adminKeys);
     }else{
-        sendMessage("😡 | مگه نمیگم فقط عدد بفرس نمیفهمی؟ یا خودتو زدی به نفهمی؟");
+        sendMessage("‼️ | لطفا ایدی عددی کاربر رو به درستی وارد کنید");
     }
 }
 if(preg_match("/^reply_(.*)/",$data,$match) and  ($from_id == $admin || $userInfo['isAdmin'] == true)){
@@ -4647,7 +4626,7 @@ if(preg_match('/freeTrial(\d+)/',$data,$match)) {
         }
     }
     if(is_null($response)){
-        alert('❌ | 🥺 گلم ، اتصال به سرور برقرار نیست لطفا مدیر رو در جریان بزار ...');
+        alert('❌ | 🥺  ، اتصال به سرور برقرار نیست لطفا مدیر رو در جریان بزار ...');
         exit;
     }
 	if($response == "inbound not Found"){
@@ -4727,7 +4706,7 @@ if($userInfo['step'] == "showAccount" and $text != $cancelText){
         exit();
     }
     
-    sendMessage("گلم لطفا یکم منتظر بمون ...", $removeKeyboard);
+    sendMessage(" لطفا یکم منتظر بمون ...", $removeKeyboard);
     $stmt = $connection->prepare("SELECT * FROM `server_config`");
     $stmt->execute();
     $serversList = $stmt->get_result();
@@ -5589,7 +5568,7 @@ if(($data == 'mySubscriptions' or preg_match('/changeOrdersPage(\d+)/',$data, $m
 
 
     if($orders->num_rows==0){
-        alert('عزیزم هیچ سفارشی نداری 🙁 باید یه کانفیگ خریداری کنی');
+        alert(' هیچ سفارشی نداری 🙁 باید یه کانفیگ خریداری کنی');
         exit;
     }
     $keyboard = [];
@@ -5931,7 +5910,7 @@ if(preg_match('/^discountRenew(\d+)_(\d+)/',$userInfo['step'], $match) || preg_m
 if(preg_match('/payRenewWithCartToCart(.*)/',$data,$match)) {
     setUser($data);
     delMessage();
-    sendMessage("♻️ عزیزم یه تصویر از فیش واریزی یا شماره پیگیری -  ساعت پرداخت - نام پرداخت کننده رو در یک پیام برام ارسال کن :
+    sendMessage("♻️  یه تصویر از فیش واریزی یا شماره پیگیری -  ساعت پرداخت - نام پرداخت کننده رو در یک پیام برام ارسال کن :
 
 🔰 <code>{$paymentKeys['bankAccount']}</code> - {$paymentKeys['holderName']}
 
@@ -6477,7 +6456,7 @@ if(preg_match('/selectPlanDayIncrease(.+)_(.+)_(.+)_(.+)/',$data,$match)){
 if(preg_match('/payIncreaseDayWithCartToCart(.*)/',$data,$match)) {
     delMessage();
     setUser($data);
-    sendMessage("♻️ عزیزم یه تصویر از فیش واریزی یا شماره پیگیری -  ساعت پرداخت - نام پرداخت کننده رو در یک پیام برام ارسال کن :
+    sendMessage("♻️  یه تصویر از فیش واریزی یا شماره پیگیری -  ساعت پرداخت - نام پرداخت کننده رو در یک پیام برام ارسال کن :
 
 🔰 <code>{$paymentKeys['bankAccount']}</code> - {$paymentKeys['holderName']}
 
@@ -6791,7 +6770,7 @@ if(preg_match('/increaseVolumePlan(.+)_(.+)_(.+)_(.+)/',$data,$match)){
 if(preg_match('/payIncreaseWithCartToCart(.*)/',$data)) {
     setUser($data);
     delMessage();
-    sendMessage("♻️ عزیزم یه تصویر از فیش واریزی یا شماره پیگیری -  ساعت پرداخت - نام پرداخت کننده رو در یک پیام برام ارسال کن :
+    sendMessage("♻️  یه تصویر از فیش واریزی یا شماره پیگیری -  ساعت پرداخت - نام پرداخت کننده رو در یک پیام برام ارسال کن :
 
 🔰 <code>{$paymentKeys['bankAccount']}</code> - {$paymentKeys['holderName']}
 
@@ -7752,8 +7731,8 @@ if($data == "managePanel" and (($from_id == $admin || $userInfo['isAdmin'] == tr
     
     setUser();
     $msg = "
-👤 عزیزم به بخش مدیریت خوشومدی 
-🤌 هرچی نیاز داشتی میتونی اینجا طبق نیازهات اضافه و تغییر بدی ، عزیزم $first_name جان اگه از فروش ربات درآمد داری از من حمایت کن تا پروژه همیشه آپدیت بمونه !
+👤  به بخش مدیریت خوشومدی 
+🤌 هرچی نیاز داشتی میتونی اینجا طبق نیازهات اضافه و تغییر بدی ،  $first_name جان اگه از فروش ربات درآمد داری از من حمایت کن تا پروژه همیشه آپدیت بمونه !
 
 🆔 @wizwizch
 
