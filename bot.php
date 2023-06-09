@@ -1380,7 +1380,7 @@ if(!$response->success){
     alert('❌ | 😮 وای خطا داد لطفا سریع به مدیر بگو ...');
     exit;
 }
-alert('🚀 | در حال ارسال کانفیگ به مشتری ...');
+alert('🚀 |  در حال ارسال کانفیگ ...');
 
 include 'phpqrcode/qrlib.php';
 $token = RandomString(30);
@@ -2383,19 +2383,19 @@ if($botState['subLinkState'] == "on") $acc_text .= "
     $vray_link = json_encode($vraylink);
 
 	$stmt = $connection->prepare("INSERT INTO `orders_list` 
-	    (`userid`, `token`, `transid`, `fileid`, `server_id`, `inbound_id`, `remark`, `protocol`, `expire_date`, `link`, `amount`, `status`, `date`, `notif`, `rahgozar`, `limitip`)
-	    VALUES (?, ?, '', ?, ?, ?, ?, ?, ?, ?, ?,1, ?, 0, ?, 1);");
+	    (`userid`, `token`, `transid`, `fileid`, `server_id`, `inbound_id`, `remark`, `protocol`, `expire_date`, `link`, `amount`, `status`, `date`, `notif`, `rahgozar`)
+	    VALUES (?, ?, '', ?, ?, ?, ?, ?, ?, ?, ?,1, ?, 0, ?);");
     $stmt->bind_param("ssiiissisiii", $uid, $token, $fid, $server_id, $inbound_id, $remark, $protocol, $expire_date, $vray_link, $price, $date, $rahgozar);
     $stmt->execute();
     $order = $stmt->get_result(); 
     $stmt->close();
     $keys = json_encode(['inline_keyboard'=>[
         [
-            ['text'=>"خرید جدید",'callback_data'=>"mainMenu"]
+            ['text'=>"بنازم خرید جدید ❤️",'callback_data'=>"mainMenu"]
         ],
         ]]);
     sendMessage("
-‼️| خرید پلن دلخواه ( کیف پول )
+💓 خرید پلن دلخواه ( کیف پول )
 
 ▫️آیدی کاربر: $from_id
 👨‍💼اسم کاربر: <a href='tg://user?id=$from_id'>$first_name</a>
