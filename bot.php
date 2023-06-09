@@ -1074,8 +1074,8 @@ if(preg_match('/^createAccAmount(\d+)_(\d+)_(\d+)/',$userInfo['step'], $match) &
 
 
 	$stmt = $connection->prepare("INSERT INTO `orders_list` 
-	    (`userid`, `token`, `transid`, `fileid`, `server_id`, `inbound_id`, `remark`, `protocol`, `expire_date`, `link`, `amount`, `status`, `date`, `notif`, `rahgozar`)
-	    VALUES (?, ?, '', ?, ?, ?, ?, ?, ?, ?, ?,1, ?, 0, ?);");
+	    (`userid`, `token`, `transid`, `fileid`, `server_id`, `inbound_id`, `remark`, `protocol`, `expire_date`, `link`, `amount`, `status`, `date`, `notif`, `rahgozar`, `iplimit`)
+	    VALUES (?, ?, '', ?, ?, ?, ?, ?, ?, ?, ?,1, ?, 0, ?, 1);");
     for($i = 1; $i<= $text; $i++){
         $token = RandomString(30);
         $uniqid = generateRandomString(42,$protocol); 
@@ -1088,9 +1088,9 @@ if(preg_match('/^createAccAmount(\d+)_(\d+)_(\d+)/',$userInfo['step'], $match) &
     
         $rnd = rand(1111,99999);
         $remark = "{$srv_remark}-{$from_id}-{$rnd}";
-    
+        $iplimit = 1;
         if($inbound_id == 0){    
-            $response = addUser($server_id, $uniqid, $protocol, $port, $expire_microdate, $remark, $volume, $netType, 'none', $rahgozar, $fid); 
+            $response = addUser($server_id, $uniqid, $protocol, $port, $expire_microdate, $remark, $volume, $netType, 'none', $rahgozar, $fid, $iplimit); 
         }else {
             $response = addInboundAccount($server_id, $uniqid, $inbound_id, $expire_microdate, $remark, $volume, $limitip, null, $fid); 
         }
@@ -1125,7 +1125,7 @@ if(preg_match('/^createAccAmount(\d+)_(\d+)_(\d+)/',$userInfo['step'], $match) &
             unlink($file);
         }
         $vray_link = json_encode($vraylink);
-        $stmt->bind_param("ssiiissisiii", $uid, $token, $fid, $server_id, $inbound_id, $remark, $protocol, $expire_date, $vray_link, $price, $date, $rahgozar);
+        $stmt->bind_param("ssiiissisiii", $uid, $token, $fid, $server_id, $inbound_id, $remark, $protocol, $expire_date, $vray_link, $price, $date, $rahgozar, $iplimit);
         $stmt->execute();
     }
     $stmt->close();
