@@ -1061,6 +1061,7 @@ function getOrderDetailKeys($from_id, $id){
                     $total = $row->total;
                     $up = $row->up;
                     $down = $row->down; 
+                    $enable = $row->enable; 
                     $netType = json_decode($row->streamSettings)->network;
                     $security = json_decode($row->streamSettings)->security;
                     break;
@@ -1077,6 +1078,7 @@ function getOrderDetailKeys($from_id, $id){
                             $total = $client->total;
                             $up = $client->up;
                             $down = $client->down; 
+                            $enable = $client->enable; 
                             break;
                         }
                     }
@@ -1121,7 +1123,7 @@ function getOrderDetailKeys($from_id, $id){
             			],
                         [
             			    ['text' => " $download", 'callback_data' => "wizwizch"],
-                            ['text' => "📥| حجم باقیمانده:", 'callback_data' => "wizwizch"],
+                            ['text' => "📥| دانلود:", 'callback_data' => "wizwizch"],
             			],
                         [
             			    ['text' => " $upload", 'callback_data' => "wizwizch"],
@@ -1175,7 +1177,7 @@ function getOrderDetailKeys($from_id, $id){
             			],
                         [
             			    ['text' => " $download", 'callback_data' => "wizwizch"],
-                            ['text' => "📥| حجم باقیمانده:", 'callback_data' => "wizwizch"],
+                            ['text' => "📥| دانلود:", 'callback_data' => "wizwizch"],
             			],
                         [
             			    ['text' => " $upload", 'callback_data' => "wizwizch"],
@@ -1233,7 +1235,7 @@ function getOrderDetailKeys($from_id, $id){
             			],
                         [
             			    ['text' => " $download", 'callback_data' => "wizwizch"],
-                            ['text' => "📥| حجم باقیمانده:", 'callback_data' => "wizwizch"],
+                            ['text' => "📥| دانلود:", 'callback_data' => "wizwizch"],
             			],
                         [
             			    ['text' => " $upload", 'callback_data' => "wizwizch"],
@@ -1289,7 +1291,7 @@ function getOrderDetailKeys($from_id, $id){
             			],
                         [
             			    ['text' => " $download", 'callback_data' => "wizwizch"],
-                            ['text' => "📥| حجم باقیمانده:", 'callback_data' => "wizwizch"],
+                            ['text' => "📥| دانلود:", 'callback_data' => "wizwizch"],
             			],
                         [
             			    ['text' => " $upload", 'callback_data' => "wizwizch"],
@@ -1345,7 +1347,7 @@ function getOrderDetailKeys($from_id, $id){
             			],
                         [
             			    ['text' => " $download", 'callback_data' => "wizwizch"],
-                            ['text' => "📥| حجم باقیمانده:", 'callback_data' => "wizwizch"],
+                            ['text' => "📥| دانلود:", 'callback_data' => "wizwizch"],
             			],
                         [
             			    ['text' => " $upload", 'callback_data' => "wizwizch"],
@@ -1408,7 +1410,7 @@ function getOrderDetailKeys($from_id, $id){
                 ],
                 [
                     ['text' => " $download", 'callback_data' => "wizwizch"],
-                    ['text' => "📥| حجم باقیمانده:", 'callback_data' => "wizwizch"],
+                    ['text' => "📥| دانلود:", 'callback_data' => "wizwizch"],
                 ],
                 [
                     ['text' => " $upload", 'callback_data' => "wizwizch"],
