@@ -3424,7 +3424,7 @@ if($data=="supportSection"){
         json_encode(['inline_keyboard'=>[
         [['text'=>"✉️| ثبت تیکت",'callback_data'=>"usersNewTicket"]],
         [['text'=>"📨| تیکت های باز",'callback_data'=>"usersOpenTickets"],['text'=>"📮| لیست تیکت ها", 'callback_data'=>"userAllTickets"]],
-        [['text'=>"👨🏻‍💻| پیوی پشتیبانی",'url'=>"https://t.me/Hudson_Vpn"]]
+        [['text' =>"👨🏻‍💻| پیوی پشتیبانی",'url'=>"https://t.me/hudson_vpn"]],
         [['text'=>"🔙| برگشت",'callback_data'=>"mainMenu"]]
         ]]));
 }
@@ -5569,7 +5569,7 @@ if(($data == 'mySubscriptions' or preg_match('/changeOrdersPage(\d+)/',$data, $m
 
 
     if($orders->num_rows==0){
-        alert(' هیچ سفارشی نداری 🙁 باید یه کانفیگ خریداری کنی');
+        alert('شما در حال حاضر هیچ سرویس فعالی ندارید!');
         exit;
     }
     $keyboard = [];
