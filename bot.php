@@ -140,8 +140,7 @@ function ip_in_range($ip, $range){
     $ip_decimal = ip2long($ip);
     $wildcard_decimal = pow(2, (32 - $netmask)) - 1;
     $netmask_decimal = ~$wildcard_decimal;
-    return (($ip_decimal & $netmask_decimal) == ($range_decimal & $netmask_decimal));
-}
+    return (($ip_decimal & $netmask_decimal) == ($range_decimal & $netmask_decimal))
 
 $time = time();
 $update = json_decode(file_get_contents("php://input"));
