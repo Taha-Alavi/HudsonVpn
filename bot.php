@@ -1085,7 +1085,7 @@ if(preg_match('/^createAccAmount(\d+)_(\d+)_(\d+)/',$userInfo['step'], $match) &
         $last_num++;
     
         $rnd = rand(1111,99999);
-        $remark = "#{$rnd} ({$srv_remark}-{$from_id})";
+        $remark = "{$rnd}-{$srv_remark}-{$from_id}";
     
         if($inbound_id == 0){    
             $response = addUser($server_id, $uniqid, $protocol, $port, $expire_microdate, $remark, $volume, $netType, 'none', $rahgozar, $fid); 
