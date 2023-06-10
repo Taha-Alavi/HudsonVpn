@@ -1346,8 +1346,8 @@ function getOrderDetailKeys($from_id, $id){
     
     
         $extrakey = [];
-        if($botState['increaseVolumeState']=="on" and $price == 0) $extrakey[] = ['text' => "📥افزایش حجم سرویس", 'callback_data' => "increaseAVolume{$server_id}_{$inbound_id}_{$remark}"];
-        if($botState['increaseTimeState']=="on") $extrakey[] = ['text' => "افزایش زمان سرویس✨", 'callback_data' => "increaseADay{$server_id}_{$inbound_id}_{$remark}"];
+        if($botState['increaseVolumeState']=="on" and $price != 0) $extrakey[] = ['text' => "📥افزایش حجم سرویس", 'callback_data' => "increaseAVolume{$server_id}_{$inbound_id}_{$remark}"];
+        if($botState['increaseTimeState']=="on" and $price != 0) $extrakey[] = ['text' => "افزایش زمان سرویس✨", 'callback_data' => "increaseADay{$server_id}_{$inbound_id}_{$remark}"];
         $keyboard[] = $extrakey;
         $keyboard[] = [['text' => "↪ برگشت", 'callback_data' => "mySubscriptions"]];
         return ["keyboard"=>json_encode([
