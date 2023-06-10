@@ -66,22 +66,22 @@ if($userInfo['phone'] == null && $from_id != $admin && $userInfo['isAdmin'] != t
         $phone_number = $contact->phone_number;
         $phone_id = $contact->user_id;
         if($phone_id != $from_id){
-            sendMessage("🔘|لطفا فقط از کلید زیر استفاده کنید");
+            sendMessage("‼️| لطفا فقط از کلید زیر استفاده کنید");
             exit();
         }else{
             if(!preg_match('/^\+98(\d+)/',$phone_number) && !preg_match('/^98(\d+)/',$phone_number) && !preg_match('/^0098(\d+)/',$phone_number) && $botState['requireIranPhone'] == 'on'){
-                sendMessage("🔘|لطفا فقط با شماره ایرانی اقدام کنید");
+                sendMessage("‼️| شما نمیتوانید با شماره مجازی/غیرایران وارد ربات شوید");
                 exit();
             }
             setUser($phone_number, 'phone');
             
-            sendMessage("✅|شماره شما با موفقیت تأیید شد",$removeKeyboard);
+            sendMessage("✅| شماره شما با موفقیت تأیید شد",$removeKeyboard);
             $text = "/start";
         }
     }else{
-        sendMessage("سلام ، برای استفاده از ربات شماره تماس خود را با استفاده از کلید زیر ارسال کنید 👇", json_encode([
+        sendMessage("👇|  برای استفاده از  ربات روی کلید ارسال شماره کلیک کنید", json_encode([
 			'keyboard' => [[[
-					'text' => '☎️ ارسال شماره',
+					'text' => '☎️| ارسال شماره',
 					'request_contact' => true,
 				]]],
 			'resize_keyboard' => true
@@ -1744,7 +1744,7 @@ if(preg_match('/selectServer(\d+)/',$data, $match) && ($botState['sellState']=="
         $keyboard = array_chunk($keyboard,1);
         editText($message_id, "2️⃣ مرحله دو:
 
-دسته بندی مورد نظرت رو انتخاب کن 🤭", json_encode(['inline_keyboard'=>$keyboard]));
+🔰| دسته بندی مورد نظر خود را انتخاب کنید", json_encode(['inline_keyboard'=>$keyboard]));
     }
 
 }
