@@ -1084,8 +1084,11 @@ function getOrderDetailKeys($from_id, $id){
                 }
             }
         }
-        $leftggb = round( ($total - $up - $down) / 1073741824, 2) . " GB";
+        $leftgb = round( ($total - $up - $down) / 1073741824, 2) . " گیگ";
+        $allgig = round( ($total) / 1073741824, 2) . " گیگ";
         $download = number_format(round($down / 1073741), 0, '.', ',') . ' مگابایت';
+        $upload = number_format(round($up / 1073741), 0, '.', ',') . ' مگابایت';
+        $state = $enable == true?"فعال 🟢":"غیر فعال 🔴";
         $msg = "🔮 نام کانفیگ : $remark\n";
         foreach($acc_link as $acc_link){
             $msg .= "\n <code>$acc_link</code>";
@@ -1097,20 +1100,36 @@ function getOrderDetailKeys($from_id, $id){
                 if($security == "xtls"){
                     $keyboard = [
                         [
+            			    ['text' =>$state??" ", 'callback_data' => "wizwizch"],
+                            ['text' => " 🌐| وضعیت سرویس:", 'callback_data' => "wizwizch"],
+                        ],
+                        [
             			    ['text' => "$name", 'callback_data' => "wizwizch"],
-                            ['text' => " 🚀 نام پلن:", 'callback_data' => "wizwizch"],
+                            ['text' => " 🚀| نام پلن:", 'callback_data' => "wizwizch"],
                         ],
                         [
             			    ['text' => "$date ", 'callback_data' => "wizwizch"],
-                            ['text' => "⏰  تاریخ خرید: ", 'callback_data' => "wizwizch"],
+                            ['text' => "⏰| تاریخ خرید: ", 'callback_data' => "wizwizch"],
                         ],
                         [
             			    ['text' => "$expire_date ", 'callback_data' => "wizwizch"],
-                            ['text' => "⏰  تاریخ انقضاء: ", 'callback_data' => "wizwizch"],
+                            ['text' => "⏰| تاریخ انقضاء: ", 'callback_data' => "wizwizch"],
                         ],
                         [
+            			    ['text' => " $allgig", 'callback_data' => "wizwizch"],
+                            ['text' => "🔰| حجم کل:", 'callback_data' => "wizwizch"],
+            			],
+                        [
             			    ['text' => " $download", 'callback_data' => "wizwizch"],
-                            ['text' => "⏳ حجم باقیمانده:", 'callback_data' => "wizwizch"],
+                            ['text' => "📥| حجم باقیمانده:", 'callback_data' => "wizwizch"],
+            			],
+                        [
+            			    ['text' => " $upload", 'callback_data' => "wizwizch"],
+                            ['text' => "📤| آپلود:", 'callback_data' => "wizwizch"],
+            			],
+                        [
+            			    ['text' => " $leftgb", 'callback_data' => "wizwizch"],
+                            ['text' => "⏳| حجم باقیمانده:", 'callback_data' => "wizwizch"],
             			],
             // 			[
             //                 ['text' => $netType. " 🎛 نوع شبکه ", 'callback_data' => "cantEditTrojan"],
@@ -1127,28 +1146,44 @@ function getOrderDetailKeys($from_id, $id){
                     $temp = array();
                     if($price != 0){
                         if($botState['renewAccountState']=="on") $temp[] = ['text' => '♻ تمدید سرویس', 'callback_data' => "renewAccount$id" ];
-                        if($botState['switchLocationState']=="on") $temp[] = ['text' => '🔌تغییر لوکیشن', 'callback_data' => "switchLocation{$id}_{$server_id}_{$download}_".$order['expire_date']];
+                        if($botState['switchLocationState']=="on") $temp[] = ['text' => '🔌تغییر لوکیشن', 'callback_data' => "switchLocation{$id}_{$server_id}_{$leftgb}_".$order['expire_date']];
                     }else{
-                        if($botState['switchLocationState']=="on") $temp[] = ['text' => '🔌تغییر لوکیشن', 'callback_data' => "switchLocation{$id}_{$server_id}_{$download}_".$order['expire_date'] ];
+                        if($botState['switchLocationState']=="on") $temp[] = ['text' => '🔌تغییر لوکیشن', 'callback_data' => "switchLocation{$id}_{$server_id}_{$leftgb}_".$order['expire_date'] ];
                     }
                     if(count($temp)>0) array_push($keyboard, $temp);
                 }else{
                     $keyboard = [
                         [
+            			    ['text' =>$state??" ", 'callback_data' => "wizwizch"],
+                            ['text' => " 🌐| وضعیت سرویس:", 'callback_data' => "wizwizch"],
+                        ],
+                        [
             			    ['text' => "$name", 'callback_data' => "wizwizch"],
-                            ['text' => " 🚀 نام پلن:", 'callback_data' => "wizwizch"],
+                            ['text' => " 🚀| نام پلن:", 'callback_data' => "wizwizch"],
                         ],
                         [
             			    ['text' => "$date ", 'callback_data' => "wizwizch"],
-                            ['text' => "⏰  تاریخ خرید: ", 'callback_data' => "wizwizch"],
+                            ['text' => "⏰| تاریخ خرید: ", 'callback_data' => "wizwizch"],
                         ],
                         [
             			    ['text' => "$expire_date ", 'callback_data' => "wizwizch"],
-                            ['text' => "⏰  تاریخ انقضاء: ", 'callback_data' => "wizwizch"],
+                            ['text' => "⏰| تاریخ انقضاء: ", 'callback_data' => "wizwizch"],
                         ],
                         [
+            			    ['text' => " $allgig", 'callback_data' => "wizwizch"],
+                            ['text' => "🔰| حجم کل:", 'callback_data' => "wizwizch"],
+            			],
+                        [
             			    ['text' => " $download", 'callback_data' => "wizwizch"],
-                            ['text' => "⏳ حجم باقیمانده:", 'callback_data' => "wizwizch"],
+                            ['text' => "📥| حجم باقیمانده:", 'callback_data' => "wizwizch"],
+            			],
+                        [
+            			    ['text' => " $upload", 'callback_data' => "wizwizch"],
+                            ['text' => "📤| آپلود:", 'callback_data' => "wizwizch"],
+            			],
+                        [
+            			    ['text' => " $leftgb", 'callback_data' => "wizwizch"],
+                            ['text' => "⏳| حجم باقیمانده:", 'callback_data' => "wizwizch"],
             			],
             // 			[
             //                 ['text' => $netType. " 🎛 نوع شبکه ", 'callback_data' => "cantEditTrojan"],
@@ -1167,9 +1202,9 @@ function getOrderDetailKeys($from_id, $id){
                     $temp = array();
                     if($price != 0){
                         if($botState['renewAccountState']=="on") $temp[] = ['text' => '♻ تمدید سرویس', 'callback_data' => "renewAccount$id" ];
-                        if($botState['switchLocationState']=="on") $temp[] = ['text' => '🔌تغییر لوکیشن', 'callback_data' => "switchLocation{$id}_{$server_id}_{$download}_".$order['expire_date'] ];
+                        if($botState['switchLocationState']=="on") $temp[] = ['text' => '🔌تغییر لوکیشن', 'callback_data' => "switchLocation{$id}_{$server_id}_{$leftgb}_".$order['expire_date'] ];
                     }else{
-                        if($botState['switchLocationState']=="on") $temp[] = ['text' => '🔌تغییر لوکیشن', 'callback_data' => "switchLocation{$id}_{$server_id}_{$download}_".$order['expire_date'] ];
+                        if($botState['switchLocationState']=="on") $temp[] = ['text' => '🔌تغییر لوکیشن', 'callback_data' => "switchLocation{$id}_{$server_id}_{$leftgb}_".$order['expire_date'] ];
                     }
                     if(count($temp)>0) array_push($keyboard, $temp);
                 }
@@ -1177,20 +1212,36 @@ function getOrderDetailKeys($from_id, $id){
                 if($netType == "grpc"){
                     $keyboard = [
                         [
+            			    ['text' =>$state??" ", 'callback_data' => "wizwizch"],
+                            ['text' => " 🌐| وضعیت سرویس:", 'callback_data' => "wizwizch"],
+                        ],
+                        [
             			    ['text' => "$name", 'callback_data' => "wizwizch"],
-                            ['text' => " 🚀 نام پلن:", 'callback_data' => "wizwizch"],
+                            ['text' => " 🚀| نام پلن:", 'callback_data' => "wizwizch"],
                         ],
                         [
             			    ['text' => "$date ", 'callback_data' => "wizwizch"],
-                            ['text' => "⏰  تاریخ خرید: ", 'callback_data' => "wizwizch"],
+                            ['text' => "⏰| تاریخ خرید: ", 'callback_data' => "wizwizch"],
                         ],
                         [
             			    ['text' => "$expire_date ", 'callback_data' => "wizwizch"],
-                            ['text' => "⏰  تاریخ انقضاء: ", 'callback_data' => "wizwizch"],
+                            ['text' => "⏰| تاریخ انقضاء: ", 'callback_data' => "wizwizch"],
                         ],
                         [
+            			    ['text' => " $allgig", 'callback_data' => "wizwizch"],
+                            ['text' => "🔰| حجم کل:", 'callback_data' => "wizwizch"],
+            			],
+                        [
             			    ['text' => " $download", 'callback_data' => "wizwizch"],
-                            ['text' => "⏳ حجم باقیمانده:", 'callback_data' => "wizwizch"],
+                            ['text' => "📥| حجم باقیمانده:", 'callback_data' => "wizwizch"],
+            			],
+                        [
+            			    ['text' => " $upload", 'callback_data' => "wizwizch"],
+                            ['text' => "📤| آپلود:", 'callback_data' => "wizwizch"],
+            			],
+                        [
+            			    ['text' => " $leftgb", 'callback_data' => "wizwizch"],
+                            ['text' => "⏳| حجم باقیمانده:", 'callback_data' => "wizwizch"],
             			],
             // 			[
             //                 ['text' => $netType. " 🎛 نوع شبکه ", 'callback_data' => "cantEditGrpc"],
@@ -1208,29 +1259,45 @@ function getOrderDetailKeys($from_id, $id){
                     $temp = array();
                     if($price != 0){
                         if($botState['renewAccountState']=="on") $temp[] = ['text' => '♻ تمدید سرویس', 'callback_data' => "renewAccount$id" ];
-                        if($botState['switchLocationState']=="on") $temp[] = ['text' => '🔌تغییر لوکیشن', 'callback_data' => "switchLocation{$id}_{$server_id}_{$download}_".$order['expire_date'] ];
+                        if($botState['switchLocationState']=="on") $temp[] = ['text' => '🔌تغییر لوکیشن', 'callback_data' => "switchLocation{$id}_{$server_id}_{$leftgb}_".$order['expire_date'] ];
                     }else{
-                        if($botState['switchLocationState']=="on") $temp[] = ['text' => '🔌تغییر لوکیشن', 'callback_data' => "switchLocation{$id}_{$server_id}_{$download}_".$order['expire_date'] ];
+                        if($botState['switchLocationState']=="on") $temp[] = ['text' => '🔌تغییر لوکیشن', 'callback_data' => "switchLocation{$id}_{$server_id}_{$leftgb}_".$order['expire_date'] ];
                     }
                     if(count($temp)>0) array_push($keyboard, $temp);
                 }
                 elseif($netType == "tcp" && $security == "xtls"){
                     $keyboard = [
                         [
+            			    ['text' =>$state??" ", 'callback_data' => "wizwizch"],
+                            ['text' => " 🌐| وضعیت سرویس:", 'callback_data' => "wizwizch"],
+                        ],
+                        [
             			    ['text' => "$name", 'callback_data' => "wizwizch"],
-                            ['text' => " 🚀 نام پلن:", 'callback_data' => "wizwizch"],
+                            ['text' => " 🚀| نام پلن:", 'callback_data' => "wizwizch"],
                         ],
                         [
             			    ['text' => "$date ", 'callback_data' => "wizwizch"],
-                            ['text' => "⏰  تاریخ خرید: ", 'callback_data' => "wizwizch"],
+                            ['text' => "⏰| تاریخ خرید: ", 'callback_data' => "wizwizch"],
                         ],
                         [
             			    ['text' => "$expire_date ", 'callback_data' => "wizwizch"],
-                            ['text' => "⏰  تاریخ انقضاء: ", 'callback_data' => "wizwizch"],
+                            ['text' => "⏰| تاریخ انقضاء: ", 'callback_data' => "wizwizch"],
                         ],
                         [
+            			    ['text' => " $allgig", 'callback_data' => "wizwizch"],
+                            ['text' => "🔰| حجم کل:", 'callback_data' => "wizwizch"],
+            			],
+                        [
             			    ['text' => " $download", 'callback_data' => "wizwizch"],
-                            ['text' => "⏳ حجم باقیمانده:", 'callback_data' => "wizwizch"],
+                            ['text' => "📥| حجم باقیمانده:", 'callback_data' => "wizwizch"],
+            			],
+                        [
+            			    ['text' => " $upload", 'callback_data' => "wizwizch"],
+                            ['text' => "📤| آپلود:", 'callback_data' => "wizwizch"],
+            			],
+                        [
+            			    ['text' => " $leftgb", 'callback_data' => "wizwizch"],
+                            ['text' => "⏳| حجم باقیمانده:", 'callback_data' => "wizwizch"],
             			],
             // 			[
             //                 ['text' => $netType. " 🎛 نوع شبکه ", 'callback_data' => ($security=="xtls"?"cantEditGrpc":"changeNetworkType{$fid}_{$id}")],
@@ -1247,9 +1314,9 @@ function getOrderDetailKeys($from_id, $id){
                     $temp = array();
                     if($price != 0){
                         if($botState['renewAccountState']=="on") $temp[] = ['text' => '♻ تمدید سرویس', 'callback_data' => "renewAccount$id" ];
-                        if($botState['switchLocationState']=="on") $temp[] = ['text' => '🔌تغییر لوکیشن', 'callback_data' => "switchLocation{$id}_{$server_id}_{$download}_".$order['expire_date'] ];
+                        if($botState['switchLocationState']=="on") $temp[] = ['text' => '🔌تغییر لوکیشن', 'callback_data' => "switchLocation{$id}_{$server_id}_{$leftgb}_".$order['expire_date'] ];
                     }else{
-                        if($botState['switchLocationState']=="on") $temp[] = ['text' => '🔌تغییر لوکیشن', 'callback_data' => "switchLocation{$id}_{$server_id}_{$download}_".$order['expire_date'] ];
+                        if($botState['switchLocationState']=="on") $temp[] = ['text' => '🔌تغییر لوکیشن', 'callback_data' => "switchLocation{$id}_{$server_id}_{$leftgb}_".$order['expire_date'] ];
                     }
                     if(count($temp)>0) array_push($keyboard, $temp);
 
@@ -1257,20 +1324,36 @@ function getOrderDetailKeys($from_id, $id){
                 else{
                     $keyboard = [
                         [
+            			    ['text' =>$state??" ", 'callback_data' => "wizwizch"],
+                            ['text' => " 🌐| وضعیت سرویس:", 'callback_data' => "wizwizch"],
+                        ],
+                        [
             			    ['text' => "$name", 'callback_data' => "wizwizch"],
-                            ['text' => " 🚀 نام پلن:", 'callback_data' => "wizwizch"],
+                            ['text' => " 🚀| نام پلن:", 'callback_data' => "wizwizch"],
                         ],
                         [
             			    ['text' => "$date ", 'callback_data' => "wizwizch"],
-                            ['text' => "⏰  تاریخ خرید: ", 'callback_data' => "wizwizch"],
+                            ['text' => "⏰| تاریخ خرید: ", 'callback_data' => "wizwizch"],
                         ],
                         [
             			    ['text' => "$expire_date ", 'callback_data' => "wizwizch"],
-                            ['text' => "⏰  تاریخ انقضاء: ", 'callback_data' => "wizwizch"],
+                            ['text' => "⏰| تاریخ انقضاء: ", 'callback_data' => "wizwizch"],
                         ],
                         [
+            			    ['text' => " $allgig", 'callback_data' => "wizwizch"],
+                            ['text' => "🔰| حجم کل:", 'callback_data' => "wizwizch"],
+            			],
+                        [
             			    ['text' => " $download", 'callback_data' => "wizwizch"],
-                            ['text' => "⏳ حجم باقیمانده:", 'callback_data' => "wizwizch"],
+                            ['text' => "📥| حجم باقیمانده:", 'callback_data' => "wizwizch"],
+            			],
+                        [
+            			    ['text' => " $upload", 'callback_data' => "wizwizch"],
+                            ['text' => "📤| آپلود:", 'callback_data' => "wizwizch"],
+            			],
+                        [
+            			    ['text' => " $leftgb", 'callback_data' => "wizwizch"],
+                            ['text' => "⏳| حجم باقیمانده:", 'callback_data' => "wizwizch"],
             			],
             // 			[
             //                 ['text' => $netType. " 🎛 نوع شبکه ", 'callback_data' => (($security=="xtls" || $rahgozar == true)?"cantEditGrpc":"changeNetworkType{$fid}_{$id}")],
@@ -1293,9 +1376,9 @@ function getOrderDetailKeys($from_id, $id){
                     $temp = array();
                     if($price != 0){
                         if($botState['renewAccountState']=="on") $temp[] = ['text' => '♻ تمدید سرویس', 'callback_data' => "renewAccount$id" ];
-                        if($botState['switchLocationState']=="on" && $rahgozar != true) $temp[] = ['text' => '🔌تغییر لوکیشن', 'callback_data' => "switchLocation{$id}_{$server_id}_{$download}_".$order['expire_date'] ];
+                        if($botState['switchLocationState']=="on" && $rahgozar != true) $temp[] = ['text' => '🔌تغییر لوکیشن', 'callback_data' => "switchLocation{$id}_{$server_id}_{$leftgb}_".$order['expire_date'] ];
                     }else{
-                        if($botState['switchLocationState']=="on" && $rahgozar != true) $temp[] = ['text' => '🔌تغییر لوکیشن', 'callback_data' => "switchLocation{$id}_{$server_id}_{$download}_".$order['expire_date'] ];
+                        if($botState['switchLocationState']=="on" && $rahgozar != true) $temp[] = ['text' => '🔌تغییر لوکیشن', 'callback_data' => "switchLocation{$id}_{$server_id}_{$leftgb}_".$order['expire_date'] ];
                     }
                     if(count($temp)>0) array_push($keyboard, $temp);
 
@@ -1304,21 +1387,37 @@ function getOrderDetailKeys($from_id, $id){
         }else{
             $keyboard = [
                 [
-    			    ['text' => "$name", 'callback_data' => "wizwizch"],
-                    ['text' => " 🚀 نام پلن:", 'callback_data' => "wizwizch"],
+                    ['text' =>$state??" ", 'callback_data' => "wizwizch"],
+                    ['text' => " 🌐| وضعیت سرویس:", 'callback_data' => "wizwizch"],
                 ],
                 [
-    			    ['text' => "$date ", 'callback_data' => "wizwizch"],
-                    ['text' => "⏰  تاریخ خرید: ", 'callback_data' => "wizwizch"],
+                    ['text' => "$name", 'callback_data' => "wizwizch"],
+                    ['text' => " 🚀| نام پلن:", 'callback_data' => "wizwizch"],
                 ],
                 [
-    			    ['text' => "$expire_date ", 'callback_data' => "wizwizch"],
-                    ['text' => "⏰  تاریخ انقضاء: ", 'callback_data' => "wizwizch"],
+                    ['text' => "$date ", 'callback_data' => "wizwizch"],
+                    ['text' => "⏰| تاریخ خرید: ", 'callback_data' => "wizwizch"],
                 ],
                 [
-    			    ['text' => " $download", 'callback_data' => "wizwizch"],
-                    ['text' => "⏳ حجم باقیمانده:", 'callback_data' => "wizwizch"],
-    			],
+                    ['text' => "$expire_date ", 'callback_data' => "wizwizch"],
+                    ['text' => "⏰| تاریخ انقضاء: ", 'callback_data' => "wizwizch"],
+                ],
+                [
+                    ['text' => " $allgig", 'callback_data' => "wizwizch"],
+                    ['text' => "🔰| حجم کل:", 'callback_data' => "wizwizch"],
+                ],
+                [
+                    ['text' => " $download", 'callback_data' => "wizwizch"],
+                    ['text' => "📥| حجم باقیمانده:", 'callback_data' => "wizwizch"],
+                ],
+                [
+                    ['text' => " $upload", 'callback_data' => "wizwizch"],
+                    ['text' => "📤| آپلود:", 'callback_data' => "wizwizch"],
+                ],
+                [
+                    ['text' => " $leftgb", 'callback_data' => "wizwizch"],
+                    ['text' => "⏳| حجم باقیمانده:", 'callback_data' => "wizwizch"],
+                ],
     			[
                     ['text' => "🚦 پروتکل انتخابی", 'callback_data' => "wizwizch"],
                 ],
@@ -1330,9 +1429,9 @@ function getOrderDetailKeys($from_id, $id){
             $temp = array();
             if($price != 0){
                 if($botState['renewAccountState']=="on") $temp[] = ['text' => '♻ تمدید سرویس', 'callback_data' => "renewAccount$id" ];
-                if($botState['switchLocationState']=="on" && $rahgozar != true) $temp[] = ['text' => '🔌تغییر لوکیشن', 'callback_data' => "switchLocation{$id}_{$server_id}_{$download}_".$order['expire_date'] ];
+                if($botState['switchLocationState']=="on" && $rahgozar != true) $temp[] = ['text' => '🔌تغییر لوکیشن', 'callback_data' => "switchLocation{$id}_{$server_id}_{$leftgb}_".$order['expire_date'] ];
             }else{
-                if($botState['switchLocationState']=="on" && $rahgozar != true) $temp[] = ['text' => '🔌تغییر لوکیشن', 'callback_data' => "switchLocation{$id}_{$server_id}_{$download}_".$order['expire_date'] ];
+                if($botState['switchLocationState']=="on" && $rahgozar != true) $temp[] = ['text' => '🔌تغییر لوکیشن', 'callback_data' => "switchLocation{$id}_{$server_id}_{$leftgb}_".$order['expire_date'] ];
             }
             if(count($temp)>0) array_push($keyboard, $temp);
 
@@ -1608,9 +1707,9 @@ function editInboundTraffic($server_id, $remark, $volume, $days){
     }
 
     if($volume != 0){
-        $download = $total;// - $up - $down;
+        $leftgb = $total;// - $up - $down;
         $extend_volume = floor($volume * 1073741824);
-        $total = ($download > 0) ? $download + $extend_volume : $extend_volume;
+        $total = ($leftgb > 0) ? $leftgb + $extend_volume : $extend_volume;
     }
 
 
