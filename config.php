@@ -228,7 +228,7 @@ if ($from_id == $admin || $userInfo['isAdmin'] == true) {
     $temp = array();
     $mainKeys[] = [['text'=>"♻️| تست رایگان",'callback_data'=>"getTestAccount"]];
 	$mainKeys[] = [['text'=>'🛍| خرید سرویس','callback_data'=>"buySubscription"]];
-    $mainKeys[] = [['text'=>'⚙️| سرویس های من','callback_data'=>'mySubscriptions'],['text'=>"👤| حساب من",'callback_data'=>"myInfo"]];
+    $mainKeys[] = [['text'=>"👤| حساب من",'callback_data'=>"myInfo"],['text'=>'⚙️| سرویس های من','callback_data'=>'mySubscriptions']];
     // $mainKeys[] = [['text'=>"▫️ موجودی سرورها ▫️",'callback_data'=>"availableServers"]];
     $mainKeys[] = [['text'=>'📱| لینک نرم افزار ها','callback_data'=>"reciveApplications"],['text'=>"📨| پشتیبانی",'callback_data'=>"supportSection"]];
     $temp[] = ['text'=>"🪫| مشخصات کانفیگ",'callback_data'=>"showUUIDLeft"];
@@ -271,13 +271,12 @@ if ($from_id == $admin || $userInfo['isAdmin'] == true) {
     $adminKeys[] = [['text'=>'⤵️ برگرد به منوی اصلی ','callback_data'=>"mainMenu"]];
     $adminKeys = json_encode(['inline_keyboard'=>$adminKeys]);
 		
-}else{
+}elseif ($userInfo['freetrial'] == "used") {
     $keys=array();
     $temp=array();
     
-    $keys[] = [['text'=>"♻️| تست رایگان",'callback_data'=>"getTestAccount"]];
 	$keys[] = [['text'=>'🛍| خرید سرویس','callback_data'=>"buySubscription"]];
-    $keys[] = [['text'=>'⚙️| سرویس های من','callback_data'=>'mySubscriptions'],['text'=>"👤| حساب من",'callback_data'=>"myInfo"]];
+    $keys[] = [['text'=>"👤| حساب من",'callback_data'=>"myInfo"],['text'=>'⚙️| سرویس های من','callback_data'=>'mySubscriptions']];
     // $mainKeys[] = [['text'=>"▫️ موجودی سرورها ▫️",'callback_data'=>"availableServers"]];
     $keys[] = [['text'=>'📱| لینک نرم افزار ها','callback_data'=>"reciveApplications"],['text'=>"📨| پشتیبانی",'callback_data'=>"supportSection"]];
     $temp[] = ['text'=>"🪫| مشخصات کانفیگ",'callback_data'=>"showUUIDLeft"];
@@ -303,7 +302,38 @@ if ($from_id == $admin || $userInfo['isAdmin'] == true) {
     
     $mainKeys=json_encode(['inline_keyboard'=>$keys]);
 }
-
+else {
+    $keys=array();
+    $temp=array();
+    
+    $keys[] = [['text'=>"♻️| تست رایگان",'callback_data'=>"getTestAccount"]];
+	$keys[] = [['text'=>'🛍| خرید سرویس','callback_data'=>"buySubscription"]];
+    $keys[] = [['text'=>"👤| حساب من",'callback_data'=>"myInfo"],['text'=>'⚙️| سرویس های من','callback_data'=>'mySubscriptions']];
+    // $mainKeys[] = [['text'=>"▫️ موجودی سرورها ▫️",'callback_data'=>"availableServers"]];
+    $keys[] = [['text'=>'📱| لینک نرم افزار ها','callback_data'=>"reciveApplications"],['text'=>"📨| پشتیبانی",'callback_data'=>"supportSection"]];
+    $temp[] = ['text'=>"🪫| مشخصات کانفیگ",'callback_data'=>"showUUIDLeft"];
+    
+    
+    $stmt = $connection->prepare("SELECT * FROM `setting` WHERE `type` LIKE '%MAIN_BUTTONS%'");
+    $stmt->execute();
+    $buttons = $stmt->get_result();
+    $stmt->close();
+    if($buttons->num_rows >0){
+        while($row = $buttons->fetch_assoc()){
+            $rowId = $row['id'];
+            $title = str_replace("MAIN_BUTTONS","",$row['type']);
+            
+            $temp[] =['text'=>$title,'callback_data'=>"showMainButtonAns" . $rowId];
+            if(count($temp)==2){
+                array_push($keys,$temp);
+                $temp = array();
+            }
+        }
+    }
+    array_push($keys,$temp);
+    
+    $mainKeys=json_encode(['inline_keyboard'=>$keys]);
+}
 function NOWPayments($method, $endpoint, $datas = [])
 {
     global $paymentKeys;
