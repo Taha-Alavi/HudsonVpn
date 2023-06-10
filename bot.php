@@ -2022,7 +2022,7 @@ if($data=="getTestAccount"){
             $desc = $row['descr'];
         	$sid = $row['server_id'];
 
-            $keyboard[] = [['text' => $name, 'callback_data' => "freeTrial$id"]];
+            $keyboard[] = [['text' => 'سرویس تست رایگان', 'callback_data' => "freeTrial$id"]];
 
         }
     	$keyboard[] = [['text' => '⤵️ برگرد صفحه قبلی ', 'callback_data' => "mainMenu"]];
@@ -2191,8 +2191,6 @@ if((preg_match('/^discountSelectPlan(\d+)_(\d+)_(\d+)/',$userInfo['step'],$match
     sendMessage("
 💠| نام پلن: $name
 👤| محدودیت کاربر : ندارد!
-📥| حجم : $volume GB
-⏳| مدت : $day روز
 ➖➖➖➖➖➖➖
 💵| قیمت پلن : $price
 ➖➖➖➖➖➖➖
