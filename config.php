@@ -1085,7 +1085,7 @@ function getOrderDetailKeys($from_id, $id){
             }
         }
         $leftggb = round( ($total - $up - $down) / 1073741824, 2) . " GB";
-        $download = $down;
+        $download = number_format(round($down / 1073741), 0, '.', ',') . ' مگابایت';
         $msg = "🔮 نام کانفیگ : $remark\n";
         foreach($acc_link as $acc_link){
             $msg .= "\n <code>$acc_link</code>";
