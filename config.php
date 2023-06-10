@@ -1084,11 +1084,12 @@ function getOrderDetailKeys($from_id, $id){
                 }
             }
         }
-        $taghsim = ($total - $up - $down) / 1073741824, 2;
+        $leftgbg = "xD";
+        $taghsim = round( ($total - $up - $down) / 1073741824, 2);
         if ($taghsim > 1){
-        $leftgbg = round( ($total - $up - $down) / 1073741824, 2) . " گیگ";
+        $leftgbg = round( ($total - $up - $down) / 1073741824, 2) . " GB";
         }else{
-            $leftgbg = round( ($total - $up - $down) / 1073741824, 2) . " مگابایت";
+            $leftgbg = round( ($total - $up - $down) / 1073741824, 2) . " MG";
         }
         $msg = "🔮 نام کانفیگ : $remark\n";
         foreach($acc_link as $acc_link){
