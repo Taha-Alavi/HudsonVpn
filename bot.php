@@ -301,7 +301,7 @@ if($data=="inviteSetting" && ($from_id == $admin || $userInfo['isAdmin'] == true
             ['text'=>"مقدار پورسانت",'callback_data'=>"wizwizch"]
             ],
         [
-            ['text'=>"برگشت 🔙",'callback_data'=>"botSettings"]
+            ['text'=>"🔙| برگشت",'callback_data'=>"botSettings"]
             ],
         ]]); 
     $res = editText($message_id,"✅ تنظیمات بازاریابی",$keys);
@@ -318,7 +318,7 @@ if($data=="inviteBanner" && ($from_id == $admin || $userInfo['isAdmin'] == true)
     $stmt->close();
     $keys = json_encode(['inline_keyboard'=>[
         [['text'=>"ویرایش",'callback_data'=>'editInviteBannerText']],
-        [['text'=>"برگشت 🔙",'callback_data'=>'inviteSetting']]
+        [['text'=>"🔙| برگشت",'callback_data'=>'inviteSetting']]
         ]]);
     if($inviteText['type'] == "text"){
         editText($message_id,"بنر فعلی: \n" . $inviteText['text'],$keys);
@@ -373,7 +373,7 @@ if($userInfo['step']=="editInviteBannerText" && ($from_id == $admin || $userInfo
     sendMessage("✅ | با موفقیت ذخیره شد",$removeKeyboard);
     $keys = json_encode(['inline_keyboard'=>[
         [['text'=>"ویرایش",'callback_data'=>'editInviteBannerText']],
-        [['text'=>"برگشت 🔙",'callback_data'=>'inviteSetting']]
+        [['text'=>"🔙| برگشت",'callback_data'=>'inviteSetting']]
         ]]);
     if(isset($update->message->text)){
         sendMessage("بنر فعلی: \n" . $text,$keys);
@@ -416,7 +416,7 @@ if($userInfo['step'] == "editInviteAmount"){
                 ['text'=>"مقدار پورسانت",'callback_data'=>"wizwizch"]
                 ], 
             [
-                ['text'=>"برگشت 🔙",'callback_data'=>"botSettings"]
+                ['text'=>"🔙| برگشت",'callback_data'=>"botSettings"]
                 ],
             ]]); 
         sendMessage("✅ تنظیمات بازاریابی",$keys);
@@ -519,7 +519,7 @@ if($data=="myInfo"){
             ['text'=>"انتقال موجودی",'callback_data'=>"transferMyWallet"]
         ],
         [
-            ['text'=>"برگشت 🔙",'callback_data'=>"mainMenu"]
+            ['text'=>"🔙| برگشت",'callback_data'=>"mainMenu"]
             ]
         ]]);
     editText($message_id, "⚜️| اطلاعات حساب شما:",
@@ -663,9 +663,9 @@ if(preg_match('/increaseWalletWithCartToCart(\d+)/',$userInfo['step'], $match) a
 بعد از تایید به کیف پولت اضافه میکنم ... 💞
 ";
         sendMessage($msg,$removeKeyboard);
-        sendMessage("خب برگشتم عقب اگه کاری داری بگو 😉 | اگه خواستی یکی از گزینه هارو انتخاب کن که کارتو انجام بدم
+        sendMessage("یکی از دکمه های زیر را انتخاب کنید:
 
-🚪 /start",$mainKeys);
+",$mainKeys);
 $price = number_format($match[1]);
     $msg = "
 💳 درخواست ( افزایش موجودی )
@@ -748,9 +748,9 @@ if($userInfo['step'] == "increaseUserWallet" && ($from_id == $admin || $userInfo
         else{
             setUser();
             sendMessage("🥴 | همچین کسی رو نداریما اشتباه وارد کردی به نظرم ", $removeKeyboard);
-            sendMessage('خب برگشتم عقب اگه کاری داری بگو 😉 | اگه خواستی یکی از گزینه هارو انتخاب کن که کارتو انجام بدم
+            sendMessage('یکی از دکمه های زیر را انتخاب کنید:
 
-🚪 /start',$mainKeys);
+',$mainKeys);
         }
     }else{
         sendMessage("‼️ | لطفا ایدی عددی کاربر رو به درستی وارد کنید");
@@ -765,9 +765,9 @@ if(preg_match('/^increaseWalletUser(\d+)/',$userInfo['step'], $match) && $text !
     
         sendMessage("✅ مبلغ " . number_format($text). " تومان به حساب شما اضافه شد",null,null,$match[1]);
         sendMessage("✅ مبلغ " . number_format($text) . " تومان به کیف پول کاربر مورد نظر اضافه شد",$removeKeyboard);
-        sendMessage('خب برگشتم عقب اگه کاری داری بگو 😉 | اگه خواستی یکی از گزینه هارو انتخاب کن که کارتو انجام بدم
+        sendMessage('یکی از دکمه های زیر را انتخاب کنید:
 
-🚪 /start',$mainKeys);
+',$mainKeys);
         setUser();
     }else{
         sendMessage("‼️ | لطفا ایدی عددی کاربر رو به درستی وارد کنید");
@@ -2507,9 +2507,9 @@ if(preg_match('/payCustomWithCartToCart(.*)/',$userInfo['step'], $match) and $te
 بعد از تایید برات ارسال میکنم ... 🥳
 ";
         sendMessage($msg,$removeKeyboard);
-        sendMessage("خب برگشتم عقب اگه کاری داری بگو 😉 | اگه خواستی یکی از گزینه هارو انتخاب کن که کارتو انجام بدم
+        sendMessage("یکی از دکمه های زیر را انتخاب کنید:
 
-🚪 /start",$mainKeys);
+",$mainKeys);
 
     $msg = "
 💓 خرید پلن دلخواه ( کارت به کارت )
@@ -3074,9 +3074,9 @@ if(preg_match('/payWithCartToCart(.*)/',$userInfo['step'], $match) and $text != 
 بعد از تایید برات ارسال میکنم ... 🥳
 ";
         sendMessage($msg,$removeKeyboard);
-        sendMessage("خب برگشتم عقب اگه کاری داری بگو 😉 | اگه خواستی یکی از گزینه هارو انتخاب کن که کارتو انجام بدم
+        sendMessage("یکی از دکمه های زیر را انتخاب کنید:
 
-🚪 /start",$mainKeys);
+",$mainKeys);
 
     $msg = "
 ❗️|💳 خرید جدید ( کارت به کارت )
@@ -3413,18 +3413,19 @@ if(preg_match('/decline(\d+)_(\d+)/',$userInfo['step'],$match) and $text != $can
     ]);
 
     sendMessage('پیامت رو براش ارسال کردم ... 🤝',$removeKeyboard);
-    sendMessage('خب برگشتم عقب اگه کاری داری بگو 😉 | اگه خواستی یکی از گزینه هارو انتخاب کن که کارتو انجام بدم
+    sendMessage('یکی از دکمه های زیر را انتخاب کنید:
 
-🚪 /start',$mainKeys);
+',$mainKeys);
     
     sendMessage($text, null, null, $uid);
 }
 if($data=="supportSection"){
     editText($message_id,"به بخش پشتیبانی خوش اومدی🛂\nلطفا، یکی از دکمه های زیر را انتخاب نمایید.",
         json_encode(['inline_keyboard'=>[
-        [['text'=>"✉️ ثبت تیکت",'callback_data'=>"usersNewTicket"]],
-        [['text'=>"تیکت های باز 📨",'callback_data'=>"usersOpenTickets"],['text'=>"📮 لیست تیکت ها", 'callback_data'=>"userAllTickets"]],
-        [['text'=>"برگشت 🔙",'callback_data'=>"mainMenu"]]
+        [['text'=>"✉️| ثبت تیکت",'callback_data'=>"usersNewTicket"]],
+        [['text'=>"📨| تیکت های باز",'callback_data'=>"usersOpenTickets"],['text'=>"📮| لیست تیکت ها", 'callback_data'=>"userAllTickets"]],
+        [['text'=>"👨🏻‍💻| پیوی پشتیبانی",'url'=>"https://t.me/Hudson_Vpn"]]
+        [['text'=>"🔙| برگشت",'callback_data'=>"mainMenu"]]
         ]]));
 }
 if($data== "usersNewTicket"){
@@ -3451,7 +3452,7 @@ if($data== "usersNewTicket"){
                 $temp = null;
             }
         }
-        $temp[] = ['text'=>"برگشت 🔙",'callback_data'=>"mainMenu"];
+        $temp[] = ['text'=>"🔙| برگشت",'callback_data'=>"mainMenu"];
         array_push($keys,$temp);
         editText($message_id,"💠لطفا واحد مورد نظر خود را انتخاب نمایید!",json_encode(['inline_keyboard'=>$keys]));
     }else{
@@ -3468,7 +3469,7 @@ if($data == 'dayPlanSettings' and ($from_id == $admin || $userInfo['isAdmin'] ==
        editText($message_id, 'لیست پلن های زمانی خالی است ',json_encode([
                 'inline_keyboard' => [
                     [['text' => "افزودن پلن زمانی جدید", 'callback_data' =>"addNewDayPlan"]],
-                    [['text'=>"برگشت 🔙",'callback_data'=>"backplan"]]
+                    [['text'=>"🔙| برگشت",'callback_data'=>"backplan"]]
                 ]
             ]));
         exit;
@@ -3484,7 +3485,7 @@ if($data == 'dayPlanSettings' and ($from_id == $admin || $userInfo['isAdmin'] ==
         $keyboard[] = [['text'=>"❌",'callback_data'=>"deleteDayPlan" . $id],['text'=>$price,'callback_data'=>"changeDayPlanPrice" . $id],['text'=>$title,'callback_data'=>"changeDayPlanDay" . $id]];
     }
     $keyboard[] = [['text' => "افزودن پلن زمانی جدید", 'callback_data' =>"addNewDayPlan"]];
-    $keyboard[] = [['text' => "برگشت 🔙", 'callback_data' => "backplan"]];
+    $keyboard[] = [['text' => "🔙| برگشت", 'callback_data' => "backplan"]];
     $msg = ' 📍 برای دیدن جزییات پلن زمانی روی آن بزنید👇';
     
     editText($message_id,$msg,json_encode([
@@ -3513,9 +3514,9 @@ if($userInfo['step'] == "addNewDayPlan" and $text != $cancelText) {
     $stmt->close();
     
     sendMessage("پلن زمانی جدید با موفقیت اضافه شد",$removeKeyboard);
-    sendMessage('خب برگشتم عقب اگه کاری داری بگو 😉 | اگه خواستی یکی از گزینه هارو انتخاب کن که کارتو انجام بدم
+    sendMessage('یکی از دکمه های زیر را انتخاب کنید:
 
-🚪 /start',$adminKeys);
+',$adminKeys);
     setUser();
 }
 if(preg_match('/^deleteDayPlan(\d+)/',$data,$match) and ($from_id == $admin || $userInfo['isAdmin'] == true)){
@@ -3535,7 +3536,7 @@ if(preg_match('/^deleteDayPlan(\d+)/',$data,$match) and ($from_id == $admin || $
        editText($message_id, 'لیست پلن های زمانی خالی است ',json_encode([
                 'inline_keyboard' => [
                     [['text' => "افزودن پلن زمانی جدید", 'callback_data' =>"addNewDayPlan"]],
-                    [['text'=>"برگشت 🔙",'callback_data'=>"managePanel"]]
+                    [['text'=>"🔙| برگشت",'callback_data'=>"managePanel"]]
                 ]
             ]));
         exit;
@@ -3551,7 +3552,7 @@ if(preg_match('/^deleteDayPlan(\d+)/',$data,$match) and ($from_id == $admin || $
         $keyboard[] = [['text'=>"❌",'callback_data'=>"deleteDayPlan" . $id],['text'=>$price,'callback_data'=>"changeDayPlanPrice" . $id],['text'=>$title,'callback_data'=>"changeDayPlanDay" . $id]];
     }
     $keyboard[] = [['text' => "افزودن پلن زمانی جدید", 'callback_data' =>"addNewDayPlan"]];
-    $keyboard[] = [['text' => "برگشت 🔙", 'callback_data' => "managePanel"]];
+    $keyboard[] = [['text' => "🔙| برگشت", 'callback_data' => "managePanel"]];
     $msg = ' 📍 برای دیدن جزییات پلن زمانی روی آن بزنید👇';
     
     editText($message_id,$msg,json_encode([
@@ -3585,7 +3586,7 @@ if(preg_match('/^changeDayPlanPrice(\d+)/',$userInfo['step'],$match) and $text !
            sendMessage( 'لیست پلن های زمانی خالی است ',json_encode([
                     'inline_keyboard' => [
                         [['text' => "افزودن پلن زمانی جدید", 'callback_data' =>"addNewDayPlan"]],
-                        [['text'=>"برگشت 🔙",'callback_data'=>"managePanel"]]
+                        [['text'=>"🔙| برگشت",'callback_data'=>"managePanel"]]
                     ]
                 ]));
             exit;
@@ -3601,7 +3602,7 @@ if(preg_match('/^changeDayPlanPrice(\d+)/',$userInfo['step'],$match) and $text !
             $keyboard[] = [['text'=>"❌",'callback_data'=>"deleteDayPlan" . $id],['text'=>$price,'callback_data'=>"changeDayPlanPrice" . $id],['text'=>$title,'callback_data'=>"changeDayPlanDay" . $id]];
         }
         $keyboard[] = [['text' => "افزودن پلن زمانی جدید", 'callback_data' =>"addNewDayPlan"]];
-        $keyboard[] = [['text' => "برگشت 🔙", 'callback_data' => "managePanel"]];
+        $keyboard[] = [['text' => "🔙| برگشت", 'callback_data' => "managePanel"]];
         $msg = ' 📍 برای دیدن جزییات پلن زمانی روی آن بزنید👇';
         
         sendMessage($msg,json_encode([
@@ -3637,7 +3638,7 @@ if(preg_match('/^changeDayPlanDay(\d+)/',$userInfo['step'],$match) and $text != 
        sendMessage( 'لیست پلن های زمانی خالی است ',json_encode([
                 'inline_keyboard' => [
                     [['text' => "افزودن پلن زمانی جدید", 'callback_data' =>"addNewDayPlan"]],
-                    [['text'=>"برگشت 🔙",'callback_data'=>"managePanel"]]
+                    [['text'=>"🔙| برگشت",'callback_data'=>"managePanel"]]
                 ]
             ]));
         exit;
@@ -3653,7 +3654,7 @@ if(preg_match('/^changeDayPlanDay(\d+)/',$userInfo['step'],$match) and $text != 
         $keyboard[] = [['text'=>"❌",'callback_data'=>"deleteDayPlan" . $id],['text'=>$price,'callback_data'=>"changeDayPlanPrice" . $id],['text'=>$title,'callback_data'=>"changeDayPlanDay" . $id]];
     }
     $keyboard[] = [['text' => "افزودن پلن زمانی جدید", 'callback_data' =>"addNewDayPlan"]];
-    $keyboard[] = [['text' => "برگشت 🔙", 'callback_data' => "managePanel"]];
+    $keyboard[] = [['text' => "🔙| برگشت", 'callback_data' => "managePanel"]];
     $msg = ' 📍 برای دیدن جزییات پلن زمانی روی آن بزنید👇';
     
     sendMessage($msg,json_encode([
@@ -3672,7 +3673,7 @@ if($data == 'volumePlanSettings' and ($from_id == $admin || $userInfo['isAdmin']
        editText($message_id, 'لیست پلن های حجمی خالی است ',json_encode([
                 'inline_keyboard' => [
                     [['text' => "افزودن پلن حجمی جدید", 'callback_data' =>"addNewVolumePlan"]],
-                    [['text' => "برگشت 🔙",'callback_data'=>"backplan"]]
+                    [['text' => "🔙| برگشت",'callback_data'=>"backplan"]]
                     ]]));
         exit;
     }
@@ -3686,7 +3687,7 @@ if($data == 'volumePlanSettings' and ($from_id == $admin || $userInfo['isAdmin']
         $keyboard[] = [['text'=>"❌",'callback_data'=>"deleteVolumePlan" . $id],['text'=>$price,'callback_data'=>"changeVolumePlanPrice" . $id],['text'=>$title,'callback_data'=>"changeVolumePlanVolume" . $id]];
     }
     $keyboard[] = [['text' => "افزودن پلن حجمی جدید", 'callback_data' =>"addNewVolumePlan"]];
-    $keyboard[] = [['text' =>"برگشت 🔙", 'callback_data' => "backplan"]];
+    $keyboard[] = [['text' =>"🔙| برگشت", 'callback_data' => "backplan"]];
     $msg = ' 📍 برای دیدن جزییات پلن حجمی روی آن بزنید👇';
     
     $res = editText($message_id, $msg,json_encode([
@@ -3715,9 +3716,9 @@ if($userInfo['step'] == "addNewVolumePlan" and $text != $cancelText && ($from_id
     $stmt->close();
     
     sendMessage("پلن حجمی جدید با موفقیت اضافه شد",$removeKeyboard);
-    sendMessage("خب برگشتم عقب اگه کاری داری بگو 😉 | اگه خواستی یکی از گزینه هارو انتخاب کن که کارتو انجام بدم
+    sendMessage("یکی از دکمه های زیر را انتخاب کنید:
 
-🚪 /start",$adminKeys);
+",$adminKeys);
     setUser();
 }
 if(preg_match('/^deleteVolumePlan(\d+)/',$data,$match) and ($from_id == $admin || $userInfo['isAdmin'] == true)){
@@ -3737,7 +3738,7 @@ if(preg_match('/^deleteVolumePlan(\d+)/',$data,$match) and ($from_id == $admin |
        editText($message_id, 'لیست پلن های حجمی خالی است ',json_encode([
                 'inline_keyboard' => [
                     [['text' => "افزودن پلن حجمی جدید", 'callback_data' =>"addNewVolumePlan"]],
-                    [['text' => "برگشت 🔙",'callback_data'=>"managePanel"]]
+                    [['text' => "🔙| برگشت",'callback_data'=>"managePanel"]]
                     ]]));
         exit;
     }
@@ -3751,7 +3752,7 @@ if(preg_match('/^deleteVolumePlan(\d+)/',$data,$match) and ($from_id == $admin |
         $keyboard[] = [['text'=>"❌",'callback_data'=>"deleteVolumePlan" . $id],['text'=>$price,'callback_data'=>"changeVolumePlanPrice" . $id],['text'=>$title,'callback_data'=>"changeVolumePlanVolume" . $id]];
     }
     $keyboard[] = [['text' => "افزودن پلن حجمی جدید", 'callback_data' =>"addNewVolumePlan"]];
-    $keyboard[] = [['text' =>"برگشت 🔙", 'callback_data' => "managePanel"]];
+    $keyboard[] = [['text' =>"🔙| برگشت", 'callback_data' => "managePanel"]];
     $msg = ' 📍 برای دیدن جزییات پلن حجمی روی آن بزنید👇';
     
     $res = editText($message_id, $msg,json_encode([
@@ -3783,7 +3784,7 @@ if(preg_match('/^changeVolumePlanPrice(\d+)/',$userInfo['step'],$match) and $tex
            sendMessage( 'لیست پلن های حجمی خالی است ',json_encode([
                     'inline_keyboard' => [
                         [['text' => "افزودن پلن حجمی جدید", 'callback_data' =>"addNewVolumePlan"]],
-                        [['text' => "برگشت 🔙",'callback_data'=>"managePanel"]]
+                        [['text' => "🔙| برگشت",'callback_data'=>"managePanel"]]
                         ]]));
             exit;
         }
@@ -3797,7 +3798,7 @@ if(preg_match('/^changeVolumePlanPrice(\d+)/',$userInfo['step'],$match) and $tex
             $keyboard[] = [['text'=>"❌",'callback_data'=>"deleteVolumePlan" . $id],['text'=>$price,'callback_data'=>"changeVolumePlanPrice" . $id],['text'=>$title,'callback_data'=>"changeVolumePlanVolume" . $id]];
         }
         $keyboard[] = [['text' => "افزودن پلن حجمی جدید", 'callback_data' =>"addNewVolumePlan"]];
-        $keyboard[] = [['text' =>"برگشت 🔙", 'callback_data' => "managePanel"]];
+        $keyboard[] = [['text' =>"🔙| برگشت", 'callback_data' => "managePanel"]];
         $msg = ' 📍 برای دیدن جزییات پلن حجمی روی آن بزنید👇';
         
         $res = sendMessage($msg,json_encode([
@@ -3831,7 +3832,7 @@ if(preg_match('/^changeVolumePlanVolume(\d+)/',$userInfo['step'], $match) and $t
        sendMessage( 'لیست پلن های حجمی خالی است ',json_encode([
                 'inline_keyboard' => [
                     [['text' => "افزودن پلن حجمی جدید", 'callback_data' =>"addNewVolumePlan"]],
-                    [['text' => "برگشت 🔙",'callback_data'=>"managePanel"]]
+                    [['text' => "🔙| برگشت",'callback_data'=>"managePanel"]]
                     ]]));
         exit;
     }
@@ -3845,7 +3846,7 @@ if(preg_match('/^changeVolumePlanVolume(\d+)/',$userInfo['step'], $match) and $t
         $keyboard[] = [['text'=>"❌",'callback_data'=>"deleteVolumePlan" . $id],['text'=>$price,'callback_data'=>"changeVolumePlanPrice" . $id],['text'=>$title,'callback_data'=>"changeVolumePlanVolume" . $id]];
     }
     $keyboard[] = [['text' => "افزودن پلن حجمی جدید", 'callback_data' =>"addNewVolumePlan"]];
-    $keyboard[] = [['text' =>"برگشت 🔙", 'callback_data' => "managePanel"]];
+    $keyboard[] = [['text' =>"🔙| برگشت", 'callback_data' => "managePanel"]];
     $msg = ' 📍 برای دیدن جزییات پلن حجمی روی آن بزنید👇';
     
     $res = sendMessage( $msg,json_encode([
@@ -4104,7 +4105,7 @@ if($data=="ticketsList" and ($from_id == $admin || $userInfo['isAdmin'] == true)
         ]]);
     editText($message_id, "به بخش تیکت ها خوش اومدید، 
     
-🚪 /start
+
     ",$ticketSection);
 }
 if($data=='ticketsCategory' and ($from_id == $admin || $userInfo['isAdmin'] == true)){
@@ -4414,9 +4415,9 @@ if($userInfo['step'] == "banUser" && ($from_id == $admin || $userInfo['isAdmin']
             }
         }else sendMessage("کاربری با این آیدی یافت نشد");
         setUser();
-        sendMessage("خب برگشتم عقب اگه کاری داری بگو 😉 | اگه خواستی یکی از گزینه هارو انتخاب کن که کارتو انجام بدم
+        sendMessage("یکی از دکمه های زیر را انتخاب کنید:
 
-🚪 /start",$adminKeys);
+",$adminKeys);
     }else{
         sendMessage("‼️ | لطفا ایدی عددی کاربر رو به درستی وارد کنید");
     }
@@ -4477,15 +4478,15 @@ if($userInfo['step'] == "unbanUser" && ($from_id == $admin || $userInfo['isAdmin
                 $stmt->execute();
                 $stmt->close();
 
-                sendMessage("✅ | آزاد شدم خوشحالم ننه ، ایشالا آزادی همه 😂",$removeKeyboard);
+                sendMessage("✅ | شما با موفقیت از بن در اومدید",$removeKeyboard);
             }else{
                 sendMessage("☑️ | این کاربری که فرستادی از قبل آزاد بود 🙁",$removeKeyboard);
             }
         }else sendMessage("کاربری با این آیدی یافت نشد");
         setUser();
-        sendMessage("خب برگشتم عقب اگه کاری داری بگو 😉 | اگه خواستی یکی از گزینه هارو انتخاب کن که کارتو انجام بدم
+        sendMessage("یکی از دکمه های زیر را انتخاب کنید:
 
-🚪 /start",$adminKeys);
+",$adminKeys);
     }else{
         sendMessage("‼️ | لطفا ایدی عددی کاربر رو به درستی وارد کنید");
     }
@@ -4685,7 +4686,7 @@ if(preg_match('/^showMainButtonAns(\d+)/',$data,$match)){
     $stmt->close();
     
     editText($message_id,$info['value'],json_encode(['inline_keyboard'=>[
-        [['text'=>"برگشت 🔙",'callback_data'=>"mainMenu"]]
+        [['text'=>"🔙| برگشت",'callback_data'=>"mainMenu"]]
         ]]));
 }
 if($data=="showUUIDLeft" && ($botState['searchState']=="on" || $from_id== $admin)){
@@ -5172,9 +5173,9 @@ if(preg_match('/(addNewRahgozarPlan|addNewPlan)/',$userInfo['step']) and $text!=
         $stmt->close();
 
         sendMessage($imgtxt,$removeKeyboard);
-        sendMessage("خب برگشتم عقب اگه کاری داری بگو 😉 | اگه خواستی یکی از گزینه هارو انتخاب کن که کارتو انجام بدم
+        sendMessage("یکی از دکمه های زیر را انتخاب کنید:
 
-🚪 /start",$adminKeys);
+",$adminKeys);
         setUser();
     } 
 }
@@ -5246,7 +5247,7 @@ if(($data=="editCustomPlan" || preg_match('/^editCustom(gbPrice|dayPrice)/',$use
             ['text'=>"هزینه هر روز",'callback_data'=>"wizwizch"]
             ],
         [
-            ['text'=>"برگشت 🔙",'callback_data'=>"backplan"]
+            ['text'=>"🔙| برگشت",'callback_data'=>"backplan"]
             ]
             
         ]]);
@@ -5947,12 +5948,12 @@ if(preg_match('/payRenewWithCartToCart(.*)/',$userInfo['step'],$match) and $text
     $msg = "
 ✅| دوست عزیز ، درخواستت با موفقیت ثبت شد، بعد از بررسی و تمدید ادمین کانفیگ رو برات میفرستم ممنون از صبوریت 
 
-🚪 /start
+
 ";
     sendMessage($msg,$removeKeyboard);
-    sendMessage('خب برگشتم عقب اگه کاری داری بگو 😉 | اگه خواستی یکی از گزینه هارو انتخاب کن که کارتو انجام بدم
+    sendMessage('یکی از دکمه های زیر را انتخاب کنید:
 
-🚪 /start',$mainKeys);
+',$mainKeys);
     // notify admin
     $msg = "
 ♻️ تمدید سرویس ( کارت به کارت )
@@ -6493,12 +6494,12 @@ if(preg_match('/payIncreaseDayWithCartToCart(.*)/',$userInfo['step'], $match) an
     $msg = "
 ✅| دوست عزیز ، درخواستت با موفقیت ثبت شد، بعد از بررسی و تمدید ادمین کانفیگ رو برات میفرستم ممنون از صبوریت 
 
-🚪 /start
+
 ";
     sendMessage($msg,$removeKeyboard);
-    sendMessage('خب برگشتم عقب اگه کاری داری بگو 😉 | اگه خواستی یکی از گزینه هارو انتخاب کن که کارتو انجام بدم
+    sendMessage('یکی از دکمه های زیر را انتخاب کنید:
 
-🚪 /start',$mainKeys);
+',$mainKeys);
 
     // notify admin
     $msg = "
@@ -6806,12 +6807,12 @@ if(preg_match('/payIncreaseWithCartToCart(.*)/',$userInfo['step'],$match) and $t
     $msg = "
 ✅| دوست عزیز ، درخواستت با موفقیت ثبت شد، بعد از بررسی و تمدید ادمین کانفیگ رو برات میفرستم ممنون از صبوریت 
 
-🚪 /start
+
 ";
     sendMessage($msg,$removeKeyboard);
-    sendMessage('خب برگشتم عقب اگه کاری داری بگو 😉 | اگه خواستی یکی از گزینه هارو انتخاب کن که کارتو انجام بدم
+    sendMessage('یکی از دکمه های زیر را انتخاب کنید:
 
-🚪 /start',$mainKeys);
+',$mainKeys);
 
     // notify admin
     $msg = "
@@ -7082,9 +7083,9 @@ if(preg_match('/^addNewCategory/',$userInfo['step']) and $text!=$cancelText){
 
         $msg = 'یه دسته بندی جدید برات ثبت کردم 🙂☑️';
         sendMessage($msg,$removeKeyboard);
-        sendMessage('خب برگشتم عقب اگه کاری داری بگو 😉 | اگه خواستی یکی از گزینه هارو انتخاب کن که کارتو انجام بدم
+        sendMessage('یکی از دکمه های زیر را انتخاب کنید:
 
-🚪 /start',getCategoriesKeys());
+',getCategoriesKeys());
     }
 }
 if(preg_match('/^wizwizcategorydelete(\d+)_(\d+)/',$data, $match) and ($from_id == $admin || $userInfo['isAdmin'] == true)){
@@ -7736,7 +7737,7 @@ if($data == "managePanel" and (($from_id == $admin || $userInfo['isAdmin'] == tr
 
 🆔 @wizwizch
 
-🚪 /start
+
 ";
     editText($message_id, $msg, $adminKeys);
 }
@@ -7768,8 +7769,8 @@ if ($text == $cancelText) {
     $stmt->close();
 
     sendMessage('⏳ در حال انتظار ...',$removeKeyboard);
-    sendMessage('خب برگشتم عقب اگه کاری داری بگو 😉 | اگه خواستی یکی از گزینه هارو انتخاب کن که کارتو انجام بدم
+    sendMessage('یکی از دکمه های زیر را انتخاب کنید:
 
-🚪 /start',$mainKeys);
+',$mainKeys);
 }
 ?>
