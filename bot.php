@@ -2007,7 +2007,7 @@ if($data=="getTestAccount"){
     $stmt->close();
     
     if($from_id == $from_id){
-        alert("♻️در حال دریافت جزییات ... ");
+        alert("♻️| در حال بررسی درخواست شما...");
     	$keyboard = array();
         while ($row = $respd->fetch_assoc()){
             $id = $row['id'];
@@ -2027,7 +2027,7 @@ if($data=="getTestAccount"){
         }
     	$keyboard[] = [['text' => '⤵️ برگرد صفحه قبلی ', 'callback_data' => "mainMenu"]];
         editText($message_id,"لطفا یکی از کلید های زیر را انتخاب کنید", json_encode(['inline_keyboard'=>$keyboard]), "HTML");
-    }else alert("این بخش موقتا غیر فعال است");
+    }else alert("‼️| در حال حاضر امکان دریافت سرویس تست وجود ندارد");
 }
 if((preg_match('/^discountSelectPlan(\d+)_(\d+)_(\d+)/',$userInfo['step'],$match) || preg_match('/selectPlan(\d+)_(\d+)/',$data, $match)) && ($botState['sellState']=="on" ||$from_id ==$admin)){
     if(preg_match('/^discountSelectPlan/', $userInfo['step'])){
@@ -2682,7 +2682,7 @@ if(preg_match('/accCustom(.*)/',$data, $match) and $text != $cancelText){
         ⁮⁮ ⁮⁮👤| محدودیت کاربر: ندارد!
         
         
-        ⚜️| config : <code>$vray_link</code>";
+⚜️| config : <code>$vray_link</code>";
 if($botState['subLinkState'] == "on") $acc_text .= "
 
 \n🌐 subscription : <code>$subLink</code>";
@@ -2923,7 +2923,7 @@ if(preg_match('/payWithWallet(.*)/',$data, $match)){
         ⁮⁮ ⁮⁮👤| محدودیت کاربر: ندارد!
         
         
-        ⚜️| config : <code>$vray_link</code>";
+⚜️| config : <code>$vray_link</code>";
 if($botState['subLinkState'] == "on") $acc_text .= "
 
 \n🌐 subscription : <code>$subLink</code>";
@@ -3325,7 +3325,7 @@ if(preg_match('/accept(.*)/',$data, $match) and $text != $cancelText){
         ⁮⁮ ⁮⁮👤| محدودیت کاربر: ندارد!
         
         
-        ⚜️| config : <code>$vray_link</code>";
+⚜️| config : <code>$vray_link</code>";
 if($botState['subLinkState'] == "on") $acc_text .= "
 
 \n🌐 subscription : <code>$subLink</code>";
@@ -4544,7 +4544,7 @@ if(preg_match('/freeTrial(\d+)/',$data,$match)) {
     $id = $match[1];
  
     if($userInfo['freetrial'] == 'used' and !($from_id == $admin)){
-        alert('⚠️شما قبلا هدیه رایگان خود را دریافت کردید');
+        alert('⚠️| شما قبلا سرویس تست خود را دریافت کرده اید');
         exit;
     }
     delMessage();
@@ -4559,13 +4559,13 @@ if(preg_match('/freeTrial(\d+)/',$data,$match)) {
     $expire_microdate = floor(microtime(true) * 1000) + (864000 * $days * 100);
     $expire_date = $date + (86400 * $days);
     $type = $file_detail['type'];
-    $volume = $file_detail['volume'];
+    $volume = 100;
     $protocol = $file_detail['protocol'];
     $price = $file_detail['price'];
     $server_id = $file_detail['server_id'];
     $acount = $file_detail['acount'];
     $inbound_id = $file_detail['inbound_id'];
-    $limitip = $file_detail['limitip'];
+    $limitip = 1;
     $netType = $file_detail['type'];
     $rahgozar = $file_detail['rahgozar'];
     
@@ -4618,7 +4618,7 @@ if(preg_match('/freeTrial(\d+)/',$data,$match)) {
     $stmt->close();
 
     $rnd = rand(1111,99999);
-    $remark = "#{$rnd} ({$srv_remark}-{$from_id})";
+    $remark = "Test-#{$rnd} ({$srv_remark}-{$from_id})";
     
     if($portType == "auto"){
         file_put_contents('settings/temp.txt',$port.'-'.$last_num);
@@ -4663,7 +4663,7 @@ if(preg_match('/freeTrial(\d+)/',$data,$match)) {
         ⁮⁮ ⁮⁮👤| محدودیت کاربر: ندارد!
         
         
-        ⚜️| config : <code>$vray_link</code>";
+⚜️| config : <code>$vray_link</code>";
 if($botState['subLinkState'] == "on") $acc_text .= "
 
 \n🌐 subscription : <code>$subLink</code>";
