@@ -1409,7 +1409,7 @@ if($botState['subLinkState'] == "on") $acc_text .= "
     
     QRcode::png($vray_link, $file, $ecc, $pixel_Size, $frame_Size);
 	addBorderImage($file);
-	sendPhoto($botUrl . $file, $acc_text,json_encode(['inline_keyboard'=>[[['text'=>"🏘| صفحه اصلی",'callback_data'=>"mainMenu"],['text'=>"⚙️| سرویس های من",'callback_data'=>"mySubscriptions"]]]]),"HTML", $uid);
+	sendPhoto($botUrl . $file, $acc_text,json_encode(['inline_keyboard'=>[[['text'=>"🏘| صفحه اصلی",'callback_data'=>"mainMenu"]]]]),"HTML", $uid);
     unlink($file);
 }
 
@@ -1439,7 +1439,7 @@ $order = $stmt->get_result();
 $stmt->close();
 $keys = json_encode(['inline_keyboard'=>[
     [
-        ['text'=>"بنازم خرید جدید ❤️",'callback_data'=>"mainMenu"]
+        ['text'=>"گزارش خرید جدید",'callback_data'=>"mainMenu"]
     ],
     ]]);
 sendMessage("
@@ -1502,7 +1502,7 @@ sendMessage("
 sendMessage("✅سرویس $remark با موفقیت تمدید شد",$mainKeys);
 $keys = json_encode(['inline_keyboard'=>[
     [
-        ['text'=>"به به تمدید 😍",'callback_data'=>"mainMenu"]
+        ['text'=>"گزارش تمدید جدید",'callback_data'=>"mainMenu"]
         ],
     ]]);
 
@@ -1555,7 +1555,7 @@ if($response->success){
     
     $keys = json_encode(['inline_keyboard'=>[
         [
-            ['text'=>"اخیش یکی زمان زد 😁",'callback_data'=>"wizwizch"]
+            ['text'=>"یک نفر تمدید روز زد",'callback_data'=>"wizwizch"]
             ],
         ]]);
 sendMessage("
@@ -1602,7 +1602,7 @@ if($response->success){
     $stmt->close();
     $keys = json_encode(['inline_keyboard'=>[
         [
-            ['text'=>"اخیش یکی حجم زد 😁",'callback_data'=>"wizwizch"]
+            ['text'=>"یک نفر تمدید روز زد",'callback_data'=>"wizwizch"]
             ],
         ]]);
 sendMessage("
@@ -2365,7 +2365,7 @@ if($botState['subLinkState'] == "on") $acc_text .= "
         
         QRcode::png($vray_link, $file, $ecc, $pixel_Size, $frame_Size);
     	addBorderImage($file);
-    	sendPhoto($botUrl . $file, $acc_text,json_encode(['inline_keyboard'=>[[['text'=>"🏘| صفحه اصلی",'callback_data'=>"mainMenu"],['text'=>"⚙️| سرویس های من",'callback_data'=>"mySubscriptions"]]]]),"HTML", $uid);
+    	sendPhoto($botUrl . $file, $acc_text,json_encode(['inline_keyboard'=>[[['text'=>"🏘| صفحه اصلی",'callback_data'=>"mainMenu"]]]]),"HTML", $uid);
     unlink($file);
     }
 
@@ -2395,7 +2395,7 @@ if($botState['subLinkState'] == "on") $acc_text .= "
     $stmt->close();
     $keys = json_encode(['inline_keyboard'=>[
         [
-            ['text'=>"بنازم خرید جدید ❤️",'callback_data'=>"mainMenu"]
+            ['text'=>"گزارش خرید جدید",'callback_data'=>"mainMenu"]
         ],
         ]]);
     sendMessage("
@@ -2694,7 +2694,7 @@ if($botState['subLinkState'] == "on") $acc_text .= "
     
         QRcode::png($vray_link, $file, $ecc, $pixel_Size, $frame_Size);
     	addBorderImage($file);
-    	sendPhoto($botUrl . $file, $acc_text,json_encode(['inline_keyboard'=>[[['text'=>"🏘| صفحه اصلی",'callback_data'=>"mainMenu"],['text'=>"⚙️| سرویس های من",'callback_data'=>"mySubscriptions"]]]]),"HTML", $uid);
+    	sendPhoto($botUrl . $file, $acc_text,json_encode(['inline_keyboard'=>[[['text'=>"🏘| صفحه اصلی",'callback_data'=>"mainMenu"]]]]),"HTML", $uid);
     unlink($file);
     }
     sendMessage('✅ کانفیگ و براش ارسال کردم', $mainKeys);
@@ -2935,7 +2935,7 @@ if($botState['subLinkState'] == "on") $acc_text .= "
         
         QRcode::png($vray_link, $file, $ecc, $pixel_Size, $frame_Size);
     	addBorderImage($file);
-    	sendPhoto($botUrl . $file, $acc_text,json_encode(['inline_keyboard'=>[[['text'=>"🏘| صفحه اصلی",'callback_data'=>"mainMenu"],['text'=>"⚙️| سرویس های من",'callback_data'=>"mySubscriptions"]]]]),"HTML", $uid);
+    	sendPhoto($botUrl . $file, $acc_text,json_encode(['inline_keyboard'=>[[['text'=>"🏘| صفحه اصلی",'callback_data'=>"mainMenu"]]]]),"HTML", $uid);
     unlink($file);
     }
 
@@ -2966,7 +2966,7 @@ if($botState['subLinkState'] == "on") $acc_text .= "
     $stmt->close();
     $keys = json_encode(['inline_keyboard'=>[
         [
-            ['text'=>"بنازم خرید جدید ❤️",'callback_data'=>"mainMenu"]
+            ['text'=>"گزارش خرید جدید",'callback_data'=>"mainMenu"]
         ],
         ]]);
     sendMessage("
@@ -3337,7 +3337,7 @@ if($botState['subLinkState'] == "on") $acc_text .= "
     
         QRcode::png($vray_link, $file, $ecc, $pixel_Size, $frame_Size);
     	addBorderImage($file);
-    	sendPhoto($botUrl . $file, $acc_text,json_encode(['inline_keyboard'=>[[['text'=>"🏘| صفحه اصلی",'callback_data'=>"mainMenu"],['text'=>"⚙️| سرویس های من",'callback_data'=>"mySubscriptions"]]]]),"HTML", $uid);
+    	sendPhoto($botUrl . $file, $acc_text,json_encode(['inline_keyboard'=>[[['text'=>"🏘| صفحه اصلی",'callback_data'=>"mainMenu"]]]]),"HTML", $uid);
     unlink($file);
     }
     sendMessage('✅ کانفیگ و براش ارسال کردم', $mainKeys);
@@ -4566,7 +4566,7 @@ if(preg_match('/freeTrial(\d+)/',$data,$match)) {
     $acount = $file_detail['acount'];
     $inbound_id = $file_detail['inbound_id'];
     $limitip = 1;
-    $netType = 1;
+    $netType = $file_detail['type'];
     $rahgozar = $file_detail['rahgozar'];
     
     if($acount == 0 and $inbound_id != 0){
@@ -4674,7 +4674,7 @@ if($botState['subLinkState'] == "on") $acc_text .= "
         $frame_Size = 10;
         QRcode::png($vray_link, $file, $ecc, $pixel_Size, $frame_size);
     	addBorderImage($file);
-        sendPhoto($botUrl . $file, $acc_text,json_encode(['inline_keyboard'=>[[['text'=>"🏘| صفحه اصلی",'callback_data'=>"mainMenu"],['text'=>"⚙️| سرویس های من",'callback_data'=>"mySubscriptions"]]]]),"HTML", $uid);
+        sendPhoto($botUrl . $file, $acc_text,json_encode(['inline_keyboard'=>[[['text'=>"🏘| صفحه اصلی",'callback_data'=>"mainMenu"]]]]),"HTML", $uid);
     unlink($file);
     }
     
@@ -6671,7 +6671,7 @@ if(preg_match('/payIncraseDayWithWallet(.*)/', $data,$match)){
         
         $keys = json_encode(['inline_keyboard'=>[
             [
-                ['text'=>"اخیش یکی زمان زد 😁",'callback_data'=>"wizwizch"]
+                ['text'=>"یک نفر تمدید روز زد",'callback_data'=>"wizwizch"]
                 ],
             ]]);
         sendMessage("
@@ -7033,7 +7033,7 @@ if(preg_match('/payIncraseWithWallet(.*)/', $data,$match)){
         $stmt->close();
         $keys = json_encode(['inline_keyboard'=>[
             [
-                ['text'=>"اخیش یکی حجم زد 😁",'callback_data'=>"wizwizch"]
+                ['text'=>"یک نفر تمدید روز زد",'callback_data'=>"wizwizch"]
                 ],
             ]]);
         sendMessage("
