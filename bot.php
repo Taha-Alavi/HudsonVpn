@@ -16,8 +16,6 @@ if ($joniedState== "kicked" || $joniedState== "left"){
 🆔 $channelLock
 
 ✅ بعد از اینکه عضو شدید مجدد ربات رو /start کنید و لذت ببرید
-
-🌀 @ ( Support us 💕 )
 ", null,"HTML");
     exit;
 }
@@ -104,12 +102,12 @@ if (preg_match('/^\/([Ss]tart)/', $text) or $text == '⤵️ برگرد به م�
         $stmt->close();
     }
     if(isset($data) and $data == "mainMenu"){
-        $res = editText($message_id, '🔰| سلام به ربات هادسون سرویس خوش اومدین :
+        $res = editText($message_id, '🔰| به ربات هادسون سرویس خوش اومدین :
 
         لطفا یکی از دکمه های زیر را انتخاب کنید :
 ', $mainKeys);
         if(!$res->ok){
-            sendMessage('🔰| سلام به ربات هادسون سرویس خوش اومدین :
+            sendMessage('🔰| به ربات هادسون سرویس خوش اومدین :
 
             لطفا یکی از دکمه های زیر را انتخاب کنید :
 ', $mainKeys);
@@ -130,7 +128,7 @@ if (preg_match('/^\/([Ss]tart)/', $text) or $text == '⤵️ برگرد به م�
             ",
             $keys, "html",$admin);
         }
-        sendMessage('🔰| سلام به ربات هادسون سرویس خوش اومدین :
+        sendMessage('🔰| به ربات هادسون سرویس خوش اومدین :
 
         لطفا یکی از دکمه های زیر را انتخاب کنید :
 ',$mainKeys);
@@ -861,7 +859,7 @@ if ($data=='buySubscription' && ($botState['sellState']=="on" || ($from_id == $a
     $keyboard = array_chunk($keyboard,1);
     editText($message_id, '  1️⃣ مرحله یک:
 
-لوکیشن مدنظرت رو برا خرید انتخاب کن: 😊', json_encode(['inline_keyboard'=>$keyboard]));
+🌐| سرور مورد نظر خود را انتخاب کنید! :', json_encode(['inline_keyboard'=>$keyboard]));
     
 
 }
@@ -919,7 +917,7 @@ if(preg_match('/createAccServer(\d+)/',$data, $match) && ($from_id == $admin || 
         $keyboard = array_chunk($keyboard,1);
         editText($message_id, "2️⃣ مرحله دو:
 
-دسته بندی مورد نظرت رو انتخاب کن 🤭", json_encode(['inline_keyboard'=>$keyboard]));
+        🔰| دسته بندی مورد نظر خود را انتخاب کنید", json_encode(['inline_keyboard'=>$keyboard]));
     }
 
 }
@@ -945,7 +943,7 @@ if(preg_match('/createAccCategory(\d+)_(\d+)/',$data,$match) && ($from_id == $ad
         $keyboard = array_chunk($keyboard,1);
         editText($message_id, "3️⃣ مرحله سه:
 
-یکی از پلن هارو انتخاب کن و برو برای پرداختش ", json_encode(['inline_keyboard'=>$keyboard]));
+        🛍| پلن مورد نظر خود را انتخاب کنید", json_encode(['inline_keyboard'=>$keyboard]));
     }
 
 }
@@ -1087,7 +1085,7 @@ if(preg_match('/^createAccAmount(\d+)_(\d+)_(\d+)/',$userInfo['step'], $match) &
         $last_num++;
     
         $rnd = rand(1111,99999);
-        $remark = "{$srv_remark}-{$from_id}-{$rnd}";
+        $remark = "#{$rnd} ({$srv_remark}-{$from_id})";
     
         if($inbound_id == 0){    
             $response = addUser($server_id, $uniqid, $protocol, $port, $expire_microdate, $remark, $volume, $netType, 'none', $rahgozar, $fid); 
@@ -1348,7 +1346,7 @@ $portType = $stmt->get_result()->fetch_assoc()['port_type'];
 $stmt->close();
 
 $rnd = rand(1111,99999);
-$remark = "{$srv_remark}-{$from_id}-{$rnd}";
+$remark = "#{$rnd} ({$srv_remark}-{$from_id})";
 
 if($portType == "auto"){
     file_put_contents('settings/temp.txt',$port.'-'.$last_num);
@@ -1389,14 +1387,15 @@ $subLink = $botUrl . "settings/subLink.php?token=" . $token;
 $vraylink = getConnectionLink($server_id, $uniqid, $protocol, $remark, $port, $netType, $inbound_id, $rahgozar);
 foreach($vraylink as $vray_link){
 $acc_text = "
+🔰| سرویس جدید شما با موفقیت ساخته شد!
+📡| پروتکل: $protocol
+🔮| نام سرویس: $remark
+🔋| حجم سرویس: $volume گیگ
+⏰| مدت سرویس: $days روز
+⁮⁮ ⁮⁮👤| محدودیت کاربر: ندارد!
 
-😍 سفارش جدید شما
-📡 پروتکل: $protocol
-🔮 نام سرویس: $remark
-🔋حجم سرویس: $volume گیگ
-⏰ مدت سرویس: $days روز
-⁮⁮ ⁮⁮
-💝 config : <code>$vray_link</code>";
+
+⚜️| config : <code>$vray_link</code>";
 if($botState['subLinkState'] == "on") $acc_text .= "
 
 🌐 subscription : <code>$subLink</code>
@@ -1410,7 +1409,7 @@ if($botState['subLinkState'] == "on") $acc_text .= "
     
     QRcode::png($vray_link, $file, $ecc, $pixel_Size, $frame_Size);
 	addBorderImage($file);
-	sendPhoto($botUrl . $file, $acc_text,json_encode(['inline_keyboard'=>[[['text'=>"صفحه اصلی 🏘",'callback_data'=>"mainMenu"]]]]),"HTML", $uid);
+	sendPhoto($botUrl . $file, $acc_text,json_encode(['inline_keyboard'=>[[['text'=>"🏘| صفحه اصلی",'callback_data'=>"mainMenu"],['text'=>"⚙️| سرویس های من",'callback_data'=>"mySubscriptions"]]]]),"HTML", $uid);
     unlink($file);
 }
 
@@ -1776,7 +1775,7 @@ if(preg_match('/selectCategory(\d+)_(\d+)/',$data,$match) && ($botState['sellSta
         $keyboard = array_chunk($keyboard,1);
         editText($message_id, "3️⃣ مرحله سه:
 
-یکی از پلن هارو انتخاب کن و برو برای پرداختش 🤲 🕋", json_encode(['inline_keyboard'=>$keyboard]));
+        🛍| پلن مورد نظر خود را انتخاب کنید", json_encode(['inline_keyboard'=>$keyboard]));
     }
 
 }
@@ -1982,7 +1981,7 @@ sendMessage("
 حجم اختصاصی: $volume GB
 مدت اختصاصی: $day روز
 ➖➖➖➖➖➖➖
-💎 قیمت پنل : $price
+💵| قیمت پلن : $price
 ➖➖➖➖➖➖➖
 📃 توضیحات :
 $desc
@@ -2190,9 +2189,12 @@ if((preg_match('/^discountSelectPlan(\d+)_(\d+)_(\d+)/',$userInfo['step'],$match
 	$keyboard[] = [['text' => '⤵️ برگرد صفحه قبلی ', 'callback_data' => "selectCategory{$call_id}_{$sid}"]];
     $price = ($price == 0) ? 'رایگان' : number_format($price).' تومان ';
     sendMessage("
-〽️ نام پلن: $name
+💠| نام پلن: $name
+👤| محدودیت کاربر : ندارد!
+📥| حجم : $volume GB
+⏳| مدت : $day روز
 ➖➖➖➖➖➖➖
-💎 قیمت پنل : $price
+💵| قیمت پلن : $price
 ➖➖➖➖➖➖➖
 📃 توضیحات :
 $desc
@@ -2298,7 +2300,7 @@ if(preg_match('/payCustomWithWallet(.*)/',$data, $match)){
     $stmt->close();
 
     $rnd = rand(1111,99999);
-    $remark = "{$srv_remark}-{$from_id}-{$rnd}";
+    $remark = "#{$rnd} ({$srv_remark}-{$from_id})";
     
     if($portType == "auto"){
         file_put_contents('settings/temp.txt',$port.'-'.$last_num);
@@ -2343,13 +2345,15 @@ if(preg_match('/payCustomWithWallet(.*)/',$data, $match)){
     delMessage();
     foreach($vraylink as $vray_link){
         $acc_text = "
-😍 سفارش جدید شما
-📡 پروتکل: $protocol
-🔮 نام سرویس: $remark
-🔋حجم سرویس: $volume گیگ
-⏰ مدت سرویس: $days روز
-⁮⁮ ⁮⁮
-💝 config : <code>$vray_link</code>";
+🔰| سرویس جدید شما با موفقیت ساخته شد!
+📡| پروتکل: $protocol
+🔮| نام سرویس: $remark
+🔋| حجم سرویس: $volume گیگ
+⏰| مدت سرویس: $days روز
+⁮⁮ ⁮⁮👤| محدودیت کاربر: ندارد!
+
+
+⚜️| config : <code>$vray_link</code>";
 if($botState['subLinkState'] == "on") $acc_text .= "
 
 🌐 subscription : <code>$subLink</code>"; 
@@ -2361,8 +2365,8 @@ if($botState['subLinkState'] == "on") $acc_text .= "
         
         QRcode::png($vray_link, $file, $ecc, $pixel_Size, $frame_Size);
     	addBorderImage($file);
-    	sendPhoto($botUrl . $file, $acc_text,json_encode(['inline_keyboard'=>[[['text'=>"صفحه اصلی 🏘",'callback_data'=>"mainMenu"]]]]),"HTML", $uid);
-        unlink($file);
+    	sendPhoto($botUrl . $file, $acc_text,json_encode(['inline_keyboard'=>[[['text'=>"🏘| صفحه اصلی",'callback_data'=>"mainMenu"],['text'=>"⚙️| سرویس های من",'callback_data'=>"mySubscriptions"]]]]),"HTML", $uid);
+    unlink($file);
     }
 
     
@@ -2670,13 +2674,15 @@ if(preg_match('/accCustom(.*)/',$data, $match) and $text != $cancelText){
     $vraylink = getConnectionLink($server_id, $uniqid, $protocol, $remark, $port, $netType, $inbound_id);
     foreach($vraylink as $vray_link){
         $acc_text = "
-😍 سفارش جدید شما
-📡 پروتکل: $protocol
-🔮 نام سرویس: $remark
-🔋حجم سرویس: $volume گیگ
-⏰ مدت سرویس: $day روز
-⁮⁮ ⁮⁮
-💝 config : <code>$vray_link</code>";
+        🔰| سرویس جدید شما با موفقیت ساخته شد!
+        📡| پروتکل: $protocol
+        🔮| نام سرویس: $remark
+        🔋| حجم سرویس: $volume گیگ
+        ⏰| مدت سرویس: $days روز
+        ⁮⁮ ⁮⁮👤| محدودیت کاربر: ندارد!
+        
+        
+        ⚜️| config : <code>$vray_link</code>";
 if($botState['subLinkState'] == "on") $acc_text .= "
 
 \n🌐 subscription : <code>$subLink</code>";
@@ -2688,8 +2694,8 @@ if($botState['subLinkState'] == "on") $acc_text .= "
     
         QRcode::png($vray_link, $file, $ecc, $pixel_Size, $frame_Size);
     	addBorderImage($file);
-    	sendPhoto($botUrl . $file, $acc_text,json_encode(['inline_keyboard'=>[[['text'=>"صفحه اصلی 🏘",'callback_data'=>"mainMenu"]]]]),"HTML", $uid);
-        unlink($file);
+    	sendPhoto($botUrl . $file, $acc_text,json_encode(['inline_keyboard'=>[[['text'=>"🏘| صفحه اصلی",'callback_data'=>"mainMenu"],['text'=>"⚙️| سرویس های من",'callback_data'=>"mySubscriptions"]]]]),"HTML", $uid);
+    unlink($file);
     }
     sendMessage('✅ کانفیگ و براش ارسال کردم', $mainKeys);
     
@@ -2864,7 +2870,7 @@ if(preg_match('/payWithWallet(.*)/',$data, $match)){
     $stmt->close();
 
     $rnd = rand(1111,99999);
-    $remark = "{$srv_remark}-{$from_id}-{$rnd}";
+    $remark = "#{$rnd} ({$srv_remark}-{$from_id})";
 
     if($portType == "auto"){
         file_put_contents('settings/temp.txt',$port.'-'.$last_num);
@@ -2909,13 +2915,15 @@ if(preg_match('/payWithWallet(.*)/',$data, $match)){
     $vraylink = getConnectionLink($server_id, $uniqid, $protocol, $remark, $port, $netType, $inbound_id, $rahgozar);
     foreach($vraylink as $vray_link){
         $acc_text = "
-😍 سفارش جدید شما
-📡 پروتکل: $protocol
-🔮 نام سرویس: $remark
-🔋حجم سرویس: $volume گیگ
-⏰ مدت سرویس: $days روز
-⁮⁮ ⁮⁮
-💝 config : <code>$vray_link</code>";
+        🔰| سرویس جدید شما با موفقیت ساخته شد!
+        📡| پروتکل: $protocol
+        🔮| نام سرویس: $remark
+        🔋| حجم سرویس: $volume گیگ
+        ⏰| مدت سرویس: $days روز
+        ⁮⁮ ⁮⁮👤| محدودیت کاربر: ندارد!
+        
+        
+        ⚜️| config : <code>$vray_link</code>";
 if($botState['subLinkState'] == "on") $acc_text .= "
 
 \n🌐 subscription : <code>$subLink</code>";
@@ -2927,8 +2935,8 @@ if($botState['subLinkState'] == "on") $acc_text .= "
         
         QRcode::png($vray_link, $file, $ecc, $pixel_Size, $frame_Size);
     	addBorderImage($file);
-    	sendPhoto($botUrl . $file, $acc_text,json_encode(['inline_keyboard'=>[[['text'=>"صفحه اصلی 🏘",'callback_data'=>"mainMenu"]]]]),"HTML", $uid);
-        unlink($file);
+    	sendPhoto($botUrl . $file, $acc_text,json_encode(['inline_keyboard'=>[[['text'=>"🏘| صفحه اصلی",'callback_data'=>"mainMenu"],['text'=>"⚙️| سرویس های من",'callback_data'=>"mySubscriptions"]]]]),"HTML", $uid);
+    unlink($file);
     }
 
     $vray_link= json_encode($vraylink);
@@ -3309,13 +3317,15 @@ if(preg_match('/accept(.*)/',$data, $match) and $text != $cancelText){
     $vraylink = getConnectionLink($server_id, $uniqid, $protocol, $remark, $port, $netType, $inbound_id, $rahgozar);
     foreach($vraylink as $vray_link){
         $acc_text = "
-😍 سفارش جدید شما
-📡 پروتکل: $protocol
-🔮 نام سرویس: $remark
-🔋حجم سرویس: $volume گیگ
-⏰ مدت سرویس: $days روز
-⁮⁮ ⁮⁮
-💝 config : <code>$vray_link</code>";
+        🔰| سرویس جدید شما با موفقیت ساخته شد!
+        📡| پروتکل: $protocol
+        🔮| نام سرویس: $remark
+        🔋| حجم سرویس: $volume گیگ
+        ⏰| مدت سرویس: $days روز
+        ⁮⁮ ⁮⁮👤| محدودیت کاربر: ندارد!
+        
+        
+        ⚜️| config : <code>$vray_link</code>";
 if($botState['subLinkState'] == "on") $acc_text .= "
 
 \n🌐 subscription : <code>$subLink</code>";
@@ -3327,8 +3337,8 @@ if($botState['subLinkState'] == "on") $acc_text .= "
     
         QRcode::png($vray_link, $file, $ecc, $pixel_Size, $frame_Size);
     	addBorderImage($file);
-    	sendPhoto($botUrl . $file, $acc_text,json_encode(['inline_keyboard'=>[[['text'=>"صفحه اصلی 🏘",'callback_data'=>"mainMenu"]]]]),"HTML", $uid);
-        unlink($file);
+    	sendPhoto($botUrl . $file, $acc_text,json_encode(['inline_keyboard'=>[[['text'=>"🏘| صفحه اصلی",'callback_data'=>"mainMenu"],['text'=>"⚙️| سرویس های من",'callback_data'=>"mySubscriptions"]]]]),"HTML", $uid);
+    unlink($file);
     }
     sendMessage('✅ کانفیگ و براش ارسال کردم', $mainKeys);
     
@@ -4608,7 +4618,7 @@ if(preg_match('/freeTrial(\d+)/',$data,$match)) {
     $stmt->close();
 
     $rnd = rand(1111,99999);
-    $remark = "{$srv_remark}-{$from_id}-{$rnd}";
+    $remark = "#{$rnd} ({$srv_remark}-{$from_id})";
     
     if($portType == "auto"){
         file_put_contents('settings/temp.txt',$port.'-'.$last_num);
@@ -4645,13 +4655,15 @@ if(preg_match('/freeTrial(\d+)/',$data,$match)) {
     $subLink = $botUrl . "settings/subLink.php?token=" . $token;
     foreach($vraylink as $vray_link){
         $acc_text = "
-😍 سفارش جدید شما
-📡 پروتکل: $protocol
-🔮 نام سرویس: $remark
-🔋حجم سرویس: $volume گیگ
-⏰ مدت سرویس: $days روز
-⁮⁮ ⁮⁮
-💝 config : <code>$vray_link</code>";
+        🔰| سرویس جدید شما با موفقیت ساخته شد!
+        📡| پروتکل: $protocol
+        🔮| نام سرویس: $remark
+        🔋| حجم سرویس: $volume گیگ
+        ⏰| مدت سرویس: $days روز
+        ⁮⁮ ⁮⁮👤| محدودیت کاربر: ندارد!
+        
+        
+        ⚜️| config : <code>$vray_link</code>";
 if($botState['subLinkState'] == "on") $acc_text .= "
 
 \n🌐 subscription : <code>$subLink</code>";
@@ -4662,8 +4674,8 @@ if($botState['subLinkState'] == "on") $acc_text .= "
         $frame_Size = 10;
         QRcode::png($vray_link, $file, $ecc, $pixel_Size, $frame_size);
     	addBorderImage($file);
-        sendPhoto($botUrl . $file, $acc_text,json_encode(['inline_keyboard'=>[[['text'=>"صفحه اصلی 🏘",'callback_data'=>"mainMenu"]]]]),"HTML");
-        unlink($file);
+        sendPhoto($botUrl . $file, $acc_text,json_encode(['inline_keyboard'=>[[['text'=>"🏘| صفحه اصلی",'callback_data'=>"mainMenu"],['text'=>"⚙️| سرویس های من",'callback_data'=>"mySubscriptions"]]]]),"HTML", $uid);
+    unlink($file);
     }
     
     $vray_link = json_encode($vraylink);
@@ -4691,7 +4703,7 @@ if(preg_match('/^showMainButtonAns(\d+)/',$data,$match)){
 }
 if($data=="showUUIDLeft" && ($botState['searchState']=="on" || $from_id== $admin)){
     delMessage();
-    sendMessage("❗️| لینک کانفیگ یا uuid رو برام بفرس اطلاعات کامل رو تحویلت بدم 🤭",$cancelKey);
+    sendMessage("❗️| کانفیگ خود را ارسال کنید",$cancelKey);
     setUser('showAccount');
 }
 if($userInfo['step'] == "showAccount" and $text != $cancelText){
@@ -4707,7 +4719,7 @@ if($userInfo['step'] == "showAccount" and $text != $cancelText){
         exit();
     }
     
-    sendMessage(" لطفا یکم منتظر بمون ...", $removeKeyboard);
+    sendMessage(" لطفا منتظر بمانید ...", $removeKeyboard);
     $stmt = $connection->prepare("SELECT * FROM `server_config`");
     $stmt->execute();
     $serversList = $stmt->get_result();
@@ -4866,31 +4878,31 @@ if($userInfo['step'] == "showAccount" and $text != $cancelText){
                     ],
                 [
                     ['text'=>$upload?? " ",'callback_data'=>"wizwizch"],
-                    ['text'=>"√ آپلود √",'callback_data'=>"wizwizch"],
+                    ['text'=>"📤| آپلود",'callback_data'=>"wizwizch"],
                     ],
                 [
                     ['text'=>$download??" ",'callback_data'=>"wizwizch"],
-                    ['text'=>"√ دانلود √",'callback_data'=>"wizwizch"],
+                    ['text'=>"📥| دانلود",'callback_data'=>"wizwizch"],
                     ],
                 [
                     ['text'=>$total??" ",'callback_data'=>"wizwizch"],
-                    ['text'=>"† حجم کلی †",'callback_data'=>"wizwizch"],
+                    ['text'=>"« حجم کلی »",'callback_data'=>"wizwizch"],
                     ],
                 [
                     ['text'=>$leftMb??" ",'callback_data'=>"wizwizch"],
-                    ['text'=>"~ حجم باقیمانده ~",'callback_data'=>"wizwizch"],
+                    ['text'=>"« حجم باقیمانده »",'callback_data'=>"wizwizch"],
                     ],
                 [
                     ['text'=>$expiryTime??" ",'callback_data'=>"wizwizch"],
-                    ['text'=>"تاریخ اتمام",'callback_data'=>"wizwizch"],
+                    ['text'=>"⏰| تاریخ اتمام",'callback_data'=>"wizwizch"],
                     ],
                 [
                     ['text'=>$expiryDay??" ",'callback_data'=>"wizwizch"],
-                    ['text'=>"تعداد روز باقیمانده",'callback_data'=>"wizwizch"],
+                    ['text'=>"⏳| تعداد روز باقیمانده",'callback_data'=>"wizwizch"],
                     ],
-                [['text'=>"صفحه اصلی",'callback_data'=>"mainMenu"]]
+                [['text'=>"🔙| برگشت",'callback_data'=>"mainMenu"]]
                 ]]);
-                sendMessage("🔰مشخصات حسابت:",$keys,"MarkDown");
+                sendMessage("🔰| مشخصات کانفیگ وارد شده :",$keys,"MarkDown");
                 break;
             }
         }
@@ -5592,7 +5604,7 @@ if(($data == 'mySubscriptions' or preg_match('/changeOrdersPage(\d+)/',$data, $m
     $keyboard[] = $buttons;
     $keyboard[] = [['text'=>"⤵️ برگرد صفحه قبلی ",'callback_data'=>"mainMenu"]];
     
-    $msg = ' 🔅 یکی از سرویس هاتو انتخاب کن و مشخصات کاملش رو ببین :';
+    $msg = 'سرویس مورد نظر خود را انتخاب کنید :';
     
     if(isset($data)) {
         editText($message_id, $msg, json_encode(['inline_keyboard'=>$keyboard]));
@@ -6093,7 +6105,7 @@ if(preg_match('/decRenewAcc(.*)/',$data,$match)){
 		'reply_markup' => $keys
     ]);
 
-    sendMessage("😖|تمدید سرویس $remark لغو شد",null,null,$uid);
+    sendMessage("‼️|تمدید سرویس $remark لغو شد",null,null,$uid);
     exit;
 }
 if(preg_match('/payRenewWithWallet(.*)/', $data,$match)){
@@ -6161,7 +6173,7 @@ if(preg_match('/payRenewWithWallet(.*)/', $data,$match)){
     editText($message_id, "✅سرویس $remark با موفقیت تمدید شد",$mainKeys);
     $keys = json_encode(['inline_keyboard'=>[
         [
-            ['text'=>"به به تمدید 😍",'callback_data'=>"mainMenu"]
+            ['text'=>"به به تمدید",'callback_data'=>"mainMenu"]
             ],
         ]]);
 
@@ -6357,7 +6369,7 @@ if(preg_match('/switchServer(.+)_(.+)/',$data,$match)){
         $keyboard[] = ['text' => "$cremark", 'callback_data' => "orderDetails$id"];
     }
     $keyboard = array_chunk($keyboard,2);
-    $keyboard[] = [['text'=>"صفحه اصلی 🏘",'callback_data'=>"mainMenu"]];
+    $keyboard[] = [['text'=>"🏘| صفحه اصلی",'callback_data'=>"mainMenu"]];
     $msg = " 📍لوکیشن سرویس $remark به $server_title تغییر یافت.\n لطفا برای مشاهده مشخصات, روی آن بزنید👇";
     
     editText($message_id, $msg,json_encode([
@@ -7732,12 +7744,7 @@ if($data == "managePanel" and (($from_id == $admin || $userInfo['isAdmin'] == tr
     
     setUser();
     $msg = "
-👤  به بخش مدیریت خوشومدی 
-🤌 هرچی نیاز داشتی میتونی اینجا طبق نیازهات اضافه و تغییر بدی ،  $first_name جان اگه از فروش ربات درآمد داری از من حمایت کن تا پروژه همیشه آپدیت بمونه !
-
-🆔 @wizwizch
-
-
+👤  Welcome To Admin Panel...
 ";
     editText($message_id, $msg, $adminKeys);
 }
