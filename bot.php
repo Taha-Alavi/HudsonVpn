@@ -1392,7 +1392,7 @@ $acc_text = "
 🔮| نام سرویس: $remark
 🔋| حجم سرویس: $volume گیگ
 ⏰| مدت سرویس: $days روز
-⁮⁮ ⁮⁮👤| محدودیت کاربر: ندارد!
+⁮👤| محدودیت کاربر : ندارد!
 
 
 ⚜️| config : <code>$vray_link</code>";
@@ -2332,7 +2332,7 @@ if(preg_match('/payCustomWithWallet(.*)/',$data, $match)){
         alert('❌ | 😮 وای خطا داد لطفا سریع به مدیر بگو ...');
         exit;
     }
-    alert('🚀 | 😍 در حال ارسال کانفیگ به مشتری ...');
+    alert('🚀| در حال ساخت و ارسال سرویس...');
     
     $stmt = $connection->prepare("UPDATE `users` SET `wallet` = `wallet` - ? WHERE `userid` = ?");
     $stmt->bind_param("ii", $price, $uid);
@@ -2350,7 +2350,7 @@ if(preg_match('/payCustomWithWallet(.*)/',$data, $match)){
 🔮| نام سرویس: $remark
 🔋| حجم سرویس: $volume گیگ
 ⏰| مدت سرویس: $days روز
-⁮⁮ ⁮⁮👤| محدودیت کاربر: ندارد!
+⁮👤| محدودیت کاربر : ندارد!
 
 
 ⚜️| config : <code>$vray_link</code>";
@@ -2665,7 +2665,7 @@ if(preg_match('/accCustom(.*)/',$data, $match) and $text != $cancelText){
         alert('❌ | 😮 وای خطا داد لطفا سریع به مدیر بگو ...');
         exit;
     }
-    alert('🚀 | 😍 در حال ارسال کانفیگ به مشتری ...');
+    alert('🚀| در حال ساخت و ارسال سرویس...');
     
     include 'phpqrcode/qrlib.php';
     $token = RandomString(30);
@@ -2679,7 +2679,7 @@ if(preg_match('/accCustom(.*)/',$data, $match) and $text != $cancelText){
         🔮| نام سرویس: $remark
         🔋| حجم سرویس: $volume گیگ
         ⏰| مدت سرویس: $days روز
-        ⁮⁮ ⁮⁮👤| محدودیت کاربر: ندارد!
+        ⁮👤| محدودیت کاربر : ندارد!
         
         
 ⚜️| config : <code>$vray_link</code>";
@@ -2902,7 +2902,7 @@ if(preg_match('/payWithWallet(.*)/',$data, $match)){
         alert('❌ | 😮 وای خطا داد لطفا سریع به مدیر بگو ...');
         exit;
     }
-    alert('🚀 | 😍 در حال ارسال کانفیگ به مشتری ...');
+    alert('🚀| در حال ساخت و ارسال سرویس...');
     
     $stmt = $connection->prepare("UPDATE `users` SET `wallet` = `wallet` - ? WHERE `userid` = ?");
     $stmt->bind_param("ii", $price, $uid);
@@ -2920,7 +2920,7 @@ if(preg_match('/payWithWallet(.*)/',$data, $match)){
         🔮| نام سرویس: $remark
         🔋| حجم سرویس: $volume گیگ
         ⏰| مدت سرویس: $days روز
-        ⁮⁮ ⁮⁮👤| محدودیت کاربر: ندارد!
+        ⁮👤| محدودیت کاربر : ندارد!
         
         
 ⚜️| config : <code>$vray_link</code>";
@@ -3309,7 +3309,7 @@ if(preg_match('/accept(.*)/',$data, $match) and $text != $cancelText){
         alert('❌ | 😮 وای خطا داد لطفا سریع به مدیر بگو ...');
         exit;
     }
-    alert('🚀 | 😍 در حال ارسال کانفیگ به مشتری ...');
+    alert('🚀| در حال ساخت و ارسال سرویس...');
     $token = RandomString(30);
     $subLink = $botUrl . "settings/subLink.php?token=" . $token;
 
@@ -3322,7 +3322,7 @@ if(preg_match('/accept(.*)/',$data, $match) and $text != $cancelText){
         🔮| نام سرویس: $remark
         🔋| حجم سرویس: $volume گیگ
         ⏰| مدت سرویس: $days روز
-        ⁮⁮ ⁮⁮👤| محدودیت کاربر: ندارد!
+        ⁮👤| محدودیت کاربر : ندارد!
         
         
 ⚜️| config : <code>$vray_link</code>";
@@ -4559,14 +4559,14 @@ if(preg_match('/freeTrial(\d+)/',$data,$match)) {
     $expire_microdate = floor(microtime(true) * 1000) + (864000 * $days * 100);
     $expire_date = $date + (86400 * $days);
     $type = $file_detail['type'];
-    $volume = 100;
+    $volume = 0.1;
     $protocol = $file_detail['protocol'];
     $price = $file_detail['price'];
     $server_id = $file_detail['server_id'];
     $acount = $file_detail['acount'];
     $inbound_id = $file_detail['inbound_id'];
     $limitip = 1;
-    $netType = $file_detail['type'];
+    $netType = 1;
     $rahgozar = $file_detail['rahgozar'];
     
     if($acount == 0 and $inbound_id != 0){
@@ -4648,7 +4648,7 @@ if(preg_match('/freeTrial(\d+)/',$data,$match)) {
         alert('❌ | 😮 وای خطا داد لطفا سریع به مدیر بگو ...');
         exit;
     }
-    alert('🚀 | 😍 در حال ارسال کانفیگ به مشتری ...');
+    alert('🚀| در حال ساخت و ارسال سرویس...');
     $vraylink = getConnectionLink($server_id, $uniqid, $protocol, $remark, $port, $netType, $inbound_id, $rahgozar);
 	include 'phpqrcode/qrlib.php';
     $token = RandomString(30);
@@ -4658,9 +4658,9 @@ if(preg_match('/freeTrial(\d+)/',$data,$match)) {
         🔰| سرویس جدید شما با موفقیت ساخته شد!
         📡| پروتکل: $protocol
         🔮| نام سرویس: $remark
-        🔋| حجم سرویس: $volume گیگ
+        🔋| حجم سرویس: 100 مگابایت
         ⏰| مدت سرویس: $days روز
-        ⁮⁮ ⁮⁮👤| محدودیت کاربر: ندارد!
+        ⁮👤| محدودیت کاربر : ندارد!
         
         
 ⚜️| config : <code>$vray_link</code>";
