@@ -217,7 +217,7 @@ if ($update->message->document->file_id) {
     $fileid = $update->message->video->file_id;
 }
 
-$cancelText = '😪 منصرف شدم بیخیال';
+$cancelText = '🔙| برگشت';
 $cancelKey=json_encode(['keyboard'=>[
     [['text'=>$cancelText]]
 ],'resize_keyboard'=>true]);
@@ -226,12 +226,11 @@ $removeKeyboard = json_encode(['remove_keyboard'=>true]);
 if ($from_id == $admin || $userInfo['isAdmin'] == true) {
     $mainKeys = array();
     $temp = array();
-    $mainKeys[] = [['text'=>"🎁 دریافت اکانت تست ",'callback_data'=>"getTestAccount"]];
-    $mainKeys[] = [['text'=>"🏃‍♂️ دعوت از دوستان",'callback_data'=>"inviteFriends"],['text'=>"🧑‍💼 حساب من",'callback_data'=>"myInfo"]];
-    $mainKeys[] = [['text'=>'🛒  خرید کانفیگ جدید','callback_data'=>"buySubscription"],['text'=>'📦  کانفیگ های من','callback_data'=>'mySubscriptions']];
+    $mainKeys[] = [['text'=>"♻️| تست رایگان",'callback_data'=>"getTestAccount"]];
+	$mainKeys[] = [['text'=>'🛍| خرید سرویس','callback_data'=>"buySubscription"]];
+    $mainKeys[] = [['text'=>'⚙️| سرویس های من','callback_data'=>'mySubscriptions'],['text'=>"👤| حساب من",'callback_data'=>"myInfo"]];
     // $mainKeys[] = [['text'=>"▫️ موجودی سرورها ▫️",'callback_data'=>"availableServers"]];
-    $mainKeys[] = [['text'=>"❕ موجودی اشتراکی ",'callback_data'=>"availableServers"],['text'=>"❗️ موجودی اختصاصی ",'callback_data'=>"availableServers2"]];
-    $mainKeys[] = [['text'=>'🔗 لینک نرم افزار ها','callback_data'=>"reciveApplications"],['text'=>"📨 تیکت های من",'callback_data'=>"supportSection"]];
+    $mainKeys[] = [['text'=>'📱| لینک نرم افزار ها','callback_data'=>"reciveApplications"],['text'=>"📨| پشتیبانی",'callback_data'=>"supportSection"]];
     $temp[] = ['text'=>"🪫 مشخصات کانفیگ",'callback_data'=>"showUUIDLeft"];
     
     $stmt = $connection->prepare("SELECT * FROM `setting` WHERE `type` LIKE '%MAIN_BUTTONS%'");
