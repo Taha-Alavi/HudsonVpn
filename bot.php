@@ -4616,7 +4616,7 @@ if(preg_match('/freeTrial(\d+)/',$data,$match)) {
     $stmt->close();
 
     $rnd = rand(1111,99999);
-    $remark = "#{$rnd} ({$srv_remark}-{$from_id})";
+    $remark = "{$srv_remark}-{$uid}-{$rnd}";
     
     if($portType == "auto"){
         file_put_contents('settings/temp.txt',$port.'-'.$last_num);
