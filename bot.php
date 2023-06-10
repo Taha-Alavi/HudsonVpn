@@ -1997,154 +1997,37 @@ if(preg_match('/^haveDiscount(.+?)_(.*)/',$data,$match)){
     elseif($match[1] == "Renew") setUser('discountRenew' . $match[2]);
 }
 if($data=="getTestAccount"){
-    $id = $match[1];
- 
-    if($userInfo['freetrial'] == 'used' and !($from_id == $admin)){
-        alert('⚠️| شما قبلا سرویس تست خود را دریافت کرده اید');
-        exit;
+    if($userInfo['freetrial'] != null){
+        alert("شما اکانت تست را قبلا استفاده کرده اید");
+        exit();
     }
-    delMessage();
-    $stmt = $connection->prepare("SELECT * FROM `server_plans` WHERE `id`=?");
-    $stmt->bind_param("i", $id);
+    $stmt = $connection->prepare("SELECT * FROM `server_plans` WHERE `price`=0");
     $stmt->execute();
-    $file_detail = $stmt->get_result()->fetch_assoc();
+    $respd = $stmt->get_result();
     $stmt->close();
-
-    $days = $file_detail['days'];
-    $date = time();
-    $expire_microdate = floor(microtime(true) * 1000) + (864000 * $days * 100);
-    $expire_date = $date + (86400 * $days);
-    $type = $file_detail['type'];
-    $volume = 0.1;
-    $protocol = $file_detail['protocol'];
-    $price = $file_detail['price'];
-    $server_id = $file_detail['server_id'];
-    $acount = $file_detail['acount'];
-    $inbound_id = $file_detail['inbound_id'];
-    $limitip = 1;
-    $netType = $file_detail['type'];
-    $rahgozar = $file_detail['rahgozar'];
     
-    if($acount == 0 and $inbound_id != 0){
-        alert('ظرفیت این کانکشن پر شده است');
-        exit;
-    }
-    if($inbound_id == 0) {
-        $stmt = $connection->prepare("SELECT * FROM `server_info` WHERE `id`=?");
-        $stmt->bind_param("i", $server_id);
-        $stmt->execute();
-        $server_info = $stmt->get_result()->fetch_assoc();
-        $stmt->close();
+    if($from_id == $from_id){
+        alert("♻️| در حال بررسی درخواست شما...");
+    	$keyboard = array();
+        while ($row = $respd->fetch_assoc()){
+            $id = $row['id'];
+            $catInfo = $connection->prepare("SELECT * FROM `server_categories` WHERE `id`=?");
+            $catInfo->bind_param("i", $row['catid']);
+            $catInfo->execute();
+            $catname = $catInfo->get_result()->fetch_assoc()['title'];
+            $catInfo->close();
+            
+            $name = $catname." ".$row['title'];
+            $price =  $row['price'];
+            $desc = $row['descr'];
+        	$sid = $row['server_id'];
 
-        if($server_info['ucount'] != 0){ 
-            $stmt = $connection->prepare("UPDATE `server_info` SET `ucount` = `ucount` - 1 WHERE `id`=?");
-            $stmt->bind_param("i", $server_id);
-            $stmt->execute();
-            $stmt->close();
-        } else {
-            alert('ظرفیت این سرور پر شده است');
-            exit;
+            $keyboard[] = [['text' => $name, 'callback_data' => "freeTrial$id"]];
+
         }
-    }else{
-        if($acount != 0) {
-            $stmt = $connection->prepare("UPDATE `server_plans` SET `acount` = `acount` - 1 WHERE `id`=?");
-            $stmt->bind_param("i", $id);
-            $stmt->execute();
-            $stmt->close();
-        }
-    }
-    
-    $uniqid = generateRandomString(42,$protocol); 
-
-    $savedinfo = file_get_contents('settings/temp.txt');
-    $savedinfo = explode('-',$savedinfo);
-    $port = $savedinfo[0] + 1;
-    $last_num = $savedinfo[1] + 1;
-
-    $stmt = $connection->prepare("SELECT * FROM `server_info` WHERE `id`=?");
-    $stmt->bind_param("i", $server_id);
-    $stmt->execute();
-    $srv_remark = $stmt->get_result()->fetch_assoc()['remark'];
-    $stmt->close();
-
-    $stmt = $connection->prepare("SELECT * FROM `server_config` WHERE `id`=?");
-    $stmt->bind_param("i", $server_id);
-    $stmt->execute();
-    $portType = $stmt->get_result()->fetch_assoc()['port_type'];
-    $stmt->close();
-
-    $rnd = rand(1111,99999);
-    $remark = "#{$rnd} ({$srv_remark}-{$from_id})";
-    
-    if($portType == "auto"){
-        file_put_contents('settings/temp.txt',$port.'-'.$last_num);
-    }else{
-        $port = rand(1111,65000);
-    }
-    if($inbound_id == 0){    
-        $response = addUser($server_id, $uniqid, $protocol, $port, $expire_microdate, $remark, $volume, $netType, 'none', $rahgozar, $id); 
-        if(! $response->success){
-            $response = addUser($server_id, $uniqid, $protocol, $port, $expire_microdate, $remark, $volume, $netType, 'none', $rahgozar, $id);
-        } 
-    }else {
-        $response = addInboundAccount($server_id, $uniqid, $inbound_id, $expire_microdate, $remark, $volume, $limitip, null, $id); 
-        if(! $response->success){
-            $response = addInboundAccount($server_id, $uniqid, $inbound_id, $expire_microdate, $remark, $volume, $limitip, null, $id);
-        }
-    }
-    if(is_null($response)){
-        alert('❌ | 🥺  ، اتصال به سرور برقرار نیست لطفا مدیر رو در جریان بزار ...');
-        exit;
-    }
-	if($response == "inbound not Found"){
-        alert("❌ | 🥺 سطر (inbound) با آیدی $inbound_id تو این سرور وجود نداره ، مدیر رو در جریان بزار ...");
-		exit;
-	}
-	if(!$response->success){
-        alert('❌ | 😮 وای خطا داد لطفا سریع به مدیر بگو ...');
-        exit;
-    }
-    alert('🚀| در حال ساخت و ارسال سرویس...');
-    $vraylink = getConnectionLink($server_id, $uniqid, $protocol, $remark, $port, $netType, $inbound_id, $rahgozar);
-	include 'phpqrcode/qrlib.php';
-    $token = RandomString(30);
-    $subLink = $botUrl . "settings/subLink.php?token=" . $token;
-    foreach($vraylink as $vray_link){
-        $acc_text = "
-        🔰| سرویس جدید شما با موفقیت ساخته شد!
-        📡| پروتکل: $protocol
-        🔮| نام سرویس: $remark
-        🔋| حجم سرویس : $volume گیگابایت
-        ⏰| مدت سرویس: $days روز
-        ⁮👤| محدودیت کاربر : ندارد!
-        
-        
-⚜️| config : <code>$vray_link</code>";
-if($botState['subLinkState'] == "on") $acc_text .= "
-
-\n🌐 subscription : <code>$subLink</code>";
-    
-        $file = RandomString().".png";
-        $ecc = 'L';
-        $pixel_Size = 10;
-        $frame_Size = 10;
-        QRcode::png($vray_link, $file, $ecc, $pixel_Size, $frame_size);
-    	addBorderImage($file);
-        sendPhoto($botUrl . $file, $acc_text,json_encode(['inline_keyboard'=>[[['text'=>"🏘| صفحه اصلی",'callback_data'=>"mainMenu"]]]]),"HTML", $uid);
-    unlink($file);
-    }
-    
-    $vray_link = json_encode($vraylink);
-	$stmt = $connection->prepare("INSERT INTO `orders_list` 
-	    (`userid`, `token`, `transid`, `fileid`, `server_id`, `inbound_id`, `remark`, `protocol`, `expire_date`, `link`, `amount`, `status`, `date`, `notif`, `rahgozar`)
-	    VALUES (?, ?, '', ?, ?, ?, ?, ?, ?, ?, ?,1, ?, 0, ?);");
-
-	$stmt->bind_param("isiiissisiii", $from_id, $token, $id, $server_id, $inbound_id, $remark, $protocol, $expire_date, $vray_link, $price, $date, $rahgozar);
-    $stmt->execute();
-    $order = $stmt->get_result();
-    $stmt->close();
-
-    setUser('used','freetrial');    
+    	$keyboard[] = [['text' => '⤵️ برگرد صفحه قبلی ', 'callback_data' => "mainMenu"]];
+        editText($message_id,"لطفا یکی از کلید های زیر را انتخاب کنید", json_encode(['inline_keyboard'=>$keyboard]), "HTML");
+    }else alert("‼️| در حال حاضر امکان دریافت سرویس تست وجود ندارد");
 }
 if((preg_match('/^discountSelectPlan(\d+)_(\d+)_(\d+)/',$userInfo['step'],$match) || preg_match('/selectPlan(\d+)_(\d+)/',$data, $match)) && ($botState['sellState']=="on" ||$from_id ==$admin)){
     if(preg_match('/^discountSelectPlan/', $userInfo['step'])){
@@ -4676,7 +4559,7 @@ if(preg_match('/freeTrial(\d+)/',$data,$match)) {
     $expire_microdate = floor(microtime(true) * 1000) + (864000 * $days * 100);
     $expire_date = $date + (86400 * $days);
     $type = $file_detail['type'];
-    $volume = 0.1;
+    $volume = $file_detail['volume'];
     $protocol = $file_detail['protocol'];
     $price = $file_detail['price'];
     $server_id = $file_detail['server_id'];
