@@ -1998,46 +1998,36 @@ if(preg_match('/^haveDiscount(.+?)_(.*)/',$data,$match)){
 }
 if($data=="getTestAccount"){
     if($userInfo['freetrial'] != null){
-        alert("❌| شما قبلا اکانت تست دریافت کرده اید");
+        alert("شما اکانت تست را قبلا استفاده کرده اید");
         exit();
     }
     $stmt = $connection->prepare("SELECT * FROM `server_plans` WHERE `price`=0");
     $stmt->execute();
-    $file_detail = $stmt->get_result()->fetch_assoc();
     $respd = $stmt->get_result();
     $stmt->close();
-$server_id = $file_detail['server_id'];
-$netType = $file_detail['type'];
-$acount = $file_detail['acount'];
-$inbound_id = $file_detail['inbound_id'];
-$limitip = $file_detail['limitip'];
-$rahgozar = $file_detail['rahgozar'];
-$date = time();
-$expire_microdate = floor(microtime(true) * 1000) + (864000 * $days * 100);
-$expire_date = $date + (86400 * $days);
-$type = $file_detail['type'];
-$protocol = $file_detail['protocol'];
-$price = $payInfo['price'];
-$uniqid = generateRandomString(42,$protocol); 
-$remark = "TestService";
-$port = rand(1111,65000);
-$uid = $from_id;
-$fid = $payInfo['plan_id']; 
-$volume = $payInfo['volume'];
-$days = $payInfo['day'];
-if($inbound_id == 0){    
-    $response = addUser($server_id, $uniqid, $protocol, $port, $expire_microdate, $remark, $volume, $netType, 'none', $rahgozar, $fid); 
-    if(! $response->success){
-    $response = addUser($server_id, $uniqid, $protocol, $port, $expire_microdate, $remark, $volume, $netType, 'none', $rahgozar, $fid);
-    } 
-    }else {
-    $response = addInboundAccount($server_id, $uniqid, $inbound_id, $expire_microdate, $remark, $volume, $limitip, null, $fid); 
-    if(! $response->success){
-    $response = addInboundAccount($server_id, $uniqid, $inbound_id, $expire_microdate, $remark, $volume, $limitip, null, $fid);
-    } 
-    }
-        
+    
+    if($from_id == $from_id){
+        alert("♻️در حال دریافت جزییات ... ");
+    	$keyboard = array();
+        while ($row = $respd->fetch_assoc()){
+            $id = $row['id'];
+            $catInfo = $connection->prepare("SELECT * FROM `server_categories` WHERE `id`=?");
+            $catInfo->bind_param("i", $row['catid']);
+            $catInfo->execute();
+            $catname = $catInfo->get_result()->fetch_assoc()['title'];
+            $catInfo->close();
+            
+            $name = $catname." ".$row['title'];
+            $price =  $row['price'];
+            $desc = $row['descr'];
+        	$sid = $row['server_id'];
 
+            $keyboard[] = [['text' => $name, 'callback_data' => "freeTrial$id"]];
+
+        }
+    	$keyboard[] = [['text' => '⤵️ برگرد صفحه قبلی ', 'callback_data' => "mainMenu"]];
+        editText($message_id,"لطفا یکی از کلید های زیر را انتخاب کنید", json_encode(['inline_keyboard'=>$keyboard]), "HTML");
+    }else alert("این بخش موقتا غیر فعال است");
 }
 if((preg_match('/^discountSelectPlan(\d+)_(\d+)_(\d+)/',$userInfo['step'],$match) || preg_match('/selectPlan(\d+)_(\d+)/',$data, $match)) && ($botState['sellState']=="on" ||$from_id ==$admin)){
     if(preg_match('/^discountSelectPlan/', $userInfo['step'])){
