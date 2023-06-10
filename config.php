@@ -231,7 +231,7 @@ if ($from_id == $admin || $userInfo['isAdmin'] == true) {
     $mainKeys[] = [['text'=>'⚙️| سرویس های من','callback_data'=>'mySubscriptions'],['text'=>"👤| حساب من",'callback_data'=>"myInfo"]];
     // $mainKeys[] = [['text'=>"▫️ موجودی سرورها ▫️",'callback_data'=>"availableServers"]];
     $mainKeys[] = [['text'=>'📱| لینک نرم افزار ها','callback_data'=>"reciveApplications"],['text'=>"📨| پشتیبانی",'callback_data'=>"supportSection"]];
-    $temp[] = ['text'=>"🪫 مشخصات کانفیگ",'callback_data'=>"showUUIDLeft"];
+    $temp[] = ['text'=>"🪫| مشخصات کانفیگ",'callback_data'=>"showUUIDLeft"];
     
     $stmt = $connection->prepare("SELECT * FROM `setting` WHERE `type` LIKE '%MAIN_BUTTONS%'");
     $stmt->execute();
@@ -275,16 +275,13 @@ if ($from_id == $admin || $userInfo['isAdmin'] == true) {
     $keys=array();
     $temp=array();
     
-    $keys[] = [['text'=>"🎁 دریافت اکانت تست ",'callback_data'=>"getTestAccount"]];
-    $keys[] = [['text'=>"🏃‍♂️ دعوت از دوستان",'callback_data'=>"inviteFriends"],['text'=>"🧑‍💼 حساب من",'callback_data'=>"myInfo"]];
-    if($botState['sellState']=="on"){
-        $keys[]= [['text'=>'📦  کانفیگ های من','callback_data'=>'mySubscriptions'],['text'=>'🛒  خرید کانفیگ جدید','callback_data'=>"buySubscription"]];
-    }
-    // $keys[] = [['text'=>"▫️ موجودی سرورها ▫️",'callback_data'=>"availableServers"]];
-    $keys[] = [['text'=>"❕ موجودی اشتراکی ",'callback_data'=>"availableServers"],['text'=>"❗️ موجودی اختصاصی ",'callback_data'=>"availableServers2"]];
-    $temp[] =['text'=>"📨 تیکت های من",'callback_data'=>"supportSection"];
+    $mainKeys[] = [['text'=>"♻️| تست رایگان",'callback_data'=>"getTestAccount"]];
+	$mainKeys[] = [['text'=>'🛍| خرید سرویس','callback_data'=>"buySubscription"]];
+    $mainKeys[] = [['text'=>'⚙️| سرویس های من','callback_data'=>'mySubscriptions'],['text'=>"👤| حساب من",'callback_data'=>"myInfo"]];
+    // $mainKeys[] = [['text'=>"▫️ موجودی سرورها ▫️",'callback_data'=>"availableServers"]];
+    $mainKeys[] = [['text'=>'📱| لینک نرم افزار ها','callback_data'=>"reciveApplications"],['text'=>"📨| پشتیبانی",'callback_data'=>"supportSection"]];
     if($botState['searchState']=="on"){
-        $temp[] = ['text'=>"🪫 مشخصات کانفیگ",'callback_data'=>"showUUIDLeft"];
+        $temp[] = ['text'=>"🪫| مشخصات کانفیگ",'callback_data'=>"showUUIDLeft"];
         array_push($keys,$temp);
         $temp = array();
     }
