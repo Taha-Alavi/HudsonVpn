@@ -1346,7 +1346,7 @@ $portType = $stmt->get_result()->fetch_assoc()['port_type'];
 $stmt->close();
 
 $rnd = rand(1111,99999);
-$remark = "#{$rnd} ({$srv_remark}-{$from_id})";
+$remark = "#{$rnd}-{$srv_remark}-{$from_id}";
 
 if($portType == "auto"){
     file_put_contents('settings/temp.txt',$port.'-'.$last_num);
@@ -2298,7 +2298,7 @@ if(preg_match('/payCustomWithWallet(.*)/',$data, $match)){
     $stmt->close();
 
     $rnd = rand(1111,99999);
-    $remark = "#{$rnd} ({$srv_remark}-{$from_id})";
+    $remark = "#{$rnd}-{$srv_remark}-{$from_id}";
     
     if($portType == "auto"){
         file_put_contents('settings/temp.txt',$port.'-'.$last_num);
@@ -2868,7 +2868,7 @@ if(preg_match('/payWithWallet(.*)/',$data, $match)){
     $stmt->close();
 
     $rnd = rand(1111,99999);
-    $remark = "#{$rnd} ({$srv_remark}-{$from_id})";
+    $remark = "#{$rnd}-{$srv_remark}-{$from_id}";
 
     if($portType == "auto"){
         file_put_contents('settings/temp.txt',$port.'-'.$last_num);
