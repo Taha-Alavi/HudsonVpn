@@ -845,7 +845,7 @@ if ($data=='buySubscription' && ($botState['sellState']=="on" || ($from_id == $a
     $respd = $stmt->get_result();
     $stmt->close();
     if($respd->num_rows==0){
-        alert("😔 |  هیچ سرور فعالی نداریم لطفا بعدا مجدد تست کن");
+        alert("هیچ سرور فعالی نداریم لطفا بعدا مجدد تست کن");
         exit;
     }
     $keyboard = [];
@@ -855,6 +855,7 @@ if ($data=='buySubscription' && ($botState['sellState']=="on" || ($from_id == $a
         $flag = $cat['flag'];
         $keyboard[] = ['text' => "$flag $name", 'callback_data' => "selectServer$id"];
     }
+    $keyboard[] = ['text'=>"🔰| راهنمای خرید",'callback_data'=>"help"];
     $keyboard[] = ['text'=>"⤵️ برگرد صفحه قبلی ",'callback_data'=>"mainMenu"];
     $keyboard = array_chunk($keyboard,1);
     editText($message_id, '  1️⃣ مرحله یک:
@@ -863,6 +864,34 @@ if ($data=='buySubscription' && ($botState['sellState']=="on" || ($from_id == $a
     
 
 }
+
+
+
+if($data == "help"){
+    $keyboard[] = ['text'=>"⤵️ برگرد صفحه قبلی ",'callback_data'=>"buySubscription"];
+    editText($message_id, '
+🔸| سرویس ویژه :
+▪️| تانل شده ( بهترین کیفیت و سرعت )
+▪️| اتصال بر روی تمامی اپراتور ها
+▪️| سرعت و اپ تایم فوق العاده
+▪| ایپی ثابت ( تضمین ترید ) 🇩🇪
+➖➖➖➖➖➖➖➖➖➖➖➖
+🔹| سرویس عادی 1 :
+▪| فقط روی اپراتور 🟡ایرانسل و 🟣رایتل
+▪️| سرعت و اپ تایم 99%
+▪| ایپی ثابت ( تضمین ترید ) 🇩🇪
+➖➖➖➖➖➖➖➖➖➖➖➖
+🔹| سرویس عادی 2 :
+▪| کیفیت بهتر روی اپراتور 🔵همراه اول و ⚪️وایفای
+▪️| سرعت و اپ تایم 99%
+▪| ایپی ثابت ( تضمین ترید ) 🇩🇪
+    
+    ', json_encode(['inline_keyboard'=>$keyboard]));
+}
+
+
+
+
 if ($data=='createMultipleAccounts' && ($from_id == $admin || $userInfo['isAdmin'] == true)){
     $stmt = $connection->prepare("SELECT * FROM `server_info` WHERE `active`=1 and `ucount` > 0 ORDER BY `id` ASC");
     $stmt->execute();
@@ -1346,7 +1375,7 @@ $portType = $stmt->get_result()->fetch_assoc()['port_type'];
 $stmt->close();
 
 $rnd = rand(1111,99999);
-$remark = "#{$rnd} ({$srv_remark}-{$from_id})";
+$remark = "#{$rnd}-{$srv_remark}-{$from_id}";
 
 if($portType == "auto"){
     file_put_contents('settings/temp.txt',$port.'-'.$last_num);
@@ -2298,7 +2327,7 @@ if(preg_match('/payCustomWithWallet(.*)/',$data, $match)){
     $stmt->close();
 
     $rnd = rand(1111,99999);
-    $remark = "#{$rnd} ({$srv_remark}-{$from_id})";
+    $remark = "#{$rnd}-{$srv_remark}-{$from_id}";
     
     if($portType == "auto"){
         file_put_contents('settings/temp.txt',$port.'-'.$last_num);
@@ -2868,7 +2897,7 @@ if(preg_match('/payWithWallet(.*)/',$data, $match)){
     $stmt->close();
 
     $rnd = rand(1111,99999);
-    $remark = "#{$rnd} ({$srv_remark}-{$from_id})";
+    $remark = "#{$rnd}-{$srv_remark}-{$from_id}";
 
     if($portType == "auto"){
         file_put_contents('settings/temp.txt',$port.'-'.$last_num);
