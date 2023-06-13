@@ -1,6 +1,6 @@
 <!--
 * WizWiz v7.5.3
-* https://github.com/wizwizdev/wizwizxui-timebot
+* https://t.me/hudsonservice
 * Copyright (c) @wizwizch
 -->
 <?php
@@ -220,11 +220,11 @@ include 'includ/header.php';
     </li>
 </ul>
 <div class="px-6 my-2 mt-4">
-    <a href="https://t.me/wizwizch" target="_blank">
+    <a href="https://t.me/HudsonService" target="_blank">
         <button
                 class="flex items-center shadow-xl justify-between w-full px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-blue-500 border border-transparent rounded-lg active:bg-blue-600 hover:bg-blue-700 focus:outline-none focus:shadow-outline-blue"
         >
-            Telegram wizwiz
+            Telegram HudsonService
             <span class="ml-2" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
                                                        fill="#fff" width="15" height="15"><g id="_01_align_center"
                                                                                              data-name="01 align center"><path
@@ -234,7 +234,7 @@ include 'includ/header.php';
     </a>
 </div>
 <div class="px-6 my-2">
-    <a href="https://github.com/wizwizdev/wizwizxui-timebot" target="_blank">
+    <a href="" target="_blank">
         <button
                 class="flex items-center shadow-xl justify-between w-full px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-gray-500 border border-transparent rounded-lg active:bg-gray-600 hover:bg-gray-700 focus:outline-none focus:shadow-outline-blue">
             Github
@@ -253,7 +253,7 @@ include 'includ/header.php';
     </a>
 </div>
 <div class="px-6 ">
-    <a href="https://t.me/wizwizch/119" target="_blank">
+    <a href="https://t.me/hudsonservice/119" target="_blank">
         <button
                 class="flex items-center shadow-xl justify-between w-full px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-green-500 border border-transparent rounded-lg active:bg-green-600 hover:bg-green-700 focus:outline-none focus:shadow-outline-blue">
             Donate
@@ -294,7 +294,7 @@ include 'includ/header.php';
     <div class="py-4 text-gray-500 dark:text-gray-400">
         <div class="ml-2 flex justify-start items-center ">
             <img width="40px" src="./icons/wizwiz.png">
-            <a class=" text-lg font-bold text-gray-800 dark:text-gray-200" href="index.php" > WizWiz <span class="px-1 ml-1 rounded" style="font-size: 10px;background-color: #e7cef1;color:#45013c !important;"> v 7.5.3</span></a>
+            <a class=" text-lg font-bold text-gray-800 dark:text-gray-200" href="index.php" > Hudson Service <span class="px-1 ml-1 rounded" style="font-size: 10px;background-color: #e7cef1;color:#45013c !important;"> v 7.5.3</span></a>
         </div>
 
         <ul class="mt-6">
@@ -512,9 +512,9 @@ include 'includ/header.php';
             </li>
         </ul>
         <div class="px-6 mt-3">
-            <a href="https://t.me/wizwizch" target="_blank">
+            <a href="https://t.me/hudsonservice" target="_blank">
                 <button class="flex items-center shadow-xl justify-between w-full px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-blue-500 border border-transparent rounded-lg active:bg-blue-600 hover:bg-blue-700 focus:outline-none focus:shadow-outline-blue">
-                    Telegram wizwiz
+                    Telegram HudsonService
                     <span class="ml-2" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
                                                                fill="#fff" width="15" height="15"><g
                                     id="_01_align_center" data-name="01 align center"><path
@@ -523,7 +523,7 @@ include 'includ/header.php';
             </a>
         </div>
         <div class="px-6 my-2">
-            <a href="https://github.com/wizwizdev/wizwizxui-timebot" target="_blank">
+            <a href="https://t.me/hudsonservice" target="_blank">
                 <button class="flex items-center shadow-xl justify-between w-full px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-gray-500 border border-transparent rounded-lg active:bg-gray-600 hover:bg-gray-700 focus:outline-none focus:shadow-outline-gray">
                     Github
                     <span class="ml-2" aria-hidden="true">
@@ -541,7 +541,7 @@ include 'includ/header.php';
             </a>
         </div>
         <div class="px-6 my-2">
-            <a href="https://t.me/wizwizch/119" target="_blank">
+            <a href="https://t.me/hudsonservice/119" target="_blank">
                 <button class="flex items-center shadow-xl justify-between w-full px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-green-500 border border-transparent rounded-lg active:bg-green-600 hover:bg-green-700 focus:outline-none focus:shadow-outline-blue">
                     Donate
                     <svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" fill="#fff"
@@ -974,7 +974,7 @@ include 'includ/footer.php';
 ?>
 <!--
 * WizWiz v7.5.3
-* https://github.com/wizwizdev/wizwizxui-timebot
+* https://t.me/hudsonservice
 * Copyright (c) @wizwizch
 -->
 
