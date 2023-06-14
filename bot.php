@@ -1419,8 +1419,7 @@ $portType = $stmt->get_result()->fetch_assoc()['port_type'];
 $stmt->close();
 
 $rnd = rand(1111,99999);
-$remark = "{$srv_remark}-{$rnd}-{$from_id}";
-
+$remark = "#{$rnd}-{$srv_remark}-{$from_id}";
 
 if($portType == "auto"){
     file_put_contents('settings/temp.txt',$port.'-'.$last_num);
@@ -2372,8 +2371,7 @@ if(preg_match('/payCustomWithWallet(.*)/',$data, $match)){
     $stmt->close();
 
     $rnd = rand(1111,99999);
-    $remark = "{$srv_remark}-{$rnd}-{$from_id}";
-
+    $remark = "#{$rnd}-{$srv_remark}-{$from_id}";
     
     if($portType == "auto"){
         file_put_contents('settings/temp.txt',$port.'-'.$last_num);
@@ -2706,7 +2704,7 @@ if(preg_match('/accCustom(.*)/',$data, $match) and $text != $cancelText){
     $stmt->close();
 
     $rnd = rand(1111,99999);
-    $remark = "{$srv_remark}-{$rnd}-{$from_id}";
+    $remark = "{$srv_remark}-{$uid}-{$rnd}";
 
     if($portType == "auto"){
         file_put_contents('settings/temp.txt',$port.'-'.$last_num);
@@ -2943,8 +2941,7 @@ if(preg_match('/payWithWallet(.*)/',$data, $match)){
     $stmt->close();
 
     $rnd = rand(1111,99999);
-    $remark = "{$srv_remark}-{$rnd}-{$from_id}";
-
+    $remark = "#{$rnd}-{$srv_remark}-{$from_id}";
 
     if($portType == "auto"){
         file_put_contents('settings/temp.txt',$port.'-'.$last_num);
