@@ -477,7 +477,7 @@ if($data=="inviteFriends"){
         👤| تعداد کاربران دعوت شده : $tedadinvite نفر
         ",null,null,null,$msgId);
         bot('sendmessage',[
-        'chat_id'=> $msgId,
+        'chat_id'=> $from_id,
         'text'=> "
         🔰| Link: `$link`
     
