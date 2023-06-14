@@ -229,7 +229,6 @@ if ($from_id == $admin || $userInfo['isAdmin'] == true) {
     $mainKeys[] = [['text'=>"♻️| تست رایگان",'callback_data'=>"getTestAccount"]];
 	$mainKeys[] = [['text'=>'🛍| خرید سرویس','callback_data'=>"buySubscription"]];
     $mainKeys[] = [['text'=>"👤| حساب من",'callback_data'=>"myInfo"],['text'=>'⚙️| سرویس های من','callback_data'=>'mySubscriptions']];
-    // $mainKeys[] = [['text'=>"▫️ موجودی سرورها ▫️",'callback_data'=>"availableServers"]];
     $mainKeys[] = [['text'=>'📱| لینک نرم افزار ها','callback_data'=>"reciveApplications"],['text'=>"📨| پشتیبانی",'callback_data'=>"supportSection"]];
     $temp[] = ['text'=>"🪫| مشخصات کانفیگ",'callback_data'=>"showUUIDLeft"];
     
@@ -250,7 +249,7 @@ if ($from_id == $admin || $userInfo['isAdmin'] == true) {
         }
     }
     array_push($mainKeys,$temp);
-
+    $mainKeys[] = [['text'=>"🏃‍♂️| دعوت از دوستان",'callback_data'=>"inviteFriends"]];
     $mainKeys[] = [['text'=>"مدیریت ربات ⚙️",'callback_data'=>"managePanel"]];
     $mainKeys = json_encode(['inline_keyboard'=>$mainKeys]); 
 
@@ -260,15 +259,16 @@ if ($from_id == $admin || $userInfo['isAdmin'] == true) {
     if($from_id == $admin){
         $adminKeys[] = [['text'=>"👤 لیست ادمین ها",'callback_data'=>"adminsList"]];
     }
-    $adminKeys[] = [['text'=>"💸 افزایش موجودی",'callback_data'=>"increaseUserWallet"],['text'=>"🚸 ساخت اکانت",'callback_data'=>"createMultipleAccounts"]];
-    $adminKeys[] = [['text'=>"❌ مسدود کردن کاربر",'callback_data'=>"banUser"],['text'=>"✅ آزاد کردن کاربر",'callback_data'=>"unbanUser"]];
-    $adminKeys[] = [['text'=>'♻️ تنظیمات سرور','callback_data'=>"serversSetting"]];
-    $adminKeys[] = [['text'=>'🔅 مدیریت دسته ها','callback_data'=>"categoriesSetting"]];
-    $adminKeys[] = [['text'=>'〽️ مدیریت پلن ها','callback_data'=>"backplan"]];
-    $adminKeys[] = [['text'=>"🎁 مدیریت تخفیف ها",'callback_data'=>"discount_codes"],['text'=>"🕹 مدیریت دکمه ها ",'callback_data'=>"mainMenuButtons"]];
-    $adminKeys[] = [['text'=>'💳 تنظیمات درگاه و کانال','callback_data'=>"gateWays_Channels"],['text'=>'⚙️ تنظیمات ربات','callback_data'=>'botSettings']];
-    $adminKeys[] = [['text'=>'📪 تیکت ها','callback_data'=>"ticketsList"],['text'=>"📨 ارسال پیام همگانی",'callback_data'=>"message2All"]];
-    $adminKeys[] = [['text'=>'⤵️ برگرد به منوی اصلی ','callback_data'=>"mainMenu"]];
+    $adminKeys[] = [['text'=>"💸| افزایش موجودی",'callback_data'=>"increaseUserWallet"],['text'=>"🚸| ساخت اکانت",'callback_data'=>"createMultipleAccounts"]];
+    $adminKeys[] = [['text'=>"❌| مسدود کردن کاربر",'callback_data'=>"banUser"],['text'=>"✅| آزاد کردن کاربر",'callback_data'=>"unbanUser"]];
+    $adminKeys[] = [['text'=>'♻️| تنظیمات سرور','callback_data'=>"serversSetting"]];
+    $adminKeys[] = [['text'=>'🔅| مدیریت دسته ها','callback_data'=>"categoriesSetting"]];
+    $adminKeys[] = [['text'=>'〽️| مدیریت پلن ها','callback_data'=>"backplan"]];
+    $adminKeys[] = [['text'=>"🎁| مدیریت تخفیف ها",'callback_data'=>"discount_codes"],['text'=>"🕹| مدیریت دکمه ها ",'callback_data'=>"mainMenuButtons"]];
+    $adminKeys[] = [['text'=>'💳| تنظیمات درگاه و کانال','callback_data'=>"gateWays_Channels"],['text'=>'⚙️| تنظیمات ربات','callback_data'=>'botSettings']];
+    $adminKeys[] = [['text'=>'📪| تیکت ها','callback_data'=>"ticketsList"],['text'=>"📨| ارسال پیام همگانی",'callback_data'=>"message2All"]];
+    $adminKeys[] = [['text'=>"▫️| موجودی سرورها",'callback_data'=>"availableServers"]];
+    $adminKeys[] = [['text'=>'⤵️| برگرد به منوی اصلی ','callback_data'=>"mainMenu"]];
     $adminKeys = json_encode(['inline_keyboard'=>$adminKeys]);
 		
 }elseif ($userInfo['freetrial'] == "used") {
