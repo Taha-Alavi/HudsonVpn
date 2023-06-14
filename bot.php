@@ -1158,7 +1158,7 @@ if(preg_match('/^createAccAmount(\d+)_(\d+)_(\d+)/',$userInfo['step'], $match) &
         $last_num++;
     
         $rnd = rand(1111,99999);
-        $remark = "{$srv_remark}-{$rnd}-{$uid}";{$rnd}-{$srv_remark}-{$from_id}";
+        $remark = "{$rnd}-{$srv_remark}-{$from_id}";
     
         if($inbound_id == 0){    
             $response = addUser($server_id, $uniqid, $protocol, $port, $expire_microdate, $remark, $volume, $netType, 'none', $rahgozar, $fid); 
@@ -1419,7 +1419,8 @@ $portType = $stmt->get_result()->fetch_assoc()['port_type'];
 $stmt->close();
 
 $rnd = rand(1111,99999);
-$remark = "{$srv_remark}-{$rnd}-{$uid}";
+$remark = "{$srv_remark}-{$rnd}-{$from_id}";
+
 
 if($portType == "auto"){
     file_put_contents('settings/temp.txt',$port.'-'.$last_num);
@@ -2371,7 +2372,8 @@ if(preg_match('/payCustomWithWallet(.*)/',$data, $match)){
     $stmt->close();
 
     $rnd = rand(1111,99999);
-    $remark = "{$srv_remark}-{$rnd}-{$uid}";
+    $remark = "{$srv_remark}-{$rnd}-{$from_id}";
+
     
     if($portType == "auto"){
         file_put_contents('settings/temp.txt',$port.'-'.$last_num);
@@ -2704,7 +2706,7 @@ if(preg_match('/accCustom(.*)/',$data, $match) and $text != $cancelText){
     $stmt->close();
 
     $rnd = rand(1111,99999);
-    $remark = "{$srv_remark}-{$rnd}-{$uid}";{$srv_remark}-{$rnd}-{$uid}";
+    $remark = "{$srv_remark}-{$rnd}-{$from_id}";
 
     if($portType == "auto"){
         file_put_contents('settings/temp.txt',$port.'-'.$last_num);
@@ -2941,7 +2943,8 @@ if(preg_match('/payWithWallet(.*)/',$data, $match)){
     $stmt->close();
 
     $rnd = rand(1111,99999);
-    $remark = "{$srv_remark}-{$rnd}-{$uid}";
+    $remark = "{$srv_remark}-{$rnd}-{$from_id}";
+
 
     if($portType == "auto"){
         file_put_contents('settings/temp.txt',$port.'-'.$last_num);
@@ -3349,7 +3352,7 @@ if(preg_match('/accept(.*)/',$data, $match) and $text != $cancelText){
     $stmt->close();
 
     $rnd = rand(1111,99999);
-    $remark = "{$srv_remark}-{$rnd}-{$uid}";{$srv_remark}-{$uid}-{$rnd}";
+    $remark = "{$srv_remark}-{$uid}-{$rnd}";
 
     if($portType == "auto"){
         file_put_contents('settings/temp.txt',$port.'-'.$last_num);
@@ -4689,7 +4692,7 @@ if(preg_match('/freeTrial(\d+)/',$data,$match)) {
     $stmt->close();
 
     $rnd = rand(1111,99999);
-    $remark = "{$srv_remark}-{$rnd}-{$uid}";{$srv_remark}-{$uid}-{$rnd}";
+    $remark = "{$srv_remark}-{$uid}-{$rnd}";
     
     if($portType == "auto"){
         file_put_contents('settings/temp.txt',$port.'-'.$last_num);
