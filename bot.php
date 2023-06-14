@@ -59,6 +59,15 @@ if(strpos($text, "/start ") !== false){
         #$stmt->close();
         #$stmt = $connection->prepare("UPDATE `users` SET `wallet` = `wallet` + '500' WHERE `userid` = $inviter");
         #$stmt->close();
+        $stmt = $connection->prepare("UPDATE `users` SET `wallet` = `wallet` + ? WHERE `userid` = ?");
+        $stmt->bind_param("ii", 500, $inviter);
+        $stmt->execute();
+        $stmt->close();
+
+        $stmt = $connection->prepare("UPDATE `users` SET `refnumber` = `refnumber` + ? WHERE `userid` = ?");
+        $stmt->bind_param("ii", 1, $inviter);
+        $stmt->execute();
+        $stmt->close();
         sendMessage("🔸| کاربر @$username با لینک دعوت شما وارد ربات شد
         
         💵| +500 تومان (کیف پول)
@@ -583,7 +592,7 @@ if(preg_match('/^tranfserUserAmount(\d+)/',$userInfo['step'],$match) && $text !=
 }
 if($data=="increaseMyWallet"){
     delMessage();
-    sendMessage("🙂  مقدار شارژ مورد نظر خود را به تومان وارد کن (بیشتر از 5000 تومان)",$cancelKey);
+    sendMessage("  مقدار شارژ مورد نظر خود را به تومان وارد کن (بیشتر از 5000 تومان)",$cancelKey);
     setUser($data);
 }
 if($userInfo['step'] == "increaseMyWallet" && $text != $cancelText){
