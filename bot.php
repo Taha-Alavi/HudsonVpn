@@ -55,10 +55,10 @@ if(strpos($text, "/start ") !== false){
         
         setUser("referedBy" . $inviter);
         $userInfo['step'] = "referedBy" . $inviter;
-        $stmt = $connection->prepare("UPDATE `users` SET `refnumber` = `renumber` + '1' WHERE `userid` = $inviter");
-        $stmt->close();
-        $stmt = $connection->prepare("UPDATE `users` SET `wallet` = `wallet` + '500' WHERE `userid` = $inviter");
-        $stmt->close();
+        #$stmt = $connection->prepare("UPDATE `users` SET `refnumber` = `renumber` + '1' WHERE `userid` = $inviter");
+        #$stmt->close();
+        #$stmt = $connection->prepare("UPDATE `users` SET `wallet` = `wallet` + '500' WHERE `userid` = $inviter");
+        #$stmt->close();
         sendMessage("🔸| کاربر @$username با لینک دعوت شما وارد ربات شد
         
         💵| +500 تومان (کیف پول)
