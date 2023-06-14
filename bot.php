@@ -75,11 +75,15 @@ if(strpos($text, "/start ") !== false){
         if($inviter == $idinviter){
         $useridinviter = $row['userid'];
         $refnumberr = $row['refnumber'];
+        $walletwallet = $row['wallet'];
         }
         }
         $nextref = $refnumberr + 1;
+        $walletwalletwalletwallet = $walletwallet + 500;
         $updateQuery = "UPDATE users SET refnumber = '$nextref' WHERE userid = '$useridinviter'";
         $connection->query($updateQuery);
+        $updateQuery2 = "UPDATE users SET wallet = '$walletwalletwalletwallet' WHERE userid = '$useridinviter'";
+        $connection->query($updateQuery2);
 
 
         sendMessage("🔸| کاربر @$username با لینک دعوت شما وارد ربات شد
@@ -521,7 +525,7 @@ if($data=="myInfo"){
     $stmt->execute();
     $totalBuys = $stmt->get_result()->num_rows;
     $stmt->close();
-    $refnumber = $userInfo['refnumber'] . "نفر";
+    $refnumber = $userInfo['refnumber'] .  "نفر";
     $myWallet = number_format($userInfo['wallet']) . " تومان";
     
     $keys = json_encode(['inline_keyboard'=>[
@@ -1154,7 +1158,7 @@ if(preg_match('/^createAccAmount(\d+)_(\d+)_(\d+)/',$userInfo['step'], $match) &
         $last_num++;
     
         $rnd = rand(1111,99999);
-        $remark = "{$rnd}-{$srv_remark}-{$from_id}";
+        $remark = "{$srv_remark}-{$rnd}-{$uid}";{$rnd}-{$srv_remark}-{$from_id}";
     
         if($inbound_id == 0){    
             $response = addUser($server_id, $uniqid, $protocol, $port, $expire_microdate, $remark, $volume, $netType, 'none', $rahgozar, $fid); 
@@ -1415,7 +1419,7 @@ $portType = $stmt->get_result()->fetch_assoc()['port_type'];
 $stmt->close();
 
 $rnd = rand(1111,99999);
-$remark = "#{$rnd}-{$srv_remark}-{$from_id}";
+$remark = "{$srv_remark}-{$rnd}-{$uid}";
 
 if($portType == "auto"){
     file_put_contents('settings/temp.txt',$port.'-'.$last_num);
@@ -2367,7 +2371,7 @@ if(preg_match('/payCustomWithWallet(.*)/',$data, $match)){
     $stmt->close();
 
     $rnd = rand(1111,99999);
-    $remark = "#{$rnd}-{$srv_remark}-{$from_id}";
+    $remark = "{$srv_remark}-{$rnd}-{$uid}";
     
     if($portType == "auto"){
         file_put_contents('settings/temp.txt',$port.'-'.$last_num);
@@ -2700,7 +2704,7 @@ if(preg_match('/accCustom(.*)/',$data, $match) and $text != $cancelText){
     $stmt->close();
 
     $rnd = rand(1111,99999);
-    $remark = "{$srv_remark}-{$uid}-{$rnd}";
+    $remark = "{$srv_remark}-{$rnd}-{$uid}";{$srv_remark}-{$rnd}-{$uid}";
 
     if($portType == "auto"){
         file_put_contents('settings/temp.txt',$port.'-'.$last_num);
@@ -2937,7 +2941,7 @@ if(preg_match('/payWithWallet(.*)/',$data, $match)){
     $stmt->close();
 
     $rnd = rand(1111,99999);
-    $remark = "#{$rnd}-{$srv_remark}-{$from_id}";
+    $remark = "{$srv_remark}-{$rnd}-{$uid}";
 
     if($portType == "auto"){
         file_put_contents('settings/temp.txt',$port.'-'.$last_num);
@@ -3345,7 +3349,7 @@ if(preg_match('/accept(.*)/',$data, $match) and $text != $cancelText){
     $stmt->close();
 
     $rnd = rand(1111,99999);
-    $remark = "{$srv_remark}-{$uid}-{$rnd}";
+    $remark = "{$srv_remark}-{$rnd}-{$uid}";{$srv_remark}-{$uid}-{$rnd}";
 
     if($portType == "auto"){
         file_put_contents('settings/temp.txt',$port.'-'.$last_num);
@@ -4685,7 +4689,7 @@ if(preg_match('/freeTrial(\d+)/',$data,$match)) {
     $stmt->close();
 
     $rnd = rand(1111,99999);
-    $remark = "{$srv_remark}-{$uid}-{$rnd}";
+    $remark = "{$srv_remark}-{$rnd}-{$uid}";{$srv_remark}-{$uid}-{$rnd}";
     
     if($portType == "auto"){
         file_put_contents('settings/temp.txt',$port.'-'.$last_num);
