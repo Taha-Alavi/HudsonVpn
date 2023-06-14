@@ -31,8 +31,8 @@ if(strpos($text, "/start ") !== false){
         $first_name = !empty($first_name)?$first_name:" ";
         $username = !empty($username)?$username:" ";
         if($uinfo->num_rows == 0){
-            $sql = "INSERT INTO `users` (`userid`, `name`, `username`, `refcode`, `wallet`, `date`, `refered_by`)
-                                VALUES (?,?,?, 0,0,?,?)";
+            $sql = "INSERT INTO `users` (`userid`, `name`, `username`, `refcode`, `refnumber`, `wallet`, `date`, `refered_by`)
+                                VALUES (?,?,?, 0,0,0,?,?)";
             $stmt = $connection->prepare($sql);
             $time = time();
             $stmt->bind_param("issii", $from_id, $first_name, $username, $time, $inviter);
@@ -55,7 +55,14 @@ if(strpos($text, "/start ") !== false){
         
         setUser("referedBy" . $inviter);
         $userInfo['step'] = "referedBy" . $inviter;
-        sendMessage("‼️| تبریک یه نفر با لینک شما وارد ربات شد",null,null, $inviter);
+        $stmt = $connection->prepare("UPDATE `users` SET `refnumber` = `renumber` + '1' WHERE `userid` = $inviter");
+        $stmt->close();
+        $stmt = $connection->prepare("UPDATE `users` SET `wallet` = `wallet` + '500' WHERE `userid` = $inviter");
+        $stmt->close();
+        sendMessage("🔸| کاربر @$username با لینک دعوت شما وارد ربات شد
+        
+        💵| +500 تومان (کیف پول)
+        ",null,null, $inviter);
     }
     
     $text = "/start";
@@ -468,21 +475,14 @@ if($data=="inviteFriends"){
         $link = "t.me/$botId?start=" . $from_id;
         $msgId = $res->result->message_id;
         $tedadinvite = $userInfo['refnumber'];
-        sendMessage("
-        🔰| Link: `$link`
-
-
-        لینک بالا مخصوص شما هست‼️ شما با دعوت هر نفر با لینک خود مبلغ *$inviteAmount* دریافت خواهید کرد❕
-
-        👤| تعداد کاربران دعوت شده : $tedadinvite نفر
-        ",null,null,null,$msgId);
         bot('sendmessage',[
         'chat_id'=> $from_id,
         'text'=> "
-        🔰| Link: `$link`
+        🔰| Link:  `$link`
     
     
-        لینک بالا مخصوص شما هست‼️ شما با دعوت هر نفر با لینک خود مبلغ *$inviteAmount* دریافت خواهید کرد❕
+        لینک بالا مخصوص شما هست‼️
+        شما با دعوت هر نفر با لینک خود مبلغ *$inviteAmount* دریافت خواهید کرد❕
     
         👤| تعداد کاربران دعوت شده : $tedadinvite نفر
         ",
@@ -498,7 +498,7 @@ if($data=="myInfo"){
     $stmt->execute();
     $totalBuys = $stmt->get_result()->num_rows;
     $stmt->close();
-    
+    $refnumber = $userInfo['refnumber'] . "نفر";
     $myWallet = number_format($userInfo['wallet']) . " تومان";
     
     $keys = json_encode(['inline_keyboard'=>[
@@ -513,6 +513,10 @@ if($data=="myInfo"){
         [
             ['text'=>$first_name,'callback_data'=>"increaseMyWallet"],
             ['text'=>"اسم",'callback_data'=>"transferMyWallet"]
+        ],
+        [
+            ['text'=>$refnumber,'callback_data'=>"increaseMyWallet"],
+            ['text'=>"افراد دعوت شده",'callback_data'=>"transferMyWallet"]
         ],
         [
             ['text'=>$totalBuys,'callback_data'=>"increaseMyWallet"],
