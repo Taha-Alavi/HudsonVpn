@@ -467,8 +467,15 @@ if($data=="inviteFriends"){
         
         $link = "t.me/$botId?start=" . $from_id;
         $msgId = $res->result->message_id;
-        sendMessage("$link",null,null,null,$msgId);
-        sendMessage("با لینک بالا دوستاتو به ربات دعوت کن و با هر خرید $inviteAmount بدست بیار",null,null,null,$msgId);
+        $tedadinvite = ($userInfo['wallet']) . "نفر";
+        sendMessage("
+        🔰| Link: `$link`
+
+
+        لینک بالا مخصوص شما هست‼️ شما با دعوت هر نفر با لینک خود مبلغ *$inviteAmount* دریافت خواهید کرد❕
+
+        👤| تعداد کاربران دعوت شده : 
+        ",null,null,null,$msgId);
     }
     else alert("این قسمت غیر فعال است");
 }
