@@ -466,15 +466,8 @@ if($data=="inviteFriends"){
         $botId = $getBotInfo['result']['username'];
         
         $link = "t.me/$botId?start=" . $from_id;
-        if($inviteText['type'] == "text"){
-            $txt = str_replace('LINK',"<code>$link</code>",$inviteText['text']);
-            $res = sendMessage($txt,null,"HTML");
-        } 
-        else{
-            $txt = str_replace('LINK',"$link",$inviteText['caption']);
-            $res = sendPhoto($inviteText['file_id'],$txt,null,"HTML");
-        }
         $msgId = $res->result->message_id;
+        sendMessage("$link",null,null,null,$msgId);
         sendMessage("با لینک بالا دوستاتو به ربات دعوت کن و با هر خرید $inviteAmount بدست بیار",null,null,null,$msgId);
     }
     else alert("این قسمت غیر فعال است");
