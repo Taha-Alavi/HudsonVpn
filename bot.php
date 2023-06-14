@@ -472,7 +472,7 @@ if($data=="inviteFriends"){
         } 
         else{
             $txt = str_replace('LINK',"$link",$inviteText['caption']);
-            $res = sendMessage($txt,null,"HTML");
+            $res = sendPhoto($inviteText['file_id'],$txt,null,"HTML");
         }
         $msgId = $res->result->message_id;
         sendMessage("با لینک بالا دوستاتو به ربات دعوت کن و با هر خرید $inviteAmount بدست بیار",null,null,null,$msgId);
