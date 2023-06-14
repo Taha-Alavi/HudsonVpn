@@ -475,7 +475,7 @@ if($data=="inviteFriends"){
         لینک بالا مخصوص شما هست‼️ شما با دعوت هر نفر با لینک خود مبلغ *$inviteAmount* دریافت خواهید کرد❕
 
         👤| تعداد کاربران دعوت شده : $tedadinvite نفر
-        ",null,null,null,'parse_mode'=>"Markdown",$msgId);
+        ",null,null,null,$msgId);
     }
     bot('sendmessage',[
     'chat_id'=> $from_id,
