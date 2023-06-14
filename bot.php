@@ -467,18 +467,19 @@ if($data=="inviteFriends"){
         
         $link = "t.me/$botId?start=" . $from_id;
         $msgId = $res->result->message_id;
-        $tedadinvite = ($userInfo['refnumber']) . "نفر";
+        $tedadinvite = $userInfo['refnumber'];
         sendMessage("
         🔰| Link: `$link`
 
 
         لینک بالا مخصوص شما هست‼️ شما با دعوت هر نفر با لینک خود مبلغ *$inviteAmount* دریافت خواهید کرد❕
 
-        👤| تعداد کاربران دعوت شده : $tedadinvite
-        ",'parse_mode'=>"Markdown",null,null,null,$msgId);
+        👤| تعداد کاربران دعوت شده : $tedadinvite نفر
+        ",null,null,null,$msgId);
     }
     else alert("این قسمت غیر فعال است");
 }
+#'parse_mode'=>"Markdown",
 if($data=="myInfo"){
     $stmt = $connection->prepare("SELECT * FROM `orders_list` WHERE `userid` = ?");
     $stmt->bind_param("i", $from_id);
