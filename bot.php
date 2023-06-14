@@ -4,6 +4,18 @@ include_once 'config.php';
 include_once 'settings/jdf.php';
 check();
 
+function connect_to_db() {
+
+$connection = new mysqli("localhost", "A_TAHA_A", "Taha092213003taha", "wizwiz");
+
+if ($connection -> connect_error)
+echo "Failed to connect to db: " . $connection -> connect_error;
+
+$connection -> query("SET NAMES utf8");
+
+return $connection;
+}
+    
 $robotState = $botState['botState']??"on";
 if($userInfo['step'] == "banned" && $from_id != $admin && $userInfo['isAdmin'] != true){
     sendMessage("❌ | شما نمیتوانید از ربات استفاده کنید");
@@ -55,25 +67,27 @@ if(strpos($text, "/start ") !== false){
         
         setUser("referedBy" . $inviter);
         $userInfo['step'] = "referedBy" . $inviter;
-        #$stmt = $connection->prepare("UPDATE `users` SET `refnumber` = `renumber` + '1' WHERE `userid` = $inviter");
-        #$stmt->close();
-        #$stmt = $connection->prepare("UPDATE `users` SET `wallet` = `wallet` + '500' WHERE `userid` = $inviter");
-        #$stmt->close();
-        $stmt = $connection->prepare("UPDATE `users` SET `wallet` = `wallet` + ? WHERE `userid` = ?");
-        $stmt->bind_param("ii", 500, $inviter);
-        $stmt->execute();
-        $stmt->close();
 
-        $stmt = $connection->prepare("UPDATE `users` SET `refnumber` = `refnumber` + ? WHERE `userid` = ?");
-        $stmt->bind_param("ii", 1, $inviter);
-        $stmt->execute();
-        $stmt->close();
+        $connection = connect_to_db();
+        $result = $connection -> query("SELECT * FROM users");
+        while($row = $result -> fetch_assoc()) {
+        $idinviter = $row['userid'];
+        if($inviter == $idinviter){
+        $useridinviter = $row['userid'];
+        $refnumberr = $row['refnumber'];
+        }
+        }
+        $nextref = $refnumberr + 1;
+        $updateQuery = "UPDATE users SET refnumber = '$nextref' WHERE userid = '$useridinviter'";
+        $connection->query($updateQuery);
+
+
         sendMessage("🔸| کاربر @$username با لینک دعوت شما وارد ربات شد
         
         💵| +500 تومان (کیف پول)
         ",null,null, $inviter);
     }
-    
+    $connection -> close();
     $text = "/start";
 }
 if($userInfo['phone'] == null && $from_id != $admin && $userInfo['isAdmin'] != true && $botState['requirePhone'] == "on"){
