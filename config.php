@@ -1,7 +1,6 @@
 <?php
 
-
-$connection = new mysqli('localhost',hudsonse_server,Taha092213003taha,hudsonse_server);
+$connection = new mysqli('localhost',$dbUserName,$dbPassword,$dbName);
 if($connection->connect_error){
     exit("error " . $connection->connect_error);  
 }
