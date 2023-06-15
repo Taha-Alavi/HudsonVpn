@@ -484,7 +484,12 @@ if($userInfo['step'] == "editRewardTime" && ($from_id == $admin || $userInfo['is
     setUser();
     exit();
 }
+
 if($data=="inviteFriends"){
+    $dokmelistinveite = json_encode(['inline_keyboard' => [
+    [['text' =>"👤| لیست افراد دعوت شده",'callback_data'=>"listinvited"]],
+    [['text' =>"🔙| برگشت",'callback_data'=>"mainMenu"]],
+    ]]);
     $stmt = $connection->prepare("SELECT * FROM `setting` WHERE `type` = 'INVITE_BANNER_TEXT'");
     $stmt->execute();
     $inviteText = $stmt->get_result()->fetch_assoc()['value'];
@@ -514,10 +519,55 @@ if($data=="inviteFriends"){
         👤| تعداد کاربران دعوت شده : $tedadinvite نفر
         ",
         'parse_mode'=>"Markdown",
+        'reply_markup'=>$dokmelistinveite,
         ]);
     }
     else alert("این قسمت غیر فعال است");
 }
+
+#---لیست ممبر دعوت شده -------
+
+if($data == "listinvited"){
+$connection = connect_to_db();
+$result = $connection -> query("SELECT * FROM users");
+while($row = $result -> fetch_assoc()) {
+$telegramidserver2 = $row['userid'];
+if($from_id == $telegramidserver2){
+$chatid = $row['userid'];
+}
+}
+$result = $connection -> query("SELECT * FROM users");
+while($row = $result -> fetch_assoc()) {
+$prefcode = $row['refcode'];
+if($chatid == $prefcode){
+$tarafid = $row['username'];
+$tarafname = $row['name'];
+bot('sendmessage',[
+'chat_id'=> $from_id,
+'text'=> "
+👤| Name: *$tarafname*
+🪪| Username: @$tarafid
+",
+'parse_mode'=>"Markdown",
+]);
+}
+else{
+bot('sendmessage',[
+'chat_id'=> $from_id,
+'text'=> "
+❌| شما تا به حال با لینک خود شخصی را دعوت نکرده اید
+",
+'parse_mode'=>"Markdown",
+]);
+}
+}
+$connection -> close();
+}
+
+
+
+
+
 #
 if($data=="myInfo"){
     $stmt = $connection->prepare("SELECT * FROM `orders_list` WHERE `userid` = ?");
@@ -525,36 +575,36 @@ if($data=="myInfo"){
     $stmt->execute();
     $totalBuys = $stmt->get_result()->num_rows;
     $stmt->close();
-    $refnumber = $userInfo['refnumber'] .  "نفر";
+    $refnumber = $userInfo['refnumber'];
     $myWallet = number_format($userInfo['wallet']) . " تومان";
     
     $keys = json_encode(['inline_keyboard'=>[
         [
-            ['text'=>$from_id,'callback_data'=>"increaseMyWallet"],
-            ['text'=>"آیدی عددی",'callback_data'=>"transferMyWallet"]
+            ['text'=>$from_id,'callback_data'=>"gggggggg"],
+            ['text'=>"آیدی عددی",'callback_data'=>"gggggggg"]
         ],
         [
-            ['text'=>"@$username",'callback_data'=>"increaseMyWallet"],
-            ['text'=>"یوزرنیم",'callback_data'=>"transferMyWallet"]
+            ['text'=>"@$username",'callback_data'=>"gggggggg"],
+            ['text'=>"یوزرنیم",'callback_data'=>"gggggggg"]
         ],
         [
-            ['text'=>$first_name,'callback_data'=>"increaseMyWallet"],
-            ['text'=>"اسم",'callback_data'=>"transferMyWallet"]
+            ['text'=>$first_name,'callback_data'=>"gggggggg"],
+            ['text'=>"اسم",'callback_data'=>"gggggggg"]
         ],
         [
-            ['text'=>$refnumber,'callback_data'=>"increaseMyWallet"],
-            ['text'=>"افراد دعوت شده",'callback_data'=>"transferMyWallet"]
+            ['text'=>$refnumber "نفر",'callback_data'=>"inviteFriends"],
+            ['text'=>"افراد دعوت شده",'callback_data'=>"inviteFriends"]
         ],
         [
             ['text'=>$totalBuys,'callback_data'=>"increaseMyWallet"],
-            ['text'=>"تعداد خرید ها",'callback_data'=>"transferMyWallet"]
+            ['text'=>"تعداد خرید ها",'callback_data'=>"increaseMyWallet"]
         ],
         [
             ['text'=>$myWallet,'callback_data'=>"increaseMyWallet"],
-            ['text'=>"موجودی کیف پول",'callback_data'=>"transferMyWallet"]
+            ['text'=>"موجودی کیف پول",'callback_data'=>"increaseMyWallet"]
         ],
         [
-            ['text'=>"🔻🔻🔻🔻",'callback_data'=>"increaseMyWallet"],
+            ['text'=>"🔻🔻🔻🔻",'callback_data'=>"gggggggg"],
         ],
         [
             ['text'=>"شارژ کیف پول 💰",'callback_data'=>"increaseMyWallet"],
