@@ -1,5 +1,6 @@
 <?php
 
+
 $connection = new mysqli('localhost',$dbUserName,$dbPassword,$dbName);
 if($connection->connect_error){
     exit("error " . $connection->connect_error);  
@@ -230,7 +231,6 @@ if ($from_id == $admin || $userInfo['isAdmin'] == true) {
     $mainKeys[] = [['text'=>"👤| حساب من",'callback_data'=>"myInfo"],['text'=>'⚙️| سرویس های من','callback_data'=>'mySubscriptions']];
     $mainKeys[] = [['text'=>'📱| لینک نرم افزار ها','callback_data'=>"reciveApplications"],['text'=>"📨| پشتیبانی",'callback_data'=>"supportSection"]];
     $temp[] = ['text'=>"🪫| مشخصات کانفیگ",'callback_data'=>"showUUIDLeft"];
-    $mainKeys[] = [['text'=>"🧷| زیر مجموعه گیری",'callback_data'=>"inviteFriends"]];
     
     $stmt = $connection->prepare("SELECT * FROM `setting` WHERE `type` LIKE '%MAIN_BUTTONS%'");
     $stmt->execute();
@@ -249,6 +249,7 @@ if ($from_id == $admin || $userInfo['isAdmin'] == true) {
         }
     }
     array_push($mainKeys,$temp);
+    $mainKeys[] = [['text'=>"🏃‍♂️| دعوت از دوستان",'callback_data'=>"inviteFriends"]];
     $mainKeys[] = [['text'=>"مدیریت ربات ⚙️",'callback_data'=>"managePanel"]];
     $mainKeys = json_encode(['inline_keyboard'=>$mainKeys]); 
 
@@ -279,7 +280,6 @@ if ($from_id == $admin || $userInfo['isAdmin'] == true) {
     // $mainKeys[] = [['text'=>"▫️ موجودی سرورها ▫️",'callback_data'=>"availableServers"]];
     $keys[] = [['text'=>'📱| لینک نرم افزار ها','callback_data'=>"reciveApplications"],['text'=>"📨| پشتیبانی",'callback_data'=>"supportSection"]];
     $temp[] = ['text'=>"🪫| مشخصات کانفیگ",'callback_data'=>"showUUIDLeft"];
-    $keys[] = [['text'=>"🧷| زیر مجموعه گیری",'callback_data'=>"inviteFriends"]];
     
     
     $stmt = $connection->prepare("SELECT * FROM `setting` WHERE `type` LIKE '%MAIN_BUTTONS%'");
@@ -312,7 +312,6 @@ else {
     // $mainKeys[] = [['text'=>"▫️ موجودی سرورها ▫️",'callback_data'=>"availableServers"]];
     $keys[] = [['text'=>'📱| لینک نرم افزار ها','callback_data'=>"reciveApplications"],['text'=>"📨| پشتیبانی",'callback_data'=>"supportSection"]];
     $temp[] = ['text'=>"🪫| مشخصات کانفیگ",'callback_data'=>"showUUIDLeft"];
-    $keys[] = [['text'=>"🧷| زیر مجموعه گیری",'callback_data'=>"inviteFriends"]];
     
     
     $stmt = $connection->prepare("SELECT * FROM `setting` WHERE `type` LIKE '%MAIN_BUTTONS%'");
