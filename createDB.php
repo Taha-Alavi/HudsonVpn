@@ -76,14 +76,12 @@ $connection->query("CREATE TABLE `needed_sofwares` (
 )");
 
 $connection->query("INSERT INTO `needed_sofwares` (`id`, `title`, `link`, `status`) VALUES
-(1, 'ios fair-vpn', 'https://apps.apple.com/us/app/fair-vpn/id1533873488', 1),
-(2, 'ios napsternetv', 'https://apps.apple.com/us/app/napsternetv/id1629465476', 1),
-(3, 'ios oneclick', 'https://apps.apple.com/us/app/id1545555197', 1),
-(4, 'android v2rayng', 'https://play.google.com/store/apps/details?id=com.v2ray.ang&hl=en&gl=US', 1),
-(5, 'android sagernet', 'https://play.google.com/store/apps/details?id=io.nekohasekai.sagernet&hl=de&gl=US', 1),
-(6, 'android onclick', 'https://play.google.com/store/apps/details?id=earth.oneclick', 1),
-(7, 'windows v2rayng', 'https://google.com', 1),
-(8, 'mac fair', 'https://apps.apple.com/us/app/fair-vpn/id1533873488', 1);
+(1, '[IOS] fair-vpn', 'https://apps.apple.com/us/app/fair-vpn/id1533873488', 1),
+(2, '[IOS] napsternetv', 'https://apps.apple.com/us/app/napsternetv/id1629465476', 1),
+(3, '[IOS] oneclick', 'https://apps.apple.com/us/app/id1545555197', 1),
+(4, '[Android] v2rayng', 'https://play.google.com/store/apps/details?id=com.v2ray.ang&hl=en&gl=US', 1),
+(5, '[Android] sagernet', 'https://play.google.com/store/apps/details?id=io.nekohasekai.sagernet&hl=de&gl=US', 1),
+(6, '[Android] onclick', 'https://play.google.com/store/apps/details?id=earth.oneclick', 1),
 ");
 
 
@@ -202,8 +200,8 @@ $connection->query("CREATE TABLE `setting` (
 )");
 
 $connection->query("INSERT INTO `setting` (`id`, `type`, `value`) VALUES
-(1, 'TICKETS_CATEGORY', 'شکایت'),
-(2, 'INVITE_BANNER_AMOUNT', '3000'),
+(1, 'TICKETS_CATEGORY', 'فنی و فروش'),
+(2, 'INVITE_BANNER_AMOUNT', '500'),
 (3, 'INVITE_BANNER_TEXT', '{\"type\":\"photo\",\"caption\":\"\\ud83d\\udd30\\u0628\\u0631\\u062a\\u0631\\u06cc\\u0646 \\u0648 \\u0628\\u0647\\u062a\\u0631\\u06cc\\u0646 \\u0631\\u0628\\u0627\\u062a vpn \\u0628\\u0627 \\u06a9\\u0627\\u0646\\u06a9\\u0634\\u0646 \\u0647\\u0627\\u06cc \\u0631\\u0627\\u06cc\\u06af\\u0627\\u0646\\n\\u2705 \\u062d\\u062a\\u0645\\u0627 \\u0639\\u0636\\u0648 \\u0631\\u0628\\u0627\\u062a \\u0628\\u0634\\u06cc\\u062f \\u0648 \\u0627\\u0632 \\u062a\\u062e\\u0641\\u06cc\\u0641 \\u0647\\u0627\\u06cc \\u0648\\u06cc\\u0698\\u0647 \\u0644\\u0630\\u062a \\u0628\\u0628\\u0631\\u06cc\\u0646\\n\\n\\ud83d\\udd17 LINK\",\"file_id\":\"AgACAgQAAxkBAAJRKWRtX3wObRa3qAR_gkJgyKDdkHZsAAKAuzEbRaBpU3QQ2kLLt7MVAQADAgADeAADLwQ\"}'),
 (4, 'PAYMENT_KEYS', '{\"nowpayment\":\"cccc-cccc-cccc-cccc\",\"zarinpal\":\"aaaa-aaaa-aaaa-aaaa\",\"nextpay\":\"bbbb-bbbb-bbbb-bbbb\",\"bankAccount\":\"6104-6104-6104-6104\",\"holderName\":\"\\u0648\\u06cc\\u0632\\u0648\\u06cc\\u0632\"}'),
 (5, 'BOT_STATES', '{\"requirePhone\":\"off\",\"requireIranPhone\":\"off\",\"sellState\":\"on\",\"botState\":\"on\",\"searchState\":\"on\",\"rewaredTime\":\"3\",\"cartToCartState\":\"on\",\"nextpay\":\"on\",\"zarinpal\":\"on\",\"nowPaymentWallet\":\"on\",\"nowPaymentOther\":\"on\",\"walletState\":\"on\",\"rewardChannel\":\"@wizwizdev\",\"lockChannel\":\"@wizwizch\",\"changeProtocolState\":null,\"renewAccountState\":null,\"switchLocationState\":\"on\",\"increaseTimeState\":\"on\",\"increaseVolumeState\":\"on\",\"gbPrice\":\"100\",\"dayPrice\":\"100\",\"subLinkState\":\"on\",\"plandelkhahState\":\"off\",\"weSwapState\":\"on\"}');
@@ -217,6 +215,7 @@ $connection->query("CREATE TABLE `users` (
   `name` varchar(100) NOT NULL,
   `username` varchar(100) NOT NULL,
   `refcode` varchar(50) NOT NULL,
+  `refnumber` int(11) NOT NULL DEFAULT 0,
   `wallet` int(11) NOT NULL DEFAULT 0,
   `date` varchar(50) NOT NULL,
   `phone` varchar(15) DEFAULT NULL,
@@ -238,7 +237,7 @@ $connection->query("CREATE TABLE `admins` (
 )");
 
 $connection->query("INSERT INTO `admins` (`id`, `username`, `password`, `backupchannel`) VALUES
-(1, 'admin', 'admin', '-1002545458541');
+(1, 'admin', 'admin', '');
 ");
 
 
