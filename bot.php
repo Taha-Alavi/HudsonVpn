@@ -507,6 +507,8 @@ if($data=="inviteFriends"){
         $link = "t.me/$botId?start=" . $from_id;
         $msgId = $res->result->message_id;
         $tedadinvite = $userInfo['refnumber'];
+        $endprizewithinvite2 = $tedadinvite * 500;
+        $endprizewithinvite = number_format($endprizewithinvite2, 0, '.', ',');
         bot('sendmessage',[
         'chat_id'=> $from_id,
         'text'=> "
@@ -517,6 +519,7 @@ if($data=="inviteFriends"){
         شما با دعوت هر نفر با لینک خود مبلغ *$inviteAmount* دریافت خواهید کرد❕
     
         👤| تعداد کاربران دعوت شده : $tedadinvite نفر
+        💵| مبلغ دریافتی تا کنون : $endprizewithinvite
         ",
         'reply_markup'=>$dokmelistinveite,
         'parse_mode'=>"Markdown",
