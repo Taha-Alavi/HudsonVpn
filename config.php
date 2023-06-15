@@ -229,7 +229,7 @@ if ($from_id == $admin || $userInfo['isAdmin'] == true) {
 	$mainKeys[] = [['text'=>'🛍| خرید سرویس','callback_data'=>"buySubscription"]];
     $mainKeys[] = [['text'=>"👤| حساب من",'callback_data'=>"myInfo"],['text'=>'⚙️| سرویس های من','callback_data'=>'mySubscriptions']];
     $mainKeys[] = [['text'=>'📱| لینک نرم افزار ها','callback_data'=>"reciveApplications"],['text'=>"📨| پشتیبانی",'callback_data'=>"supportSection"]];
-    $temp[] = ['text'=>"🪫| مشخصات کانفیگ",'callback_data'=>"showUUIDLeft"];
+    $mainKeys[] = [['text'=>"🪫| مشخصات کانفیگ",'callback_data'=>"showUUIDLeft"]];
     $mainKeys[] = [['text'=>"🧷| زیر مجموعه گیری",'callback_data'=>"inviteFriends"]];
     
     $stmt = $connection->prepare("SELECT * FROM `setting` WHERE `type` LIKE '%MAIN_BUTTONS%'");
@@ -278,7 +278,7 @@ if ($from_id == $admin || $userInfo['isAdmin'] == true) {
     $keys[] = [['text'=>"👤| حساب من",'callback_data'=>"myInfo"],['text'=>'⚙️| سرویس های من','callback_data'=>'mySubscriptions']];
     // $mainKeys[] = [['text'=>"▫️ موجودی سرورها ▫️",'callback_data'=>"availableServers"]];
     $keys[] = [['text'=>'📱| لینک نرم افزار ها','callback_data'=>"reciveApplications"],['text'=>"📨| پشتیبانی",'callback_data'=>"supportSection"]];
-    $temp[] = ['text'=>"🪫| مشخصات کانفیگ",'callback_data'=>"showUUIDLeft"];
+    $keys[] = [['text'=>"🪫| مشخصات کانفیگ",'callback_data'=>"showUUIDLeft"]];
     $keys[] = [['text'=>"🧷| زیر مجموعه گیری",'callback_data'=>"inviteFriends"]];
     
     
@@ -311,7 +311,7 @@ else {
     $keys[] = [['text'=>"👤| حساب من",'callback_data'=>"myInfo"],['text'=>'⚙️| سرویس های من','callback_data'=>'mySubscriptions']];
     // $mainKeys[] = [['text'=>"▫️ موجودی سرورها ▫️",'callback_data'=>"availableServers"]];
     $keys[] = [['text'=>'📱| لینک نرم افزار ها','callback_data'=>"reciveApplications"],['text'=>"📨| پشتیبانی",'callback_data'=>"supportSection"]];
-    $temp[] = ['text'=>"🪫| مشخصات کانفیگ",'callback_data'=>"showUUIDLeft"];
+    $keys[] = [['text'=>"🪫| مشخصات کانفیگ",'callback_data'=>"showUUIDLeft"]];
     $keys[] = [['text'=>"🧷| زیر مجموعه گیری",'callback_data'=>"inviteFriends"]];
     
     
