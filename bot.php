@@ -499,6 +499,10 @@ if($data=="inviteFriends"){
         $stmt = $connection->prepare("SELECT * FROM `setting` WHERE `type` = 'INVITE_BANNER_AMOUNT'");
         $stmt->execute();
         $inviteAmount = number_format($stmt->get_result()->fetch_assoc()['value']??0) . " تومان";
+        $tedadinvite = $userInfo['refnumber'];
+        $meghdarprize = number_format($stmt->get_result()->fetch_assoc()['value']??0);
+        $payanprize = $tedadinvite * $meghdarprize;
+        $payanprize2 = number_format($payanprize, 0, '.', ',');
         $stmt->close();
         
         $getBotInfo = json_decode(file_get_contents("http://api.telegram.org/bot" . $botToken . "/getMe"),true);
@@ -506,17 +510,17 @@ if($data=="inviteFriends"){
         
         $link = "t.me/$botId?start=" . $from_id;
         $msgId = $res->result->message_id;
-        $tedadinvite = $userInfo['refnumber'];
         bot('sendmessage',[
         'chat_id'=> $from_id,
         'text'=> "
         🔰| Link:  `$link`
     
     
-        لینک بالا مخصوص شما هست‼️
+        لینک بالا مخصوص شماست!
         شما با دعوت هر نفر با لینک خود مبلغ *$inviteAmount* دریافت خواهید کرد❕
     
         👤| تعداد کاربران دعوت شده : $tedadinvite نفر
+        💵| پورسانت دریافت شده : $payanprize2 تومان
         ",
         'reply_markup'=>$dokmelistinveite,
         'parse_mode'=>"Markdown",
