@@ -3543,7 +3543,7 @@ if($data=="supportSection"){
         json_encode(['inline_keyboard'=>[
         [['text'=>"✉️| ثبت تیکت",'callback_data'=>"usersNewTicket"]],
         [['text'=>"📨| تیکت های باز",'callback_data'=>"usersOpenTickets"],['text'=>"📮| لیست تیکت ها", 'callback_data'=>"userAllTickets"]],
-        [['text' =>"👨🏻‍💻| پیوی پشتیبانی",'url'=>"https://t.me/hudson_vpn"]],
+        [['text' =>"👨🏻‍💻| پیوی پشتیبانی",'url'=>"https://t.me/hudson_support"]],
         [['text'=>"🔙| برگشت",'callback_data'=>"mainMenu"]]
         ]]));
 }
