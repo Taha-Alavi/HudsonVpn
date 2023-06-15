@@ -524,22 +524,12 @@ if($data=="inviteFriends"){
     }
     else alert("این قسمت غیر فعال است");
 }
-
 #---لیست ممبر دعوت شده -------
-
 if($data == "listinvited"){
-$connection = connect_to_db();
-$result = $connection -> query("SELECT * FROM users");
-while($row = $result -> fetch_assoc()) {
-$telegramidserver2 = $row['userid'];
-if($from_id == $telegramidserver2){
-$chatid = $row['userid'];
-}
-}
 $result = $connection -> query("SELECT * FROM users");
 while($row = $result -> fetch_assoc()) {
 $prefcode = $row['refcode'];
-if($chatid == $prefcode){
+if($from_id == $prefcode){
 $tarafid = $row['username'];
 $tarafname = $row['name'];
 bot('sendmessage',[
@@ -551,23 +541,9 @@ bot('sendmessage',[
 'parse_mode'=>"Markdown",
 ]);
 }
-else{
-bot('sendmessage',[
-'chat_id'=> $from_id,
-'text'=> "
-❌| شما تا به حال با لینک خود شخصی را دعوت نکرده اید
-",
-'parse_mode'=>"Markdown",
-]);
-}
 }
 $connection -> close();
 }
-
-
-
-
-
 #
 if($data=="myInfo"){
     $stmt = $connection->prepare("SELECT * FROM `orders_list` WHERE `userid` = ?");
