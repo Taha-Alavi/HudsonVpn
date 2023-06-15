@@ -518,31 +518,11 @@ if($data=="inviteFriends"){
     
         👤| تعداد کاربران دعوت شده : $tedadinvite نفر
         ",
-        'parse_mode'=>"Markdown",
         'reply_markup'=>$dokmelistinveite,
+        'parse_mode'=>"Markdown",
         ]);
     }
     else alert("این قسمت غیر فعال است");
-}
-#---لیست ممبر دعوت شده -------
-if($data == "listinvited"){
-$result = $connection -> query("SELECT * FROM users");
-while($row = $result -> fetch_assoc()) {
-$prefcode = $row['refcode'];
-if($from_id == $prefcode){
-$tarafid = $row['username'];
-$tarafname = $row['name'];
-bot('sendmessage',[
-'chat_id'=> $from_id,
-'text'=> "
-👤| Name: *$tarafname*
-🪪| Username: @$tarafid
-",
-'parse_mode'=>"Markdown",
-]);
-}
-}
-$connection -> close();
 }
 #
 if($data=="myInfo"){
