@@ -485,7 +485,74 @@ if($userInfo['step'] == "editRewardTime" && ($from_id == $admin || $userInfo['is
     exit();
 }
 
-
+if($data=="inviteFriends"){
+    $dokmelistinveite = json_encode(['inline_keyboard' => [
+    [['text' =>"👤| لیست افراد دعوت شده",'callback_data'=>"listinvited"]],
+    [['text' =>"🔙| برگشت",'callback_data'=>"mainMenu"]],
+    ]]);
+    $stmt = $connection->prepare("SELECT * FROM `setting` WHERE `type` = 'INVITE_BANNER_TEXT'");
+    $stmt->execute();
+    $inviteText = $stmt->get_result()->fetch_assoc()['value'];
+    if($inviteText != null){
+        $inviteText = json_decode($inviteText,true);
+    
+        $stmt = $connection->prepare("SELECT * FROM `setting` WHERE `type` = 'INVITE_BANNER_AMOUNT'");
+        $stmt->execute();
+        $inviteAmount = number_format($stmt->get_result()->fetch_assoc()['value']??0) . " تومان";
+        $stmt->close();
+        
+        $getBotInfo = json_decode(file_get_contents("http://api.telegram.org/bot" . $botToken . "/getMe"),true);
+        $botId = $getBotInfo['result']['username'];
+        
+        $link = "t.me/$botId?start=" . $from_id;
+        $msgId = $res->result->message_id;
+        $tedadinvite = $userInfo['refnumber'];
+        bot('sendmessage',[
+        'chat_id'=> $from_id,
+        'text'=> "
+        🔰| Link:  `$link`
+    
+    
+        لینک بالا مخصوص شما هست‼️
+        شما با دعوت هر نفر با لینک خود مبلغ *$inviteAmount* دریافت خواهید کرد❕
+    
+        👤| تعداد کاربران دعوت شده : $tedadinvite نفر
+        ",
+        'reply_markup'=>$dokmelistinveite,
+        'parse_mode'=>"Markdown",
+        ]);
+    }
+    else alert("این قسمت غیر فعال است");
+}
+#---لیست ممبر دعوت شده -------
+if($data == "listinvited"){
+$result = $connection -> query("SELECT * FROM users");
+while($row = $result -> fetch_assoc()) {
+$prefcode = $row['refcode'];
+if($from_id == $prefcode){
+$tarafid = $row['username'];
+$tarafname = $row['name'];
+bot('sendmessage',[
+'chat_id'=> $from_id,
+'text'=> "
+👤| Name: *$tarafname*
+🪪| Username: @$tarafid
+",
+'parse_mode'=>"Markdown",
+]);
+}
+else{
+bot('sendmessage',[
+'chat_id'=> $from_id,
+'text'=> "
+❌| شما تا به حال با لینک خود شخصی را دعوت نکرده اید
+",
+'parse_mode'=>"Markdown",
+]);
+}
+}
+$connection -> close();
+}
 #
 if($data=="myInfo"){
     $stmt = $connection->prepare("SELECT * FROM `orders_list` WHERE `userid` = ?");
