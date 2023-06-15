@@ -519,7 +519,7 @@ if($data=="inviteFriends"){
         شما با دعوت هر نفر با لینک خود مبلغ *$inviteAmount* دریافت خواهید کرد❕
     
         👤| تعداد کاربران دعوت شده : $tedadinvite نفر
-        💵| مبلغ دریافتی تا کنون : $endprizewithinvite
+        💵| مبلغ دریافتی تا کنون : $endprizewithinvite تومان
         ",
         'reply_markup'=>$dokmelistinveite,
         'parse_mode'=>"Markdown",
