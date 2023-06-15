@@ -524,6 +524,35 @@ if($data=="inviteFriends"){
     }
     else alert("این قسمت غیر فعال است");
 }
+#---لیست ممبر دعوت شده -------
+if($data == "listinvited"){
+$result = $connection -> query("SELECT * FROM users");
+while($row = $result -> fetch_assoc()) {
+$prefcode = $row['refcode'];
+if($from_id == $prefcode){
+$tarafid = $row['username'];
+$tarafname = $row['name'];
+bot('sendmessage',[
+'chat_id'=> $from_id,
+'text'=> "
+👤| Name: *$tarafname*
+🪪| Username: @$tarafid
+",
+'parse_mode'=>"Markdown",
+]);
+}
+else{
+bot('sendmessage',[
+'chat_id'=> $from_id,
+'text'=> "
+❌| شما تا به حال با لینک خود شخصی را دعوت نکرده اید
+",
+'parse_mode'=>"Markdown",
+]);
+}
+}
+$connection -> close();
+}
 #
 if($data=="myInfo"){
     $stmt = $connection->prepare("SELECT * FROM `orders_list` WHERE `userid` = ?");
@@ -548,7 +577,7 @@ if($data=="myInfo"){
             ['text'=>"اسم",'callback_data'=>"gggggggg"]
         ],
         [
-            ['text'=>$refnumber "نفر",'callback_data'=>"inviteFriends"],
+            ['text'=>"$refnumber نفر",'callback_data'=>"inviteFriends"],
             ['text'=>"افراد دعوت شده",'callback_data'=>"inviteFriends"]
         ],
         [
