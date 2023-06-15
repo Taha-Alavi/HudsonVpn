@@ -23,7 +23,7 @@ Hudson Service ;D
 echo -e "    \e[31mTelegram Channel: \e[34m@HudsonSerivce\033[0m | \e[31mTelegram Bot: \e[34m@HudsonServiceBot\033[0m\n"
 
 #sleep
-echo -e "\e[32mInstalling WizWiz script ... \033[0m\n"
+echo -e "\e[32mInstalling Hudson script ... \033[0m\n"
 sleep 5
 
 sudo apt update && apt upgrade -y
@@ -109,7 +109,7 @@ wait
 git clone https://github.com/Taha-Alavi/HudsonVpn.git /var/www/html/wizwizxui-timebot
 sudo chown -R www-data:www-data /var/www/html/wizwizxui-timebot/
 sudo chmod -R 755 /var/www/html/wizwizxui-timebot/
-echo -e "\n\033[33mWizWiz config and script have been installed successfully\033[0m"
+echo -e "\n\033[33mHudson config and script have been installed successfully\033[0m"
 
 wait
     
@@ -118,8 +118,8 @@ destination_dir=$(find /var/www/html -type d -name "*wizpanel*" | head -n 1)
     
 if [ -z "$destination_dir" ]; then
     RANDOM_NUMBER=$(( RANDOM % 10000000 + 1000000 ))
-    mkdir "/var/www/html/wizpanel${RANDOM_NUMBER}"
-    echo "Directory created: wizpanel${RANDOM_NUMBER}"
+    mkdir "/var/www/html/panel"
+    echo "Directory created: panel"
     echo "Folder created successfully!"
 else
     echo "Folder already exists."
@@ -180,11 +180,13 @@ clear
 
 echo " "
 echo -e "\e[32m
-██     ██ ██ ███████ ██     ██ ██ ███████     ███████ ███████ ██      
-██     ██ ██    ███  ██     ██ ██    ███      ██      ██      ██      
-██  █  ██ ██   ███   ██  █  ██ ██   ███       ███████ ███████ ██      
-██ ███ ██ ██  ███    ██ ███ ██ ██  ███             ██      ██ ██      
- ███ ███  ██ ███████  ███ ███  ██ ███████     ███████ ███████ ███████ 
+██       ██  ██      ██  ██████      █████████  ███████████  ██       ███         ██████████  ██████ ██
+██       ██  ██      ██  ██    ██    ██         ██       ██  ██      █ ██         ██          ██     ██
+██       ██  ██      ██  ██      ██  ██         ██       ██  ██     █  ██         ██          ██     ██
+███████████  ██      ██  ██      ██  █████████  ██       ██  ██    █   ██         ██████████  ██████ ██
+██       ██  ██      ██  ██      ██         ██  ██       ██  ██   █    ██                 ██      ██ ██
+██       ██  ██      ██  ██    ██           ██  ██       ██  ██  █     ██                 ██      ██ ██ 
+██       ██  ██████████  ██████      █████████  ███████████  ████      ██         ██████████  ██████ █████████
 \033[0m\n"
 
 read -p "Enter the domain: " domainname
@@ -357,7 +359,7 @@ wait
         echo -e "\e[33mDatabase password: \e[36m${dbpass}\033[0m"
         echo " "
         echo -e "\e[100mwizwiz panel:\033[0m"
-        echo -e "\e[33maddres: \e[36mhttps://${YOUR_DOMAIN}/wizpanel${RANDOM_NUMBER}\033[0m"
+        echo -e "\e[33maddres: \e[36mhttps://${YOUR_DOMAIN}/panel\033[0m"
         echo -e "\e[33musername panel: \e[36madmin\033[0m"
         echo -e "\e[33mpassword panel: \e[36madmin\033[0m\n"
         
