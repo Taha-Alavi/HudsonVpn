@@ -112,7 +112,7 @@ if($userInfo['phone'] == null && $from_id != $admin && $userInfo['isAdmin'] != t
         }
     }else{
         sendMessage("👇|  برای استفاده از  ربات روی کلید ارسال شماره کلیک کنید", json_encode([
-			'inline_keyboard' => [[[
+			'keyboard' => [[[
 					'text' => '☎️| ارسال شماره',
 					'request_contact' => true,
 				]]],
@@ -926,7 +926,7 @@ if ($data=='buySubscription' && ($botState['sellState']=="on" || ($from_id == $a
         $flag = $cat['flag'];
         $keyboard[] = ['text' => "$flag $name", 'callback_data' => "selectServer$id"];
     }
-    $keyboard[] = ['text'=>"🔰| راهنمای خرید",'callback_data'=>"help"];
+    #$keyboard[] = ['text'=>"🔰| راهنمای خرید",'callback_data'=>"help"];
     $keyboard[] = ['text'=>"⤵️ برگرد صفحه قبلی ",'callback_data'=>"mainMenu"];
     $keyboard = array_chunk($keyboard,1);
     editText($message_id, '  1️⃣ مرحله یک:
