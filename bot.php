@@ -5687,7 +5687,7 @@ if(($data == 'mySubscriptions' or preg_match('/changeOrdersPage(\d+)/',$data, $m
         $remark = $cat['remark'];
         $keyboard[] = ['text' => "$remark", 'callback_data' => "orderDetails$id"];
     }
-    $keyboard = array_chunk($keyboard,2);
+    $keyboard = array_chunk($keyboard,1);
     
     $prev = $page - 1;
     $next = $page + 1;
