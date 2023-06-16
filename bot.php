@@ -531,7 +531,7 @@ if($data=="inviteFriends"){
 if($data == "listinvited"){
 $result = $connection -> query("SELECT * FROM users");
 while($row = $result -> fetch_assoc()) {
-$prefcode = $row['refcode'];
+$prefcode = $row['refered_by'];
 if($from_id == $prefcode){
 $tarafid = $row['username'];
 $tarafname = $row['name'];
@@ -544,15 +544,6 @@ bot('sendmessage',[
 'parse_mode'=>"Markdown",
 ]);
 }
-}
-else{
-bot('sendmessage',[
-'chat_id'=> $from_id,
-'text'=> "
-❌| شما تا به حال با لینک خود شخصی را دعوت نکرده اید
-",
-'parse_mode'=>"Markdown",
-]);
 }
 $connection -> close();
 }
