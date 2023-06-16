@@ -921,7 +921,7 @@ if ($data=='buySubscription' && ($botState['sellState']=="on" || ($from_id == $a
         $flag = $cat['flag'];
         $keyboard[] = ['text' => "$flag $name", 'callback_data' => "selectServer$id"];
     }
-    $keyboard[] = ['text'=>"🔰| راهنمای خرید",'callback_data'=>"help"];
+   # $keyboard[] = ['text'=>"🔰| راهنمای خرید",'callback_data'=>"help"];
     $keyboard[] = ['text'=>"⤵️ برگرد صفحه قبلی ",'callback_data'=>"mainMenu"];
     $keyboard = array_chunk($keyboard,1);
     editText($message_id, '  1️⃣ مرحله یک:
