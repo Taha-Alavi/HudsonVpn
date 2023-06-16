@@ -398,6 +398,7 @@ function getServerConfigKeys($serverId,$offset = 0){
     $serverConfig= $stmt->get_result()->fetch_assoc();
     $stmt->close();
     $reality = $serverConfig['reality']=="true"?"✅ فعال":"❌ غیر فعال";
+    $whatshow = $serverConfig['show']=="true"?"✅ فعال":"❌ غیر فعال";
     $panelUrl = $serverConfig['panel_url'];
     $sni = !empty($serverConfig['sni'])?$serverConfig['sni']:" ";
     $headerType = !empty($serverConfig['header_type'])?$serverConfig['header_type']:" ";
@@ -419,57 +420,61 @@ function getServerConfigKeys($serverId,$offset = 0){
     }
     return json_encode(['inline_keyboard'=>[
         [
-            ['text'=>$panelUrl,'callback_data'=>"wizwizch"],
+            ['text'=>$panelUrl,'callback_data'=>"HudsonNull"],
             ],
         [
             ['text'=>$cname,'callback_data'=>"editServerName$id"],
-            ['text'=>"❕نام سرور",'callback_data'=>"wizwizch"]
+            ['text'=>"❕نام سرور",'callback_data'=>"HudsonNull"]
             ],
         [
             ['text'=>$flagwizwiz,'callback_data'=>"editServerFlag$id"],
-            ['text'=>"🚩 پرچم سرور",'callback_data'=>"wizwizch"]
+            ['text'=>"🚩 پرچم سرور",'callback_data'=>"HudsonNull"]
             ],
         [
             ['text'=>$remarkwizwiz,'callback_data'=>"editServerRemark$id"],
-            ['text'=>"📣 ریمارک سرور",'callback_data'=>"wizwizch"]
+            ['text'=>"📣 ریمارک سرور",'callback_data'=>"HudsonNull"]
             ],
         [
             ['text'=>$serverType??" ",'callback_data'=>"changeServerType$id"],
-            ['text'=>"🔅نوعیت سرور",'callback_data'=>"wizwizch"]
+            ['text'=>"🔅نوعیت سرور",'callback_data'=>"HudsonNull"]
             ],
         [
             ['text'=>$portType,'callback_data'=>"changePortType$id"],
-            ['text'=>"🔅نوعیت پورت",'callback_data'=>"wizwizch"]
+            ['text'=>"🔅نوعیت پورت",'callback_data'=>"HudsonNull"]
             ],
         [
             ['text'=>$ucount,'callback_data'=>"editServerMax$id"],
-            ['text'=>"🔅ظرفیت سرور",'callback_data'=>"wizwizch"]
+            ['text'=>"🔅ظرفیت سرور",'callback_data'=>"HudsonNull"]
             ],
         [
             ['text'=>$sni,'callback_data'=>"editsServersni$id"],
-            ['text'=>"sni",'callback_data'=>"wizwizch"],
+            ['text'=>"sni",'callback_data'=>"HudsonNull"],
             ],
         [
             ['text'=>$headerType,'callback_data'=>"editsServerheader_type$id"],
-            ['text'=>"header type",'callback_data'=>"wizwizch"],
+            ['text'=>"header type",'callback_data'=>"HudsonNull"],
             ],
         [
             ['text'=>$requestHeader,'callback_data'=>"editsServerrequest_header$id"],
-            ['text'=>"request header",'callback_data'=>"wizwizch"],
+            ['text'=>"request header",'callback_data'=>"HudsonNull"],
             ],
         [
             ['text'=>$responseHeader,'callback_data'=>"editsServerresponse_header$id"],
-            ['text'=>"response header",'callback_data'=>"wizwizch"],
+            ['text'=>"response header",'callback_data'=>"HudsonNull"],
             ],
         [
             ['text'=>$security,'callback_data'=>"editsServersecurity$id"],
-            ['text'=>"security",'callback_data'=>"wizwizch"],
+            ['text'=>"security",'callback_data'=>"HudsonNull"],
             ],
         (($serverConfig['type'] == "sanaei" || $serverConfig['type'] == "alireza")?
         [
             ['text'=>$reality,'callback_data'=>"changeRealityState$id"],
-            ['text'=>"reality",'callback_data'=>"wizwizch"],
+            ['text'=>"reality",'callback_data'=>"HudsonNull"],
             ]:[]),
+        [
+            ['text'=>"$whatshow",'callback_data'=>"changeServerShow$id"],
+            ['text'=>"نمایش",'callback_data'=>"HudsonNull"],
+        ],
         [
             ['text'=>"♻️ تغییر آیپی های سرور",'callback_data'=>"changesServerIp$id"],
             ],
@@ -497,9 +502,9 @@ function getServerListKeys($offset = 0){
 
 
     $keys = array();
-    $keys[] = [['text'=>"وضعیت",'callback_data'=>"wizwizch"],['text'=>"تنظیمات",'callback_data'=>"wizwizch"],['text'=>"نوعیت",'callback_data'=>"wizwizch"],['text'=>"سرور",'callback_data'=>"wizwizch"]];
+    $keys[] = [['text'=>"وضعیت",'callback_data'=>"HudsonNull"],['text'=>"تنظیمات",'callback_data'=>"HudsonNull"],['text'=>"نوعیت",'callback_data'=>"HudsonNull"],['text'=>"سرور",'callback_data'=>"HudsonNull"]];
     if($cats->num_rows == 0){
-        $keys[] = [['text'=>"سروری یافت نشد",'callback_data'=>"wizwizch"]];
+        $keys[] = [['text'=>"سروری یافت نشد",'callback_data'=>"HudsonNull"]];
     }else {
         while($cty = $cats->fetch_assoc()){
             $id = $cty['id'];
@@ -526,7 +531,7 @@ function getServerListKeys($offset = 0){
                     $serverType = "ساده";
                     break;
             }
-            $keys[] = [['text'=>$state,'callback_data'=>'toggleServerState' . $id . "_" . $offset],['text'=>"⚙️",'callback_data'=>"showServerSettings" . $id . "_" . $offset],['text'=>$serverType??" ",'callback_data'=>"wizwizch"],['text'=>$cname,'callback_data'=>"wizwizch"]];
+            $keys[] = [['text'=>$state,'callback_data'=>'toggleServerState' . $id . "_" . $offset],['text'=>"⚙️",'callback_data'=>"showServerSettings" . $id . "_" . $offset],['text'=>$serverType??" ",'callback_data'=>"HudsonNull"],['text'=>$cname,'callback_data'=>"HudsonNull"]];
         } 
     }
     if($offset == 0 && $cats->num_rows >= $limit){
@@ -556,9 +561,9 @@ function getCategoriesKeys($offset = 0){
 
 
     $keys = array();
-    $keys[] = [['text'=>"حذف",'callback_data'=>"wizwizch"],['text'=>"اسم دسته",'callback_data'=>"wizwizch"]];
+    $keys[] = [['text'=>"حذف",'callback_data'=>"HudsonNull"],['text'=>"اسم دسته",'callback_data'=>"HudsonNull"]];
     if($cats->num_rows == 0){
-        $keys[] = [['text'=>"دسته بندی یافت نشد",'callback_data'=>"wizwizch"]];
+        $keys[] = [['text'=>"دسته بندی یافت نشد",'callback_data'=>"HudsonNull"]];
     }else {
         while($cty = $cats->fetch_assoc()){
             $id = $cty['id'];
@@ -615,59 +620,59 @@ function getGateWaysKeys(){
     return json_encode(['inline_keyboard'=>[
         [
             ['text'=>(!empty($paymentKeys['bankAccount'])?$paymentKeys['bankAccount']:" "),'callback_data'=>"changePaymentKeysbankAccount"],
-            ['text'=>"شماره حساب",'callback_data'=>"wizwizch"]
+            ['text'=>"شماره حساب",'callback_data'=>"HudsonNull"]
         ],
         [
             ['text'=>(!empty($paymentKeys['holderName'])?$paymentKeys['holderName']:" "),'callback_data'=>"changePaymentKeysholderName"],
-            ['text'=>"دارنده حساب",'callback_data'=>"wizwizch"]
+            ['text'=>"دارنده حساب",'callback_data'=>"HudsonNull"]
         ],
         [
             ['text'=>(!empty($paymentKeys['nowpayment'])?$paymentKeys['nowpayment']:" "),'callback_data'=>"changePaymentKeysnowpayment"],
-            ['text'=>"کد درگاه nowPayment",'callback_data'=>"wizwizch"]
+            ['text'=>"کد درگاه nowPayment",'callback_data'=>"HudsonNull"]
         ],
         [
             ['text'=>(!empty($paymentKeys['zarinpal'])?$paymentKeys['zarinpal']:" "),'callback_data'=>"changePaymentKeyszarinpal"],
-            ['text'=>"کد درگاه زرین پال",'callback_data'=>"wizwizch"]
+            ['text'=>"کد درگاه زرین پال",'callback_data'=>"HudsonNull"]
         ],
         [
             ['text'=>(!empty($paymentKeys['nextpay'])?$paymentKeys['nextpay']:" "),'callback_data'=>"changePaymentKeysnextpay"],
-            ['text'=>"کد درگاه نکست پی",'callback_data'=>"wizwizch"]
+            ['text'=>"کد درگاه نکست پی",'callback_data'=>"HudsonNull"]
         ],
         [
             ['text'=>$weSwapState,'callback_data'=>"changeGateWaysweSwapState"],
-            ['text'=>"درگاه وی سواپ",'callback_data'=>"wizwizch"]
+            ['text'=>"درگاه وی سواپ",'callback_data'=>"HudsonNull"]
         ],
         [
             ['text'=>$cartToCartState,'callback_data'=>"changeGateWayscartToCartState"],
-            ['text'=>"کارت به کارت",'callback_data'=>"wizwizch"]
+            ['text'=>"کارت به کارت",'callback_data'=>"HudsonNull"]
         ],
         [
             ['text'=>$nextpay,'callback_data'=>"changeGateWaysnextpay"],
-            ['text'=>"درگاه نکست پی",'callback_data'=>"wizwizch"]
+            ['text'=>"درگاه نکست پی",'callback_data'=>"HudsonNull"]
         ],
         [
             ['text'=>$zarinpal,'callback_data'=>"changeGateWayszarinpal"],
-            ['text'=>"درگاه زرین پال",'callback_data'=>"wizwizch"]
+            ['text'=>"درگاه زرین پال",'callback_data'=>"HudsonNull"]
         ],
         [
             ['text'=>$nowPaymentWallet,'callback_data'=>"changeGateWaysnowPaymentWallet"],
-            ['text'=>"درگاه NowPayment کیف پول",'callback_data'=>"wizwizch"]
+            ['text'=>"درگاه NowPayment کیف پول",'callback_data'=>"HudsonNull"]
         ],
         [
             ['text'=>$nowPaymentOther,'callback_data'=>"changeGateWaysnowPaymentOther"],
-            ['text'=>"درگاه NowPayment سایر",'callback_data'=>"wizwizch"]
+            ['text'=>"درگاه NowPayment سایر",'callback_data'=>"HudsonNull"]
         ],
         [
             ['text'=>$walletState,'callback_data'=>"changeGateWayswalletState"],
-            ['text'=>"کیف پول",'callback_data'=>"wizwizch"]
+            ['text'=>"کیف پول",'callback_data'=>"HudsonNull"]
         ],
         [
             ['text'=>$rewaredChannel,'callback_data'=>'editRewardChannel'],
-            ['text'=>"کانال گزارش درآمد",'callback_data'=>'wizwizch']
+            ['text'=>"کانال گزارش درآمد",'callback_data'=>'HudsonNull']
             ],
         [
             ['text'=>$lockChannel,'callback_data'=>'editLockChannel'],
-            ['text'=>"کانال قفل",'callback_data'=>'wizwizch']
+            ['text'=>"کانال قفل",'callback_data'=>'HudsonNull']
             ],
         [['text'=>"↩️ برگشت",'callback_data'=>"managePanel"]]
         ]]);
@@ -710,55 +715,55 @@ function getBotSettingKeys(){
             ],
         [
             ['text'=>$changeProtocole,'callback_data'=>"changeBotchangeProtocolState"],
-            ['text'=>"تغییر پروتکل",'callback_data'=>"wizwizch"]
+            ['text'=>"تغییر پروتکل",'callback_data'=>"HudsonNull"]
         ],
         [
             ['text'=>$renewAccount,'callback_data'=>"changeBotrenewAccountState"],
-            ['text'=>"تمدید سرویس",'callback_data'=>"wizwizch"]
+            ['text'=>"تمدید سرویس",'callback_data'=>"HudsonNull"]
         ],
         [
             ['text'=>$plandelkhahwiz,'callback_data'=>"changeBotplandelkhahState"],
-            ['text'=>"پلن دلخواه",'callback_data'=>"wizwizch"]
+            ['text'=>"پلن دلخواه",'callback_data'=>"HudsonNull"]
         ],
         [
             ['text'=>$switchLocation,'callback_data'=>"changeBotswitchLocationState"],
-            ['text'=>"تغییر لوکیشن",'callback_data'=>"wizwizch"]
+            ['text'=>"تغییر لوکیشن",'callback_data'=>"HudsonNull"]
         ],
         [
             ['text'=>$increaseTime,'callback_data'=>"changeBotincreaseTimeState"],
-            ['text'=>"افزایش زمان",'callback_data'=>"wizwizch"]
+            ['text'=>"افزایش زمان",'callback_data'=>"HudsonNull"]
         ],
         [
             ['text'=>$increaseVolume,'callback_data'=>"changeBotincreaseVolumeState"],
-            ['text'=>"افزایش حجم",'callback_data'=>"wizwizch"]
+            ['text'=>"افزایش حجم",'callback_data'=>"HudsonNull"]
         ],
         [
             ['text'=>$requirePhone,'callback_data'=>"changeBotrequirePhone"],
-            ['text'=>"تأیید شماره",'callback_data'=>"wizwizch"]
+            ['text'=>"تأیید شماره",'callback_data'=>"HudsonNull"]
         ],
         [
             ['text'=>$requireIranPhone,'callback_data'=>"changeBotrequireIranPhone"],
-            ['text'=>"تأیید شماره ایرانی",'callback_data'=>"wizwizch"]
+            ['text'=>"تأیید شماره ایرانی",'callback_data'=>"HudsonNull"]
         ],
         [
             ['text'=>$sellState,'callback_data'=>"changeBotsellState"],
-            ['text'=>"فروش",'callback_data'=>"wizwizch"]
+            ['text'=>"فروش",'callback_data'=>"HudsonNull"]
         ],
         [
             ['text'=>$robotState,'callback_data'=>"changeBotbotState"],
-            ['text'=>"وضعیت ربات",'callback_data'=>"wizwizch"]
+            ['text'=>"وضعیت ربات",'callback_data'=>"HudsonNull"]
         ],
         [
             ['text'=>$subLink,'callback_data'=>"changeBotsubLinkState"],
-            ['text'=>"لینک ساب",'callback_data'=>"wizwizch"]
+            ['text'=>"لینک ساب",'callback_data'=>"HudsonNull"]
         ],
         [
             ['text'=>$searchState,'callback_data'=>"changeBotsearchState"],
-            ['text'=>"مشخصات کانفیگ",'callback_data'=>"wizwizch"]
+            ['text'=>"مشخصات کانفیگ",'callback_data'=>"HudsonNull"]
         ],
         [
             ['text'=>$rewaredTime,'callback_data'=>'editRewardTime'],
-            ['text'=>"ارسال گزارش درآمد", 'callback_data'=>'wizwizch']
+            ['text'=>"ارسال گزارش درآمد", 'callback_data'=>'HudsonNull']
             ],
         [['text'=>"↩️ برگشت",'callback_data'=>"managePanel"]]
         ]]);
@@ -799,28 +804,28 @@ function getBotReportKeys(){
     
     return json_encode(['inline_keyboard'=>[
         [
-            ['text'=>$allUsers,'callback_data'=>'wizwizch'],
-            ['text'=>"تعداد کل کاربران",'callback_data'=>'wizwizch']
+            ['text'=>$allUsers,'callback_data'=>'HudsonNull'],
+            ['text'=>"تعداد کل کاربران",'callback_data'=>'HudsonNull']
             ],
         [
-            ['text'=>$allOrders,'callback_data'=>'wizwizch'],
-            ['text'=>"کل محصولات خریداری شده",'callback_data'=>'wizwizch']
+            ['text'=>$allOrders,'callback_data'=>'HudsonNull'],
+            ['text'=>"کل محصولات خریداری شده",'callback_data'=>'HudsonNull']
             ],
         [
-            ['text'=>$allServers,'callback_data'=>'wizwizch'],
-            ['text'=>"تعداد سرورها",'callback_data'=>'wizwizch']
+            ['text'=>$allServers,'callback_data'=>'HudsonNull'],
+            ['text'=>"تعداد سرورها",'callback_data'=>'HudsonNull']
             ],
         [
-            ['text'=>$allCategories,'callback_data'=>'wizwizch'],
-            ['text'=>"تعداد دسته ها",'callback_data'=>'wizwizch']
+            ['text'=>$allCategories,'callback_data'=>'HudsonNull'],
+            ['text'=>"تعداد دسته ها",'callback_data'=>'HudsonNull']
             ],
         [
-            ['text'=>$allPlans,'callback_data'=>'wizwizch'],
-            ['text'=>"تعداد پلن ها",'callback_data'=>'wizwizch']
+            ['text'=>$allPlans,'callback_data'=>'HudsonNull'],
+            ['text'=>"تعداد پلن ها",'callback_data'=>'HudsonNull']
             ],
         [
-            ['text'=>$totalRewards,'callback_data'=>'wizwizch'],
-            ['text'=>"درآمد کل",'callback_data'=>'wizwizch']
+            ['text'=>$totalRewards,'callback_data'=>'HudsonNull'],
+            ['text'=>"درآمد کل",'callback_data'=>'HudsonNull']
             ],
         [
             ['text'=>"برگشت به مدیریت",'callback_data'=>'managePanel']
@@ -837,10 +842,10 @@ function getAdminsKeys(){
     $stmt->close();
     if($usersList->num_rows > 0){
         while($user = $usersList->fetch_assoc()){
-            $keys[] = [['text'=>"❌",'callback_data'=>"delAdmin" . $user['userid']],['text'=>$user['name'], "callback_data"=>"wizwizch"]];
+            $keys[] = [['text'=>"❌",'callback_data'=>"delAdmin" . $user['userid']],['text'=>$user['name'], "callback_data"=>"HudsonNull"]];
         }
     }else{
-        $keys[] = [['text'=>"لیست ادمین ها خالی است ❕",'callback_data'=>"wizwizch"]];
+        $keys[] = [['text'=>"لیست ادمین ها خالی است ❕",'callback_data'=>"HudsonNull"]];
     }
     $keys[] = [['text'=>"➕ افزودن ادمین",'callback_data'=>"addNewAdmin"]];
     $keys[] = [['text'=>"↩️ برگشت",'callback_data'=>"managePanel"]];
@@ -872,23 +877,23 @@ function getUserInfoKeys($userId){
         return json_encode(['inline_keyboard'=>[
             [
                 ['text'=>$userUserName??" ",'url'=>"t.me/$userUserName"],
-                ['text'=>"یوزرنیم",'callback_data'=>"wizwizch"]
+                ['text'=>"یوزرنیم",'callback_data'=>"HudsonNull"]
                 ],
             [
-                ['text'=>$fullName??" ",'callback_data'=>"wizwizch"],
-                ['text'=>"نام",'callback_data'=>"wizwizch"]
+                ['text'=>$fullName??" ",'callback_data'=>"HudsonNull"],
+                ['text'=>"نام",'callback_data'=>"HudsonNull"]
                 ],
             [
-                ['text'=>$boughtService??" ",'callback_data'=>"wizwizch"],
-                ['text'=>"سرویس ها",'callback_data'=>"wizwizch"]
+                ['text'=>$boughtService??" ",'callback_data'=>"HudsonNull"],
+                ['text'=>"سرویس ها",'callback_data'=>"HudsonNull"]
                 ],
             [
-                ['text'=>$totalBoughtPrice??" ",'callback_data'=>"wizwizch"],
-                ['text'=>"مبلغ خرید",'callback_data'=>"wizwizch"]
+                ['text'=>$totalBoughtPrice??" ",'callback_data'=>"HudsonNull"],
+                ['text'=>"مبلغ خرید",'callback_data'=>"HudsonNull"]
                 ],
             [
-                ['text'=>$userWallet??" ",'callback_data'=>"wizwizch"],
-                ['text'=>"موجودی کیف پول",'callback_data'=>"wizwizch"]
+                ['text'=>$userWallet??" ",'callback_data'=>"HudsonNull"],
+                ['text'=>"موجودی کیف پول",'callback_data'=>"HudsonNull"]
                 ],
             [
                 ['text'=>"برگشت 🔙",'callback_data'=>"mainMenu"]
@@ -905,7 +910,7 @@ function getDiscountCodeKeys(){
     $stmt->close();
     $keys = array();
     if($list->num_rows > 0){
-        $keys[] = [['text'=>'حذف','callback_data'=>"wizwizch"],['text'=>"تاریخ ختم",'callback_data'=>"wizwizch"],['text'=>"تعداد استفاده",'callback_data'=>"wizwizch"],['text'=>"مقدار تخفیف",'callback_data'=>"wizwizch"],['text'=>"کد تخفیف",'callback_data'=>"wizwizch"]];
+        $keys[] = [['text'=>'حذف','callback_data'=>"HudsonNull"],['text'=>"تاریخ ختم",'callback_data'=>"HudsonNull"],['text'=>"تعداد استفاده",'callback_data'=>"HudsonNull"],['text'=>"مقدار تخفیف",'callback_data'=>"HudsonNull"],['text'=>"کد تخفیف",'callback_data'=>"HudsonNull"]];
         while($row = $list->fetch_assoc()){
             $date = $row['expire_date']!=0?jdate("Y/n/j H:i", $row['expire_date']):"نامحدود";
             $count = $row['expire_count']!=-1?$row['expire_count']:"نامحدود";
@@ -914,10 +919,10 @@ function getDiscountCodeKeys(){
             $hashId = $row['hash_id'];
             $rowId = $row['id'];
             
-            $keys[] = [['text'=>'❌','callback_data'=>"delDiscount" . $rowId],['text'=>$date,'callback_data'=>"wizwizch"],['text'=>$count,'callback_data'=>"wizwizch"],['text'=>$amount,'callback_data'=>"wizwizch"],['text'=>$hashId,'callback_data'=>'copyHash' . $hashId]];
+            $keys[] = [['text'=>'❌','callback_data'=>"delDiscount" . $rowId],['text'=>$date,'callback_data'=>"HudsonNull"],['text'=>$count,'callback_data'=>"HudsonNull"],['text'=>$amount,'callback_data'=>"HudsonNull"],['text'=>$hashId,'callback_data'=>'copyHash' . $hashId]];
         }
     }else{
-        $keys[] = [['text'=>"کد تخفیفی یافت نشد",'callback_data'=>"wizwizch"]];
+        $keys[] = [['text'=>"کد تخفیفی یافت نشد",'callback_data'=>"HudsonNull"]];
     }
     
     $keys[] = [['text'=>"افزودن کد تخفیف",'callback_data'=>"addDiscountCode"]];
@@ -940,10 +945,10 @@ function getMainMenuButtonsKeys(){
             $answer = $row['value'];
             $keys[] = [
                         ['text'=>"❌",'callback_data'=>"delMainButton" . $rowId],
-                        ['text'=>$title??" " ,'callback_data'=>"wizwizch"]];
+                        ['text'=>$title??" " ,'callback_data'=>"HudsonNull"]];
         }
     }else{
-        $keys[] = [['text'=>"دکمه ای یافت نشد ❕",'callback_data'=>"wizwizch"]];
+        $keys[] = [['text'=>"دکمه ای یافت نشد ❕",'callback_data'=>"HudsonNull"]];
     }
     $keys[] = [['text'=>"افزودن دکمه جدید ➕",'callback_data'=>"addNewMainButton"]];
     $keys[] = [['text'=>"برگشت 🔙",'callback_data'=>"managePanel"]];
@@ -988,17 +993,17 @@ function getPlanDetailsKeys($planId){
 
         $srvid= $pd['server_id'];
         $keyboard = [
-            ($rahgozar==true?[['text'=>"* نوع پلن: رهگذر *",'callback_data'=>'wizwizch']]:[]),
-            [['text'=>$name,'callback_data'=>"wizwizplanname$id"],['text'=>"🔮 نام پلن",'callback_data'=>"wizwizch"]],
-            ($reality == "true"?[['text'=>$dest,'callback_data'=>"editDestName$id"],['text'=>"dest",'callback_data'=>"wizwizch"]]:[]),
-            ($reality == "true"?[['text'=>$serverName,'callback_data'=>"editServerNames$id"],['text'=>"serverNames",'callback_data'=>"wizwizch"]]:[]),
-            ($reality == "true"?[['text'=>$spiderX,'callback_data'=>"editSpiderX$id"],['text'=>"spiderX",'callback_data'=>"wizwizch"]]:[]),
-            ($reality == "true"?[['text'=>$flow,'callback_data'=>"editFlow$id"],['text'=>"flow",'callback_data'=>"wizwizch"]]:[]),
-            [['text'=>$wizwizplanaccnumber,'callback_data'=>"wizwizch"],['text'=>"🎗 تعداد اکانت های فروخته شده",'callback_data'=>"wizwizch"]],
-            ($pd['inbound_id'] != 0?[['text'=>"$acount",'callback_data'=>"wizwizplanslimit$id"],['text'=>"🚪 تغییر ظرفیت کانفیگ",'callback_data'=>"wizwizch"]]:[]),
-            ($pd['inbound_id'] != 0?[['text'=>$pd['inbound_id'],'callback_data'=>"wizwizplansinobundid$id"],['text'=>"🚪 سطر کانفیگ",'callback_data'=>"wizwizch"]]:[]),
+            ($rahgozar==true?[['text'=>"* نوع پلن: رهگذر *",'callback_data'=>'HudsonNull']]:[]),
+            [['text'=>$name,'callback_data'=>"wizwizplanname$id"],['text'=>"🔮 نام پلن",'callback_data'=>"HudsonNull"]],
+            ($reality == "true"?[['text'=>$dest,'callback_data'=>"editDestName$id"],['text'=>"dest",'callback_data'=>"HudsonNull"]]:[]),
+            ($reality == "true"?[['text'=>$serverName,'callback_data'=>"editServerNames$id"],['text'=>"serverNames",'callback_data'=>"HudsonNull"]]:[]),
+            ($reality == "true"?[['text'=>$spiderX,'callback_data'=>"editSpiderX$id"],['text'=>"spiderX",'callback_data'=>"HudsonNull"]]:[]),
+            ($reality == "true"?[['text'=>$flow,'callback_data'=>"editFlow$id"],['text'=>"flow",'callback_data'=>"HudsonNull"]]:[]),
+            [['text'=>$wizwizplanaccnumber,'callback_data'=>"HudsonNull"],['text'=>"🎗 تعداد اکانت های فروخته شده",'callback_data'=>"HudsonNull"]],
+            ($pd['inbound_id'] != 0?[['text'=>"$acount",'callback_data'=>"wizwizplanslimit$id"],['text'=>"🚪 تغییر ظرفیت کانفیگ",'callback_data'=>"HudsonNull"]]:[]),
+            ($pd['inbound_id'] != 0?[['text'=>$pd['inbound_id'],'callback_data'=>"wizwizplansinobundid$id"],['text'=>"🚪 سطر کانفیگ",'callback_data'=>"HudsonNull"]]:[]),
             [['text'=>"✏️ ویرایش توضیحات",'callback_data'=>"wizwizplaneditdes$id"]],
-            [['text'=>number_format($price) . " تومان",'callback_data'=>"wizwizplanrial$id"],['text'=>"💰 قیمت پلن",'callback_data'=>"wizwizch"]],
+            [['text'=>number_format($price) . " تومان",'callback_data'=>"wizwizplanrial$id"],['text'=>"💰 قیمت پلن",'callback_data'=>"HudsonNull"]],
             [['text'=>"♻️ دریافت لیست اکانت ها",'callback_data'=>"wizwizplanacclist$id"]],
             [['text'=>"✂️ حذف",'callback_data'=>"wizwizplandelete$id"]],
             [['text' => "↪ برگشت", 'callback_data' =>"plansList$srvid"]]
@@ -1103,42 +1108,42 @@ function getOrderDetailKeys($from_id, $id){
                 if($security == "xtls"){
                     $keyboard = [
                         [
-            			    ['text' =>$state??" ", 'callback_data' => "wizwizch"],
-                            ['text' => " 🌐| وضعیت سرویس:", 'callback_data' => "wizwizch"],
+            			    ['text' =>$state??" ", 'callback_data' => "HudsonNull"],
+                            ['text' => " 🌐| وضعیت سرویس:", 'callback_data' => "HudsonNull"],
                         ],
                         [
-            			    ['text' => "$name", 'callback_data' => "wizwizch"],
-                            ['text' => " 🚀| نام پلن:", 'callback_data' => "wizwizch"],
+            			    ['text' => "$name", 'callback_data' => "HudsonNull"],
+                            ['text' => " 🚀| نام پلن:", 'callback_data' => "HudsonNull"],
                         ],
                         [
-            			    ['text' => "$date ", 'callback_data' => "wizwizch"],
-                            ['text' => "⏰| تاریخ خرید: ", 'callback_data' => "wizwizch"],
+            			    ['text' => "$date ", 'callback_data' => "HudsonNull"],
+                            ['text' => "⏰| تاریخ خرید: ", 'callback_data' => "HudsonNull"],
                         ],
                         [
-            			    ['text' => "$expire_date ", 'callback_data' => "wizwizch"],
-                            ['text' => "⏰| تاریخ انقضاء: ", 'callback_data' => "wizwizch"],
+            			    ['text' => "$expire_date ", 'callback_data' => "HudsonNull"],
+                            ['text' => "⏰| تاریخ انقضاء: ", 'callback_data' => "HudsonNull"],
                         ],
                         [
-            			    ['text' => " $allgig", 'callback_data' => "wizwizch"],
-                            ['text' => "🔰| حجم کل:", 'callback_data' => "wizwizch"],
+            			    ['text' => " $allgig", 'callback_data' => "HudsonNull"],
+                            ['text' => "🔰| حجم کل:", 'callback_data' => "HudsonNull"],
             			],
                         [
-            			    ['text' => " $download", 'callback_data' => "wizwizch"],
-                            ['text' => "📥| دانلود:", 'callback_data' => "wizwizch"],
+            			    ['text' => " $download", 'callback_data' => "HudsonNull"],
+                            ['text' => "📥| دانلود:", 'callback_data' => "HudsonNull"],
             			],
                         [
-            			    ['text' => " $upload", 'callback_data' => "wizwizch"],
-                            ['text' => "📤| آپلود:", 'callback_data' => "wizwizch"],
+            			    ['text' => " $upload", 'callback_data' => "HudsonNull"],
+                            ['text' => "📤| آپلود:", 'callback_data' => "HudsonNull"],
             			],
                         [
-            			    ['text' => " $leftgb", 'callback_data' => "wizwizch"],
-                            ['text' => "⏳| حجم باقیمانده:", 'callback_data' => "wizwizch"],
+            			    ['text' => " $leftgb", 'callback_data' => "HudsonNull"],
+                            ['text' => "⏳| حجم باقیمانده:", 'callback_data' => "HudsonNull"],
             			],
             // 			[
             //                 ['text' => $netType. " 🎛 نوع شبکه ", 'callback_data' => "cantEditTrojan"],
             //             ],
                         [
-                            ['text' => "🚦 پروتکل انتخابی", 'callback_data' => "wizwizch"],
+                            ['text' => "🚦 پروتکل انتخابی", 'callback_data' => "HudsonNull"],
                         ],
                         [
                             ['text' => $protocol == 'trojan' ? '☑️ trojan' : 'trojan', 'callback_data' => ($botState['changeProtocolState']=="on"?"changeAccProtocol{$fid}_{$id}_trojan":"changeProtocolIsDisable")],
@@ -1157,42 +1162,42 @@ function getOrderDetailKeys($from_id, $id){
                 }else{
                     $keyboard = [
                         [
-            			    ['text' =>$state??" ", 'callback_data' => "wizwizch"],
-                            ['text' => " 🌐| وضعیت سرویس:", 'callback_data' => "wizwizch"],
+            			    ['text' =>$state??" ", 'callback_data' => "HudsonNull"],
+                            ['text' => " 🌐| وضعیت سرویس:", 'callback_data' => "HudsonNull"],
                         ],
                         [
-            			    ['text' => "$name", 'callback_data' => "wizwizch"],
-                            ['text' => " 🚀| نام پلن:", 'callback_data' => "wizwizch"],
+            			    ['text' => "$name", 'callback_data' => "HudsonNull"],
+                            ['text' => " 🚀| نام پلن:", 'callback_data' => "HudsonNull"],
                         ],
                         [
-            			    ['text' => "$date ", 'callback_data' => "wizwizch"],
-                            ['text' => "⏰| تاریخ خرید: ", 'callback_data' => "wizwizch"],
+            			    ['text' => "$date ", 'callback_data' => "HudsonNull"],
+                            ['text' => "⏰| تاریخ خرید: ", 'callback_data' => "HudsonNull"],
                         ],
                         [
-            			    ['text' => "$expire_date ", 'callback_data' => "wizwizch"],
-                            ['text' => "⏰| تاریخ انقضاء: ", 'callback_data' => "wizwizch"],
+            			    ['text' => "$expire_date ", 'callback_data' => "HudsonNull"],
+                            ['text' => "⏰| تاریخ انقضاء: ", 'callback_data' => "HudsonNull"],
                         ],
                         [
-            			    ['text' => " $allgig", 'callback_data' => "wizwizch"],
-                            ['text' => "🔰| حجم کل:", 'callback_data' => "wizwizch"],
+            			    ['text' => " $allgig", 'callback_data' => "HudsonNull"],
+                            ['text' => "🔰| حجم کل:", 'callback_data' => "HudsonNull"],
             			],
                         [
-            			    ['text' => " $download", 'callback_data' => "wizwizch"],
-                            ['text' => "📥| دانلود:", 'callback_data' => "wizwizch"],
+            			    ['text' => " $download", 'callback_data' => "HudsonNull"],
+                            ['text' => "📥| دانلود:", 'callback_data' => "HudsonNull"],
             			],
                         [
-            			    ['text' => " $upload", 'callback_data' => "wizwizch"],
-                            ['text' => "📤| آپلود:", 'callback_data' => "wizwizch"],
+            			    ['text' => " $upload", 'callback_data' => "HudsonNull"],
+                            ['text' => "📤| آپلود:", 'callback_data' => "HudsonNull"],
             			],
                         [
-            			    ['text' => " $leftgb", 'callback_data' => "wizwizch"],
-                            ['text' => "⏳| حجم باقیمانده:", 'callback_data' => "wizwizch"],
+            			    ['text' => " $leftgb", 'callback_data' => "HudsonNull"],
+                            ['text' => "⏳| حجم باقیمانده:", 'callback_data' => "HudsonNull"],
             			],
             // 			[
             //                 ['text' => $netType. " 🎛 نوع شبکه ", 'callback_data' => "cantEditTrojan"],
             //             ],
                         [
-                            ['text' => "🚦 پروتکل انتخابی", 'callback_data' => "wizwizch"],
+                            ['text' => "🚦 پروتکل انتخابی", 'callback_data' => "HudsonNull"],
                         ],
                         [
                             ['text' => $protocol == 'trojan' ? '☑️ trojan' : 'trojan', 'callback_data' => ($botState['changeProtocolState']=="on"?"changeAccProtocol{$fid}_{$id}_trojan":"changeProtocolIsDisable")],
@@ -1215,42 +1220,42 @@ function getOrderDetailKeys($from_id, $id){
                 if($netType == "grpc"){
                     $keyboard = [
                         [
-            			    ['text' =>$state??" ", 'callback_data' => "wizwizch"],
-                            ['text' => " 🌐| وضعیت سرویس:", 'callback_data' => "wizwizch"],
+            			    ['text' =>$state??" ", 'callback_data' => "HudsonNull"],
+                            ['text' => " 🌐| وضعیت سرویس:", 'callback_data' => "HudsonNull"],
                         ],
                         [
-            			    ['text' => "$name", 'callback_data' => "wizwizch"],
-                            ['text' => " 🚀| نام پلن:", 'callback_data' => "wizwizch"],
+            			    ['text' => "$name", 'callback_data' => "HudsonNull"],
+                            ['text' => " 🚀| نام پلن:", 'callback_data' => "HudsonNull"],
                         ],
                         [
-            			    ['text' => "$date ", 'callback_data' => "wizwizch"],
-                            ['text' => "⏰| تاریخ خرید: ", 'callback_data' => "wizwizch"],
+            			    ['text' => "$date ", 'callback_data' => "HudsonNull"],
+                            ['text' => "⏰| تاریخ خرید: ", 'callback_data' => "HudsonNull"],
                         ],
                         [
-            			    ['text' => "$expire_date ", 'callback_data' => "wizwizch"],
-                            ['text' => "⏰| تاریخ انقضاء: ", 'callback_data' => "wizwizch"],
+            			    ['text' => "$expire_date ", 'callback_data' => "HudsonNull"],
+                            ['text' => "⏰| تاریخ انقضاء: ", 'callback_data' => "HudsonNull"],
                         ],
                         [
-            			    ['text' => " $allgig", 'callback_data' => "wizwizch"],
-                            ['text' => "🔰| حجم کل:", 'callback_data' => "wizwizch"],
+            			    ['text' => " $allgig", 'callback_data' => "HudsonNull"],
+                            ['text' => "🔰| حجم کل:", 'callback_data' => "HudsonNull"],
             			],
                         [
-            			    ['text' => " $download", 'callback_data' => "wizwizch"],
-                            ['text' => "📥| دانلود:", 'callback_data' => "wizwizch"],
+            			    ['text' => " $download", 'callback_data' => "HudsonNull"],
+                            ['text' => "📥| دانلود:", 'callback_data' => "HudsonNull"],
             			],
                         [
-            			    ['text' => " $upload", 'callback_data' => "wizwizch"],
-                            ['text' => "📤| آپلود:", 'callback_data' => "wizwizch"],
+            			    ['text' => " $upload", 'callback_data' => "HudsonNull"],
+                            ['text' => "📤| آپلود:", 'callback_data' => "HudsonNull"],
             			],
                         [
-            			    ['text' => " $leftgb", 'callback_data' => "wizwizch"],
-                            ['text' => "⏳| حجم باقیمانده:", 'callback_data' => "wizwizch"],
+            			    ['text' => " $leftgb", 'callback_data' => "HudsonNull"],
+                            ['text' => "⏳| حجم باقیمانده:", 'callback_data' => "HudsonNull"],
             			],
             // 			[
             //                 ['text' => $netType. " 🎛 نوع شبکه ", 'callback_data' => "cantEditGrpc"],
             //             ],
                         [
-                            ['text' => "🚦 پروتکل انتخابی", 'callback_data' => "wizwizch"],
+                            ['text' => "🚦 پروتکل انتخابی", 'callback_data' => "HudsonNull"],
                         ],
                         [
                             ['text' => $protocol == 'vmess' ? '☑️ vmess' : 'vmess', 'callback_data' => ($botState['changeProtocolState']=="on"?"changeAccProtocol{$fid}_{$id}_vmess":"changeProtocolIsDisable")],
@@ -1271,42 +1276,42 @@ function getOrderDetailKeys($from_id, $id){
                 elseif($netType == "tcp" && $security == "xtls"){
                     $keyboard = [
                         [
-            			    ['text' =>$state??" ", 'callback_data' => "wizwizch"],
-                            ['text' => " 🌐| وضعیت سرویس:", 'callback_data' => "wizwizch"],
+            			    ['text' =>$state??" ", 'callback_data' => "HudsonNull"],
+                            ['text' => " 🌐| وضعیت سرویس:", 'callback_data' => "HudsonNull"],
                         ],
                         [
-            			    ['text' => "$name", 'callback_data' => "wizwizch"],
-                            ['text' => " 🚀| نام پلن:", 'callback_data' => "wizwizch"],
+            			    ['text' => "$name", 'callback_data' => "HudsonNull"],
+                            ['text' => " 🚀| نام پلن:", 'callback_data' => "HudsonNull"],
                         ],
                         [
-            			    ['text' => "$date ", 'callback_data' => "wizwizch"],
-                            ['text' => "⏰| تاریخ خرید: ", 'callback_data' => "wizwizch"],
+            			    ['text' => "$date ", 'callback_data' => "HudsonNull"],
+                            ['text' => "⏰| تاریخ خرید: ", 'callback_data' => "HudsonNull"],
                         ],
                         [
-            			    ['text' => "$expire_date ", 'callback_data' => "wizwizch"],
-                            ['text' => "⏰| تاریخ انقضاء: ", 'callback_data' => "wizwizch"],
+            			    ['text' => "$expire_date ", 'callback_data' => "HudsonNull"],
+                            ['text' => "⏰| تاریخ انقضاء: ", 'callback_data' => "HudsonNull"],
                         ],
                         [
-            			    ['text' => " $allgig", 'callback_data' => "wizwizch"],
-                            ['text' => "🔰| حجم کل:", 'callback_data' => "wizwizch"],
+            			    ['text' => " $allgig", 'callback_data' => "HudsonNull"],
+                            ['text' => "🔰| حجم کل:", 'callback_data' => "HudsonNull"],
             			],
                         [
-            			    ['text' => " $download", 'callback_data' => "wizwizch"],
-                            ['text' => "📥| دانلود:", 'callback_data' => "wizwizch"],
+            			    ['text' => " $download", 'callback_data' => "HudsonNull"],
+                            ['text' => "📥| دانلود:", 'callback_data' => "HudsonNull"],
             			],
                         [
-            			    ['text' => " $upload", 'callback_data' => "wizwizch"],
-                            ['text' => "📤| آپلود:", 'callback_data' => "wizwizch"],
+            			    ['text' => " $upload", 'callback_data' => "HudsonNull"],
+                            ['text' => "📤| آپلود:", 'callback_data' => "HudsonNull"],
             			],
                         [
-            			    ['text' => " $leftgb", 'callback_data' => "wizwizch"],
-                            ['text' => "⏳| حجم باقیمانده:", 'callback_data' => "wizwizch"],
+            			    ['text' => " $leftgb", 'callback_data' => "HudsonNull"],
+                            ['text' => "⏳| حجم باقیمانده:", 'callback_data' => "HudsonNull"],
             			],
             // 			[
             //                 ['text' => $netType. " 🎛 نوع شبکه ", 'callback_data' => ($security=="xtls"?"cantEditGrpc":"changeNetworkType{$fid}_{$id}")],
             //             ],
                         [
-                            ['text' => "🚦 پروتکل انتخابی", 'callback_data' => "wizwizch"],
+                            ['text' => "🚦 پروتکل انتخابی", 'callback_data' => "HudsonNull"],
                         ],
                         [
                             ['text' => $protocol == 'trojan' ? '☑️ trojan' : 'trojan', 'callback_data' => ($botState['changeProtocolState']=="on"?"changeAccProtocol{$fid}_{$id}_trojan":"changeProtocolIsDisable")],
@@ -1327,42 +1332,42 @@ function getOrderDetailKeys($from_id, $id){
                 else{
                     $keyboard = [
                         [
-            			    ['text' =>$state??" ", 'callback_data' => "wizwizch"],
-                            ['text' => " 🌐| وضعیت سرویس:", 'callback_data' => "wizwizch"],
+            			    ['text' =>$state??" ", 'callback_data' => "HudsonNull"],
+                            ['text' => " 🌐| وضعیت سرویس:", 'callback_data' => "HudsonNull"],
                         ],
                         [
-            			    ['text' => "$name", 'callback_data' => "wizwizch"],
-                            ['text' => " 🚀| نام پلن:", 'callback_data' => "wizwizch"],
+            			    ['text' => "$name", 'callback_data' => "HudsonNull"],
+                            ['text' => " 🚀| نام پلن:", 'callback_data' => "HudsonNull"],
                         ],
                         [
-            			    ['text' => "$date ", 'callback_data' => "wizwizch"],
-                            ['text' => "⏰| تاریخ خرید: ", 'callback_data' => "wizwizch"],
+            			    ['text' => "$date ", 'callback_data' => "HudsonNull"],
+                            ['text' => "⏰| تاریخ خرید: ", 'callback_data' => "HudsonNull"],
                         ],
                         [
-            			    ['text' => "$expire_date ", 'callback_data' => "wizwizch"],
-                            ['text' => "⏰| تاریخ انقضاء: ", 'callback_data' => "wizwizch"],
+            			    ['text' => "$expire_date ", 'callback_data' => "HudsonNull"],
+                            ['text' => "⏰| تاریخ انقضاء: ", 'callback_data' => "HudsonNull"],
                         ],
                         [
-            			    ['text' => " $allgig", 'callback_data' => "wizwizch"],
-                            ['text' => "🔰| حجم کل:", 'callback_data' => "wizwizch"],
+            			    ['text' => " $allgig", 'callback_data' => "HudsonNull"],
+                            ['text' => "🔰| حجم کل:", 'callback_data' => "HudsonNull"],
             			],
                         [
-            			    ['text' => " $download", 'callback_data' => "wizwizch"],
-                            ['text' => "📥| دانلود:", 'callback_data' => "wizwizch"],
+            			    ['text' => " $download", 'callback_data' => "HudsonNull"],
+                            ['text' => "📥| دانلود:", 'callback_data' => "HudsonNull"],
             			],
                         [
-            			    ['text' => " $upload", 'callback_data' => "wizwizch"],
-                            ['text' => "📤| آپلود:", 'callback_data' => "wizwizch"],
+            			    ['text' => " $upload", 'callback_data' => "HudsonNull"],
+                            ['text' => "📤| آپلود:", 'callback_data' => "HudsonNull"],
             			],
                         [
-            			    ['text' => " $leftgb", 'callback_data' => "wizwizch"],
-                            ['text' => "⏳| حجم باقیمانده:", 'callback_data' => "wizwizch"],
+            			    ['text' => " $leftgb", 'callback_data' => "HudsonNull"],
+                            ['text' => "⏳| حجم باقیمانده:", 'callback_data' => "HudsonNull"],
             			],
             // 			[
             //                 ['text' => $netType. " 🎛 نوع شبکه ", 'callback_data' => (($security=="xtls" || $rahgozar == true)?"cantEditGrpc":"changeNetworkType{$fid}_{$id}")],
             //             ],
                         [
-                            ['text' => "🚦 پروتکل انتخابی", 'callback_data' => "wizwizch"],
+                            ['text' => "🚦 پروتکل انتخابی", 'callback_data' => "HudsonNull"],
                         ],
                         ($rahgozar == true?
                         [
@@ -1390,42 +1395,42 @@ function getOrderDetailKeys($from_id, $id){
         }else{
             $keyboard = [
                 [
-                    ['text' =>$state??" ", 'callback_data' => "wizwizch"],
-                    ['text' => " 🌐| وضعیت سرویس:", 'callback_data' => "wizwizch"],
+                    ['text' =>$state??" ", 'callback_data' => "HudsonNull"],
+                    ['text' => " 🌐| وضعیت سرویس:", 'callback_data' => "HudsonNull"],
                 ],
                 [
-                    ['text' => "$name", 'callback_data' => "wizwizch"],
-                    ['text' => " 🚀| نام پلن:", 'callback_data' => "wizwizch"],
+                    ['text' => "$name", 'callback_data' => "HudsonNull"],
+                    ['text' => " 🚀| نام پلن:", 'callback_data' => "HudsonNull"],
                 ],
                 [
-                    ['text' => "$date ", 'callback_data' => "wizwizch"],
-                    ['text' => "⏰| تاریخ خرید: ", 'callback_data' => "wizwizch"],
+                    ['text' => "$date ", 'callback_data' => "HudsonNull"],
+                    ['text' => "⏰| تاریخ خرید: ", 'callback_data' => "HudsonNull"],
                 ],
                 [
-                    ['text' => "$expire_date ", 'callback_data' => "wizwizch"],
-                    ['text' => "⏰| تاریخ انقضاء: ", 'callback_data' => "wizwizch"],
+                    ['text' => "$expire_date ", 'callback_data' => "HudsonNull"],
+                    ['text' => "⏰| تاریخ انقضاء: ", 'callback_data' => "HudsonNull"],
                 ],
                 [
-                    ['text' => " $allgig", 'callback_data' => "wizwizch"],
-                    ['text' => "🔰| حجم کل:", 'callback_data' => "wizwizch"],
+                    ['text' => " $allgig", 'callback_data' => "HudsonNull"],
+                    ['text' => "🔰| حجم کل:", 'callback_data' => "HudsonNull"],
                 ],
                 [
-                    ['text' => " $download", 'callback_data' => "wizwizch"],
-                    ['text' => "📥| دانلود:", 'callback_data' => "wizwizch"],
+                    ['text' => " $download", 'callback_data' => "HudsonNull"],
+                    ['text' => "📥| دانلود:", 'callback_data' => "HudsonNull"],
                 ],
                 [
-                    ['text' => " $upload", 'callback_data' => "wizwizch"],
-                    ['text' => "📤| آپلود:", 'callback_data' => "wizwizch"],
+                    ['text' => " $upload", 'callback_data' => "HudsonNull"],
+                    ['text' => "📤| آپلود:", 'callback_data' => "HudsonNull"],
                 ],
                 [
-                    ['text' => " $leftgb", 'callback_data' => "wizwizch"],
-                    ['text' => "⏳| حجم باقیمانده:", 'callback_data' => "wizwizch"],
+                    ['text' => " $leftgb", 'callback_data' => "HudsonNull"],
+                    ['text' => "⏳| حجم باقیمانده:", 'callback_data' => "HudsonNull"],
                 ],
     			[
-                    ['text' => "🚦 پروتکل انتخابی", 'callback_data' => "wizwizch"],
+                    ['text' => "🚦 پروتکل انتخابی", 'callback_data' => "HudsonNull"],
                 ],
                 [
-                    ['text' => " $protocol پروتکل ☑️", 'callback_data' => "wizwizch"],
+                    ['text' => " $protocol پروتکل ☑️", 'callback_data' => "HudsonNull"],
                 ]
             ];
             
