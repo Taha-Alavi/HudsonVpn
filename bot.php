@@ -911,27 +911,21 @@ if ($data=='buySubscription' && ($botState['sellState']=="on" || ($from_id == $a
         alert("فعلا فروش نداریم");
         exit();
     }
-    $stmt = $connection->prepare("SELECT * FROM `server_info` WHERE `active`=1 and `state` = 1 and `ucount` > 0 ORDER BY `id` ASC");
+    $showsay = "true";
+    $stmt = $connection->prepare("SELECT * FROM `server_info` WHERE `active`=1 and `state` = 1 and `show` = $showsay and `ucount` > 0 ORDER BY `id` ASC");
     $stmt->execute();
     $respd = $stmt->get_result();
     $stmt->close();
-    $stmtstat = $connection->prepare("SELECT * FROM `server_info` WHERE `active`=1 and `state` = 1 and `ucount` > 0 ORDER BY `id` ASC");
-    $stmtstat->execute();
-    $respdstat = $stmtstat->get_result();
-    $stmtstat->close();
     if($respd->num_rows==0){
         alert("هیچ سرور فعالی نداریم لطفا بعدا مجدد تست کن");
         exit;
     }
     $keyboard = [];
-    while($cat = $respd->fetch_assoc() and $catstat = $respdstat->fetch_assoc()){
+    while($cat = $respd->fetch_assoc()){
         $id = $cat['id'];
         $name = $cat['title'];
         $flag = $cat['flag'];
-        $show = $catstat['show'];
-        if($show == "true"){
         $keyboard[] = ['text' => "$flag| $name", 'callback_data' => "selectServer$id"];
-        }
     }
    # $keyboard[] = ['text'=>"🔰| راهنمای خرید",'callback_data'=>"help"];
     $keyboard[] = ['text'=>"⤵️ برگرد صفحه قبلی ",'callback_data'=>"mainMenu"];
@@ -7313,7 +7307,7 @@ if(preg_match('/^changeRealityState(\d+)/',$data,$match)){
     exit();
 }
 if(preg_match('/^changeServerShow(\d+)/',$data,$match)){
-    $stmt = $connection->prepare("UPDATE `server_config` SET `show` = IF(`show` = 'true', 'false', 'true') WHERE `id` = ?");
+    $stmt = $connection->prepare("UPDATE `server_info` SET `show` = IF(`show` = 'true', 'false', 'true') WHERE `id` = ?");
     $stmt->bind_param("i", $match[1]);
     $stmt->execute();
     $stmt->close();
