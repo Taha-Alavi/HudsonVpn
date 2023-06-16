@@ -159,7 +159,7 @@ $connection->query("CREATE TABLE `server_info` (
   `flag` varchar(100) NOT NULL,
   `active` int(11) NOT NULL DEFAULT 0,
   `state` int(255) NOT NULL DEFAULT 1,
-  `show` varchar(10) DEFAULT 'false',
+  `show` int(255) NOT NULL DEFAULT 2,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_persian_ci");
 
