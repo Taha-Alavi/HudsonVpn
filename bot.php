@@ -544,6 +544,7 @@ bot('sendmessage',[
 'parse_mode'=>"Markdown",
 ]);
 }
+}
 else{
 bot('sendmessage',[
 'chat_id'=> $from_id,
@@ -552,7 +553,6 @@ bot('sendmessage',[
 ",
 'parse_mode'=>"Markdown",
 ]);
-}
 }
 $connection -> close();
 }
