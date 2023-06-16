@@ -82,8 +82,6 @@ if(strpos($text, "/start ") !== false){
         $walletwalletwalletwallet = $walletwallet + 500;
         $updateQuery = "UPDATE users SET refnumber = '$nextref' WHERE userid = '$useridinviter'";
         $connection->query($updateQuery);
-        $updateQuery2 = "UPDATE users SET wallet = '$walletwalletwalletwallet' WHERE userid = '$useridinviter'";
-        $connection->query($updateQuery2);
 
 
         sendMessage("🔸| کاربر @$username با لینک دعوت شما وارد ربات شد
@@ -482,7 +480,11 @@ if($userInfo['step'] == "editRewardTime" && ($from_id == $admin || $userInfo['is
     setUser();
     exit();
 }
+
 if($data=="inviteFriends"){
+    $dokmelistinveite = json_encode(['inline_keyboard' => [
+    [['text' =>"🔙| برگشت",'callback_data'=>"mainMenu"]],
+    ]]);
     $stmt = $connection->prepare("SELECT * FROM `setting` WHERE `type` = 'INVITE_BANNER_TEXT'");
     $stmt->execute();
     $inviteText = $stmt->get_result()->fetch_assoc()['value'];
@@ -498,20 +500,47 @@ if($data=="inviteFriends"){
         $botId = $getBotInfo['result']['username'];
         
         $link = "t.me/$botId?start=" . $from_id;
-        if($inviteText['type'] == "text"){
-            $txt = str_replace('LINK',"<code>$link</code>",$inviteText['text']);
-            $res = sendMessage($txt,null,"HTML");
-        } 
-        else{
-            $txt = str_replace('LINK',"$link",$inviteText['caption']);
-            $res = sendPhoto($inviteText['file_id'],$txt,null,"HTML");
-        }
         $msgId = $res->result->message_id;
-        sendMessage("با لینک بالا دوستاتو به ربات دعوت کن و با هر خرید $inviteAmount بدست بیار",null,null,null,$msgId);
+        $tedadinvite = $userInfo['refnumber'];
+        $endprizewithinvite2 = $tedadinvite * 500;
+        $endprizewithinvite = number_format($endprizewithinvite2, 0, '.', ',');
+        bot('sendmessage',[
+        'chat_id'=> $from_id,
+        'text'=> "
+        🔰| Link:  `$link`
+    
+    
+        👤| تعداد کاربران دعوت شده : $tedadinvite نفر
+        💵| پورسانت دریافتی تا کنون : $endprizewithinvite تومان
+        ",
+        'reply_markup'=>$dokmelistinveite,
+        'parse_mode'=>"Markdown",
+        ]);
     }
     else alert("این قسمت غیر فعال است");
 }
-
+#---لیست ممبر دعوت شده -------
+if($data == "listinvited"){
+$result = $connection -> query("SELECT * FROM users");
+while($row = $result -> fetch_assoc()) {
+$prefcode = $row['refered_by'];
+if($from_id == $prefcode){
+$tarafid = $row['username'];
+$tarafname = $row['name'];
+bot('sendmessage',[
+'chat_id'=> $from_id,
+'text'=> "
+کاربر دعوت شده توسط شما : 
+👤| Name: *$tarafname*
+🪪| Username: @$tarafid
+",
+'parse_mode'=>"Markdown",
+]);
+}
+}
+$connection -> close();
+}
+#
 if($data=="myInfo"){
     $stmt = $connection->prepare("SELECT * FROM `orders_list` WHERE `userid` = ?");
     $stmt->bind_param("i", $from_id);
@@ -1510,7 +1539,7 @@ $keys = json_encode(['inline_keyboard'=>[
     ]]);
 sendMessage("
 
-💓 خرید پلن جدید ( وی سواپ )
+ خرید پلن جدید ( وی سواپ )
 
 ▫️آیدی کاربر: $from_id
 👨‍💼اسم کاربر: <a href='tg://user?id=$from_id'>$first_name</a>
@@ -2463,7 +2492,7 @@ if($botState['subLinkState'] == "on") $acc_text .= "
         ],
         ]]);
     sendMessage("
-💓 خرید پلن دلخواه ( کیف پول )
+ خرید پلن دلخواه ( کیف پول )
 
 ▫️آیدی کاربر: $from_id
 👨‍💼اسم کاربر: <a href='tg://user?id=$from_id'>$first_name</a>
@@ -2580,7 +2609,7 @@ if(preg_match('/payCustomWithCartToCart(.*)/',$userInfo['step'], $match) and $te
 ",$mainKeys);
 
     $msg = "
-💓 خرید پلن دلخواه ( کارت به کارت )
+ خرید پلن دلخواه ( کارت به کارت )
 
 ▫️آیدی کاربر: $from_id
 👨‍💼اسم کاربر: <a href='tg://user?id=$from_id'>$first_name</a>
