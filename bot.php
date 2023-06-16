@@ -16,6 +16,11 @@ $connection -> query("SET NAMES utf8");
 return $connection;
 }
     
+if($data == "HudsonNull"){
+alert("‼️| این گزینه برای کلیک کردن نیست");
+}
+
+
 $robotState = $botState['botState']??"on";
 if($userInfo['step'] == "banned" && $from_id != $admin && $userInfo['isAdmin'] != true){
     sendMessage("❌ | شما نمیتوانید از ربات استفاده کنید");
@@ -326,7 +331,7 @@ if($data=="inviteSetting" && ($from_id == $admin || $userInfo['isAdmin'] == true
         [['text'=>"❗️بنر دعوت",'callback_data'=>"inviteBanner"]],
         [
             ['text'=>$inviteAmount,'callback_data'=>"editInviteAmount"],
-            ['text'=>"مقدار پورسانت",'callback_data'=>"wizwizch"]
+            ['text'=>"مقدار پورسانت",'callback_data'=>"HudsonNull"]
             ],
         [
             ['text'=>"🔙| برگشت",'callback_data'=>"botSettings"]
@@ -441,7 +446,7 @@ if($userInfo['step'] == "editInviteAmount"){
             [['text'=>"❗️بنر دعوت",'callback_data'=>"inviteBanner"]],
             [
                 ['text'=>number_format($text) . " تومان",'callback_data'=>"editInviteAmount"],
-                ['text'=>"مقدار پورسانت",'callback_data'=>"wizwizch"]
+                ['text'=>"مقدار پورسانت",'callback_data'=>"HudsonNull"]
                 ], 
             [
                 ['text'=>"🔙| برگشت",'callback_data'=>"botSettings"]
@@ -910,23 +915,30 @@ if ($data=='buySubscription' && ($botState['sellState']=="on" || ($from_id == $a
     $stmt->execute();
     $respd = $stmt->get_result();
     $stmt->close();
+    $stmtstat = $connection->prepare("SELECT * FROM `server_info` WHERE `active`=1 and `state` = 1 and `ucount` > 0 ORDER BY `id` ASC");
+    $stmtstat->execute();
+    $respdstat = $stmtstat->get_result();
+    $stmtstat->close();
     if($respd->num_rows==0){
         alert("هیچ سرور فعالی نداریم لطفا بعدا مجدد تست کن");
         exit;
     }
     $keyboard = [];
-    while($cat = $respd->fetch_assoc()){
+    while($cat = $respd->fetch_assoc() and $catstat = $respdstat->fetch_assoc()){
         $id = $cat['id'];
         $name = $cat['title'];
         $flag = $cat['flag'];
-        $keyboard[] = ['text' => "$flag $name", 'callback_data' => "selectServer$id"];
+        $show = $catstat['show'];
+        if($show == "true"){
+        $keyboard[] = ['text' => "$flag| $name", 'callback_data' => "selectServer$id"];
+        }
     }
    # $keyboard[] = ['text'=>"🔰| راهنمای خرید",'callback_data'=>"help"];
     $keyboard[] = ['text'=>"⤵️ برگرد صفحه قبلی ",'callback_data'=>"mainMenu"];
     $keyboard = array_chunk($keyboard,1);
     editText($message_id, '  1️⃣ مرحله یک:
 
-🌐| سرور مورد نظر خود را انتخاب کنید! :', json_encode(['inline_keyboard'=>$keyboard]));
+🌐| سرور مورد نظر خود را انتخاب کنید :', json_encode(['inline_keyboard'=>$keyboard]));
     
 
 }
@@ -1654,7 +1666,7 @@ if($response->success){
     
     $keys = json_encode(['inline_keyboard'=>[
         [
-            ['text'=>"یک نفر تمدید روز زد",'callback_data'=>"wizwizch"]
+            ['text'=>"یک نفر تمدید روز زد",'callback_data'=>"HudsonNull"]
             ],
         ]]);
 sendMessage("
@@ -1701,7 +1713,7 @@ if($response->success){
     $stmt->close();
     $keys = json_encode(['inline_keyboard'=>[
         [
-            ['text'=>"یک نفر تمدید روز زد",'callback_data'=>"wizwizch"]
+            ['text'=>"یک نفر تمدید روز زد",'callback_data'=>"HudsonNull"]
             ],
         ]]);
 sendMessage("
@@ -1728,7 +1740,7 @@ sendMessage("
 		'chat_id' => $from_id,
 		'message_id' => $message_id,
 		'reply_markup' => json_encode(['inline_keyboard'=>[
-		    [['text'=>"پرداخت انجام شد",'callback_data'=>"wizwizch"]]
+		    [['text'=>"پرداخت انجام شد",'callback_data'=>"HudsonNull"]]
 		    ]])
     ]);
 }else{
@@ -1971,7 +1983,7 @@ if(!in_array($from_id, $usedBy)){
     sendMessage(" ✅|کد تخفیف با موفقیت استفاده شد\nمقدار تخفیف $discount");
     $keys = json_encode(['inline_keyboard'=>[
         [
-            ['text'=>"❤️", "callback_data"=>"wizwizch"]
+            ['text'=>"❤️", "callback_data"=>"HudsonNull"]
             ],
         ]]);
 sendMessage("
@@ -2182,7 +2194,7 @@ if((preg_match('/^discountSelectPlan(\d+)_(\d+)_(\d+)/',$userInfo['step'],$match
                 sendMessage(" ✅|کد تخفیف با موفقیت استفاده شد\nمقدار تخفیف $discount");
                 $keys = json_encode(['inline_keyboard'=>[
                     [
-                        ['text'=>"❤️", "callback_data"=>"wizwizch"]
+                        ['text'=>"❤️", "callback_data"=>"HudsonNull"]
                         ],
                     ]]);
                 sendMessage("
@@ -2807,7 +2819,7 @@ if($botState['subLinkState'] == "on") $acc_text .= "
 
 
     unset($markup[count($markup)-1]);
-    $markup[] = [['text'=>"✅",'callback_data'=>"wizwizch"]];
+    $markup[] = [['text'=>"✅",'callback_data'=>"HudsonNull"]];
     $keys = json_encode(['inline_keyboard'=>array_values($markup)],488);
 
 
@@ -2849,7 +2861,7 @@ if($botState['subLinkState'] == "on") $acc_text .= "
     if($admin != $from_id){ 
         $keys = json_encode(['inline_keyboard'=>[
             [
-                ['text'=>"به به 🛍",'callback_data'=>"wizwizch"]
+                ['text'=>"به به 🛍",'callback_data'=>"HudsonNull"]
             ],
             ]]);
         sendMessage("
@@ -3217,9 +3229,9 @@ if($data=="availableServers"){
 
     $keys = array();
     $keys[] = [
-        ['text'=>"تعداد باقیمانده",'callback_data'=>"wizwizch"],
-        ['text'=>"پلن",'callback_data'=>"wizwizch"],
-        ['text'=>'سرور','callback_data'=>"wizwizch"]
+        ['text'=>"تعداد باقیمانده",'callback_data'=>"HudsonNull"],
+        ['text'=>"پلن",'callback_data'=>"HudsonNull"],
+        ['text'=>'سرور','callback_data'=>"HudsonNull"]
         ];
     while($file_detail = $serversList->fetch_assoc()){
         $days = $file_detail['days'];
@@ -3237,9 +3249,9 @@ if($data=="availableServers"){
             $name = $name->fetch_assoc()['title'];
             
             $keys[] = [
-                ['text'=>$acount . " اکانت",'callback_data'=>"wizwizch"],
-                ['text'=>$title,'callback_data'=>"wizwizch"],
-                ['text'=>$name,'callback_data'=>"wizwizch"]
+                ['text'=>$acount . " اکانت",'callback_data'=>"HudsonNull"],
+                ['text'=>$title,'callback_data'=>"HudsonNull"],
+                ['text'=>$name,'callback_data'=>"HudsonNull"]
                 ];
         }
     }
@@ -3255,8 +3267,8 @@ if($data=="availableServers2"){
 
     $keys = array();
     $keys[] = [
-        ['text'=>"تعداد باقیمانده",'callback_data'=>"wizwizch"],
-        ['text'=>'سرور','callback_data'=>"wizwizch"]
+        ['text'=>"تعداد باقیمانده",'callback_data'=>"HudsonNull"],
+        ['text'=>'سرور','callback_data'=>"HudsonNull"]
         ];
     while($file_detail2 = $serversList->fetch_assoc()){
         $days2 = $file_detail2['days'];
@@ -3274,8 +3286,8 @@ if($data=="availableServers2"){
             $name = $name->fetch_assoc()['title'];
             
             $keys[] = [
-                ['text'=>$acount2 . " اکانت",'callback_data'=>"wizwizch"],
-                ['text'=>$title2,'callback_data'=>"wizwizch"],
+                ['text'=>$acount2 . " اکانت",'callback_data'=>"HudsonNull"],
+                ['text'=>$title2,'callback_data'=>"HudsonNull"],
                 ];
         }
     }
@@ -3449,7 +3461,7 @@ if($botState['subLinkState'] == "on") $acc_text .= "
     $stmt->close();
 
     unset($markup[count($markup)-1]);
-    $markup[] = [['text'=>"✅",'callback_data'=>"wizwizch"]];
+    $markup[] = [['text'=>"✅",'callback_data'=>"HudsonNull"]];
     $keys = json_encode(['inline_keyboard'=>array_values($markup)],488);
 
     bot('editMessageReplyMarkup',[
@@ -3488,7 +3500,7 @@ if($botState['subLinkState'] == "on") $acc_text .= "
     if($admin != $from_id){
         $keys = json_encode(['inline_keyboard'=>[
             [
-                ['text'=>"به به 🛍",'callback_data'=>"wizwizch"]
+                ['text'=>"به به 🛍",'callback_data'=>"HudsonNull"]
             ],
             ]]);
         sendMessage("
@@ -3515,7 +3527,7 @@ if(preg_match('/decline(\d+)_(\d+)/',$userInfo['step'],$match) and $text != $can
 		'chat_id' => $from_id,
 		'message_id' => $match[2],
 		'reply_markup' => json_encode(['inline_keyboard'=>[
-		    [['text'=>"لغو شد ❌",'callback_data'=>"wizwizch"]]
+		    [['text'=>"لغو شد ❌",'callback_data'=>"HudsonNull"]]
 		    ]])
     ]);
 
@@ -3582,7 +3594,7 @@ if($data == 'dayPlanSettings' and ($from_id == $admin || $userInfo['isAdmin'] ==
         exit;
     }
     $keyboard = [];
-    $keyboard[] = [['text'=>"حذف",'callback_data'=>"wizwizch"],['text'=>"قیمت",'callback_data'=>"wizwizch"],['text'=>"تعداد روز",'callback_data'=>"wizwizch"]];
+    $keyboard[] = [['text'=>"حذف",'callback_data'=>"HudsonNull"],['text'=>"قیمت",'callback_data'=>"HudsonNull"],['text'=>"تعداد روز",'callback_data'=>"HudsonNull"]];
     while($cat = $res->fetch_assoc()){
         $id = $cat['id'];
         $title = $cat['volume'];
@@ -3649,7 +3661,7 @@ if(preg_match('/^deleteDayPlan(\d+)/',$data,$match) and ($from_id == $admin || $
         exit;
     }
     $keyboard = [];
-    $keyboard[] = [['text'=>"حذف",'callback_data'=>"wizwizch"],['text'=>"قیمت",'callback_data'=>"wizwizch"],['text'=>"تعداد روز",'callback_data'=>"wizwizch"]];
+    $keyboard[] = [['text'=>"حذف",'callback_data'=>"HudsonNull"],['text'=>"قیمت",'callback_data'=>"HudsonNull"],['text'=>"تعداد روز",'callback_data'=>"HudsonNull"]];
     while($cat = $res->fetch_assoc()){
         $id = $cat['id'];
         $title = $cat['volume'];
@@ -3699,7 +3711,7 @@ if(preg_match('/^changeDayPlanPrice(\d+)/',$userInfo['step'],$match) and $text !
             exit;
         }
         $keyboard = [];
-        $keyboard[] = [['text'=>"حذف",'callback_data'=>"wizwizch"],['text'=>"قیمت",'callback_data'=>"wizwizch"],['text'=>"تعداد روز",'callback_data'=>"wizwizch"]];
+        $keyboard[] = [['text'=>"حذف",'callback_data'=>"HudsonNull"],['text'=>"قیمت",'callback_data'=>"HudsonNull"],['text'=>"تعداد روز",'callback_data'=>"HudsonNull"]];
         while($cat = $res->fetch_assoc()){
             $id = $cat['id'];
             $title = $cat['volume'];
@@ -3751,7 +3763,7 @@ if(preg_match('/^changeDayPlanDay(\d+)/',$userInfo['step'],$match) and $text != 
         exit;
     }
     $keyboard = [];
-    $keyboard[] = [['text'=>"حذف",'callback_data'=>"wizwizch"],['text'=>"قیمت",'callback_data'=>"wizwizch"],['text'=>"تعداد روز",'callback_data'=>"wizwizch"]];
+    $keyboard[] = [['text'=>"حذف",'callback_data'=>"HudsonNull"],['text'=>"قیمت",'callback_data'=>"HudsonNull"],['text'=>"تعداد روز",'callback_data'=>"HudsonNull"]];
     while($cat = $res->fetch_assoc()){
         $id = $cat['id'];
         $title = $cat['volume'];
@@ -3785,7 +3797,7 @@ if($data == 'volumePlanSettings' and ($from_id == $admin || $userInfo['isAdmin']
         exit;
     }
     $keyboard = [];
-    $keyboard[] = [['text'=>"حذف",'callback_data'=>"wizwizch"],['text'=>"قیمت",'callback_data'=>"wizwizch"],['text'=>"مقدار حجم",'callback_data'=>"wizwizch"]];
+    $keyboard[] = [['text'=>"حذف",'callback_data'=>"HudsonNull"],['text'=>"قیمت",'callback_data'=>"HudsonNull"],['text'=>"مقدار حجم",'callback_data'=>"HudsonNull"]];
     while ($cat = $plans->fetch_assoc()){
         $id = $cat['id'];
         $title = $cat['volume'];
@@ -3850,7 +3862,7 @@ if(preg_match('/^deleteVolumePlan(\d+)/',$data,$match) and ($from_id == $admin |
         exit;
     }
     $keyboard = [];
-    $keyboard[] = [['text'=>"حذف",'callback_data'=>"wizwizch"],['text'=>"قیمت",'callback_data'=>"wizwizch"],['text'=>"مقدار حجم",'callback_data'=>"wizwizch"]];
+    $keyboard[] = [['text'=>"حذف",'callback_data'=>"HudsonNull"],['text'=>"قیمت",'callback_data'=>"HudsonNull"],['text'=>"مقدار حجم",'callback_data'=>"HudsonNull"]];
     while ($cat = $plans->fetch_assoc()){
         $id = $cat['id'];
         $title = $cat['volume'];
@@ -3896,7 +3908,7 @@ if(preg_match('/^changeVolumePlanPrice(\d+)/',$userInfo['step'],$match) and $tex
             exit;
         }
         $keyboard = [];
-        $keyboard[] = [['text'=>"حذف",'callback_data'=>"wizwizch"],['text'=>"قیمت",'callback_data'=>"wizwizch"],['text'=>"مقدار حجم",'callback_data'=>"wizwizch"]];
+        $keyboard[] = [['text'=>"حذف",'callback_data'=>"HudsonNull"],['text'=>"قیمت",'callback_data'=>"HudsonNull"],['text'=>"مقدار حجم",'callback_data'=>"HudsonNull"]];
         while ($cat = $plans->fetch_assoc()){
             $id = $cat['id'];
             $title = $cat['volume'];
@@ -3944,7 +3956,7 @@ if(preg_match('/^changeVolumePlanVolume(\d+)/',$userInfo['step'], $match) and $t
         exit;
     }
     $keyboard = [];
-    $keyboard[] = [['text'=>"حذف",'callback_data'=>"wizwizch"],['text'=>"قیمت",'callback_data'=>"wizwizch"],['text'=>"مقدار حجم",'callback_data'=>"wizwizch"]];
+    $keyboard[] = [['text'=>"حذف",'callback_data'=>"HudsonNull"],['text'=>"قیمت",'callback_data'=>"HudsonNull"],['text'=>"مقدار حجم",'callback_data'=>"HudsonNull"]];
     while ($cat = $plans->fetch_assoc()){
         $id = $cat['id'];
         $title = $cat['volume'];
@@ -4110,20 +4122,20 @@ if(preg_match('/^closeTicket_(\d+)/',$data,$match) and  $from_id != $admin){
     
     $keys = json_encode(['inline_keyboard'=>[
         [
-            ['text'=>"$from_id",'callback_data'=>"wizwizch"],
-            ['text'=>"آیدی کاربر",'callback_data'=>'wizwizch']
+            ['text'=>"$from_id",'callback_data'=>"HudsonNull"],
+            ['text'=>"آیدی کاربر",'callback_data'=>'HudsonNull']
         ],
         [
-            ['text'=>$first_name??" ",'callback_data'=>"wizwizch"],
-            ['text'=>"اسم کاربر",'callback_data'=>'wizwizch']
+            ['text'=>$first_name??" ",'callback_data'=>"HudsonNull"],
+            ['text'=>"اسم کاربر",'callback_data'=>'HudsonNull']
         ],
         [
-            ['text'=>"$title",'callback_data'=>'wizwizch'],
-            ['text'=>"عنوان",'callback_data'=>'wizwizch']
+            ['text'=>"$title",'callback_data'=>'HudsonNull'],
+            ['text'=>"عنوان",'callback_data'=>'HudsonNull']
         ],
         [
-            ['text'=>"$category",'callback_data'=>'wizwizch'],
-            ['text'=>"دسته بندی",'callback_data'=>'wizwizch']
+            ['text'=>"$category",'callback_data'=>'HudsonNull'],
+            ['text'=>"دسته بندی",'callback_data'=>'HudsonNull']
         ],
         ]]);
     sendMessage("☑️| تیکت توسط کاربر بسته شد",$keys,"HTML",$admin);
@@ -4182,7 +4194,7 @@ if(preg_match("/^rate_+([0-9])+_+([0-9])/",$data,$match)){
     
     $keys = json_encode(['inline_keyboard'=>[
         [
-            ['text'=>"رای تیکت",'callback_data'=>"wizwizch"]
+            ['text'=>"رای تیکت",'callback_data'=>"HudsonNull"]
             ],
         ]]);
 
@@ -4221,16 +4233,16 @@ if($data=='ticketsCategory' and ($from_id == $admin || $userInfo['isAdmin'] == t
     $ticketCategory = $stmt->get_result();
     $stmt->close();
     $keys = array();
-    $keys[] = [['text'=>"حذف",'callback_data'=>"wizwizch"],['text'=>"دسته بندی",'callback_data'=>"wizwizch"]];
+    $keys[] = [['text'=>"حذف",'callback_data'=>"HudsonNull"],['text'=>"دسته بندی",'callback_data'=>"HudsonNull"]];
     
     if($ticketCategory->num_rows>0){
         while($row = $ticketCategory->fetch_assoc()){
             $rowId = $row['id'];
             $ticketName = $row['value'];
-            $keys[] = [['text'=>"❌",'callback_data'=>"delTicketCat_$rowId"],['text'=>$ticketName,'callback_data'=>"wizwizch"]];
+            $keys[] = [['text'=>"❌",'callback_data'=>"delTicketCat_$rowId"],['text'=>$ticketName,'callback_data'=>"HudsonNull"]];
         }
     }else{
-        $keys[] = [['text'=>"دسته بندی یافت نشد",'callback_data'=>"wizwizch"]];
+        $keys[] = [['text'=>"دسته بندی یافت نشد",'callback_data'=>"HudsonNull"]];
     }
     $keys[] = [['text'=>"افزودن دسته بندی",'callback_data'=>"addTicketCategory"]];
     $keys[] = [['text'=>"↩️ برگشت",'callback_data'=>"ticketsList"]];
@@ -4255,17 +4267,17 @@ if ($userInfo['step']=="addTicketCategory" and ($from_id == $admin || $userInfo[
     $stmt->close();
     
     $keys = array();
-    $keys[] = [['text'=>"حذف",'callback_data'=>"wizwizch"],['text'=>"دسته بندی",'callback_data'=>"wizwizch"]];
+    $keys[] = [['text'=>"حذف",'callback_data'=>"HudsonNull"],['text'=>"دسته بندی",'callback_data'=>"HudsonNull"]];
     
     if($ticketCategory->num_rows>0){
         while ($row = $ticketCategory->fetch_assoc()){
             
             $rowId = $row['id'];
             $ticketName = $row['value'];
-            $keys[] = [['text'=>"❌",'callback_data'=>"delTicketCat_$rowId"],['text'=>$ticketName,'callback_data'=>"wizwizch"]];
+            $keys[] = [['text'=>"❌",'callback_data'=>"delTicketCat_$rowId"],['text'=>$ticketName,'callback_data'=>"HudsonNull"]];
         }
     }else{
-        $keys[] = [['text'=>"دسته بندی یافت نشد",'callback_data'=>"wizwizch"]];
+        $keys[] = [['text'=>"دسته بندی یافت نشد",'callback_data'=>"HudsonNull"]];
     }
     $keys[] = [['text'=>"افزودن دسته بندی",'callback_data'=>"addTicketCategory"]];
     $keys[] = [['text'=>"↩️ برگشت",'callback_data'=>"ticketsList"]];
@@ -4288,17 +4300,17 @@ if(preg_match("/^delTicketCat_(\d+)/",$data,$match) and ($from_id == $admin || $
     $stmt->close();
     
     $keys = array();
-    $keys[] = [['text'=>"حذف",'callback_data'=>"wizwizch"],['text'=>"دسته بندی",'callback_data'=>"wizwizch"]];
+    $keys[] = [['text'=>"حذف",'callback_data'=>"HudsonNull"],['text'=>"دسته بندی",'callback_data'=>"HudsonNull"]];
     
     if($ticketCategory->num_rows>0){
         while ($row = $ticketCategory->fetch_assoc()){
             
             $rowId = $row['id'];
             $ticketName = $row['value'];
-            $keys[] = [['text'=>"❌",'callback_data'=>"delTicketCat_$rowId"],['text'=>$ticketName,'callback_data'=>"wizwizch"]];
+            $keys[] = [['text'=>"❌",'callback_data'=>"delTicketCat_$rowId"],['text'=>$ticketName,'callback_data'=>"HudsonNull"]];
         }
     }else{
-        $keys[] = [['text'=>"دسته بندی یافت نشد",'callback_data'=>"wizwizch"]];
+        $keys[] = [['text'=>"دسته بندی یافت نشد",'callback_data'=>"HudsonNull"]];
     }
     $keys[] = [['text'=>"افزودن دسته بندی",'callback_data'=>"addTicketCategory"]];
     $keys[] = [['text'=>"↩️ برگشت",'callback_data'=>"ticketsList"]];
@@ -4470,7 +4482,7 @@ if(preg_match('/^closeTicket_(\d+)/',$data,$match) and  ($from_id == $admin || $
         ]]);
     sendMessage($ticketClosed,$keys,'html', $userId);
     bot('editMessageReplyMarkup',['chat_id'=>$from_id,'message_id'=>$message_id,'reply_markup'=>json_encode(['inline_keyboard'=>[
-        [['text'=>"تیکت بسته شد",'callback_data'=>"wizwizch"]]
+        [['text'=>"تیکت بسته شد",'callback_data'=>"HudsonNull"]]
         ]])]);
 
 }
@@ -4966,36 +4978,36 @@ if($userInfo['step'] == "showAccount" and $text != $cancelText){
 
                 $keys = json_encode(['inline_keyboard'=>[
                 [
-                    ['text'=>$state??" ",'callback_data'=>"wizwizch"],
-                    ['text'=>"🔘 وضعیت اکانت 🔘",'callback_data'=>"wizwizch"],
+                    ['text'=>$state??" ",'callback_data'=>"HudsonNull"],
+                    ['text'=>"🔘 وضعیت اکانت 🔘",'callback_data'=>"HudsonNull"],
                     ],
                 [
-					['text'=>$remark??" ",'callback_data'=>"wizwizch"],
-                    ['text'=>"« نام اکانت »",'callback_data'=>"wizwizch"],
+					['text'=>$remark??" ",'callback_data'=>"HudsonNull"],
+                    ['text'=>"« نام اکانت »",'callback_data'=>"HudsonNull"],
                     ],
                 [
-                    ['text'=>$upload?? " ",'callback_data'=>"wizwizch"],
-                    ['text'=>"📤| آپلود",'callback_data'=>"wizwizch"],
+                    ['text'=>$upload?? " ",'callback_data'=>"HudsonNull"],
+                    ['text'=>"📤| آپلود",'callback_data'=>"HudsonNull"],
                     ],
                 [
-                    ['text'=>$download??" ",'callback_data'=>"wizwizch"],
-                    ['text'=>"📥| دانلود",'callback_data'=>"wizwizch"],
+                    ['text'=>$download??" ",'callback_data'=>"HudsonNull"],
+                    ['text'=>"📥| دانلود",'callback_data'=>"HudsonNull"],
                     ],
                 [
-                    ['text'=>$total??" ",'callback_data'=>"wizwizch"],
-                    ['text'=>"« حجم کلی »",'callback_data'=>"wizwizch"],
+                    ['text'=>$total??" ",'callback_data'=>"HudsonNull"],
+                    ['text'=>"« حجم کلی »",'callback_data'=>"HudsonNull"],
                     ],
                 [
-                    ['text'=>$leftMb??" ",'callback_data'=>"wizwizch"],
-                    ['text'=>"« حجم باقیمانده »",'callback_data'=>"wizwizch"],
+                    ['text'=>$leftMb??" ",'callback_data'=>"HudsonNull"],
+                    ['text'=>"« حجم باقیمانده »",'callback_data'=>"HudsonNull"],
                     ],
                 [
-                    ['text'=>$expiryTime??" ",'callback_data'=>"wizwizch"],
-                    ['text'=>"⏰| تاریخ اتمام",'callback_data'=>"wizwizch"],
+                    ['text'=>$expiryTime??" ",'callback_data'=>"HudsonNull"],
+                    ['text'=>"⏰| تاریخ اتمام",'callback_data'=>"HudsonNull"],
                     ],
                 [
-                    ['text'=>$expiryDay??" ",'callback_data'=>"wizwizch"],
-                    ['text'=>"⏳| تعداد روز باقیمانده",'callback_data'=>"wizwizch"],
+                    ['text'=>$expiryDay??" ",'callback_data'=>"HudsonNull"],
+                    ['text'=>"⏳| تعداد روز باقیمانده",'callback_data'=>"HudsonNull"],
                     ],
                 [['text'=>"🔙| برگشت",'callback_data'=>"mainMenu"]]
                 ]]);
@@ -5301,7 +5313,7 @@ if($data == 'backplan' and ($from_id == $admin || $userInfo['isAdmin'] == true))
         $keyboard[] = ['text' => "$title", 'callback_data' => "plansList$id"];
     }
     $keyboard = array_chunk($keyboard,2);
-    $keyboard[] = [['text'=>"➖➖➖",'callback_data'=>"wizwizch"]];
+    $keyboard[] = [['text'=>"➖➖➖",'callback_data'=>"HudsonNull"]];
     $keyboard[] = [['text'=>'➕ افزودن پلن اختصاصی و اشتراکی','callback_data'=>"addNewPlan"]];
     $keyboard[] = [['text'=>'➕ افزودن پلن رهگذر','callback_data'=>"addNewRahgozarPlan"]];
     $keyboard[] = [['text'=>'➕ افزودن پلن حجمی','callback_data'=>"volumePlanSettings"],['text'=>'➕ افزودن پلن زمانی','callback_data'=>"dayPlanSettings"]];
@@ -5349,11 +5361,11 @@ if(($data=="editCustomPlan" || preg_match('/^editCustom(gbPrice|dayPrice)/',$use
     $keys = json_encode(['inline_keyboard'=>[
         [
             ['text'=>$gbPrice,'callback_data'=>"editCustomgbPrice"],
-            ['text'=>"هزینه هر گیگ",'callback_data'=>"wizwizch"]
+            ['text'=>"هزینه هر گیگ",'callback_data'=>"HudsonNull"]
             ],
         [
             ['text'=>$dayPrice,'callback_data'=>"editCustomdayPrice"],
-            ['text'=>"هزینه هر روز",'callback_data'=>"wizwizch"]
+            ['text'=>"هزینه هر روز",'callback_data'=>"HudsonNull"]
             ],
         [
             ['text'=>"🔙| برگشت",'callback_data'=>"backplan"]
@@ -5918,7 +5930,7 @@ if(preg_match('/^discountRenew(\d+)_(\d+)/',$userInfo['step'], $match) || preg_m
                 sendMessage(" ✅|کد تخفیف با موفقیت استفاده شد\nمقدار تخفیف $discount");
                 $keys = json_encode(['inline_keyboard'=>[
                     [
-                        ['text'=>"❤️", "callback_data"=>"wizwizch"]
+                        ['text'=>"❤️", "callback_data"=>"HudsonNull"]
                         ],
                     ]]);
                 sendMessage("
@@ -6125,7 +6137,7 @@ if(preg_match('/approveRenewAcc(.*)/',$data,$match)){
 
 
     unset($markup[count($markup)-1]);
-    $markup[] = [['text'=>"✅",'callback_data'=>"wizwizch"]];
+    $markup[] = [['text'=>"✅",'callback_data'=>"HudsonNull"]];
     $keys = json_encode(['inline_keyboard'=>array_values($markup)],488);
 
 
@@ -6344,6 +6356,7 @@ if(preg_match('/switchServer(.+)_(.+)/',$data,$match)){
     $server_info = $stmt->get_result()->fetch_assoc();
     $stmt->close();
     $reality = $server_info['reality'];
+    $whatshow = $server_info['show'];
     $serverType = $server_info['type'];
 
 	
@@ -6768,7 +6781,7 @@ if(preg_match('/payIncraseDayWithWallet(.*)/', $data,$match)){
         
         $keys = json_encode(['inline_keyboard'=>[
             [
-                ['text'=>"یک نفر تمدید روز زد",'callback_data'=>"wizwizch"]
+                ['text'=>"یک نفر تمدید روز زد",'callback_data'=>"HudsonNull"]
                 ],
             ]]);
         sendMessage("
@@ -7037,7 +7050,7 @@ if(preg_match('/decIncreaseVolume(.*)/',$data,$match) && ($from_id == $admin || 
 		'chat_id' => $from_id,
 		'message_id' => $message_id,
 		'reply_markup' => json_encode(['inline_keyboard'=>[
-		    [['text'=>"لغو شد ❌",'callback_data'=>"wizwizch"]]
+		    [['text'=>"لغو شد ❌",'callback_data'=>"HudsonNull"]]
 		    ]])
     ]);
     
@@ -7074,7 +7087,7 @@ if(preg_match('/decIncreaseDay(.*)/',$data,$match) && ($from_id == $admin || $us
 		'chat_id' => $from_id,
 		'message_id' => $message_id,
 		'reply_markup' => json_encode(['inline_keyboard'=>[
-		    [['text'=>"لغو شد ❌",'callback_data'=>"wizwizch"]]
+		    [['text'=>"لغو شد ❌",'callback_data'=>"HudsonNull"]]
 		    ]])
     ]);
     
@@ -7130,7 +7143,7 @@ if(preg_match('/payIncraseWithWallet(.*)/', $data,$match)){
         $stmt->close();
         $keys = json_encode(['inline_keyboard'=>[
             [
-                ['text'=>"یک نفر تمدید روز زد",'callback_data'=>"wizwizch"]
+                ['text'=>"یک نفر تمدید روز زد",'callback_data'=>"HudsonNull"]
                 ],
             ]]);
         sendMessage("
@@ -7299,6 +7312,17 @@ if(preg_match('/^changeRealityState(\d+)/',$data,$match)){
     
     exit();
 }
+if(preg_match('/^changeServerShow(\d+)/',$data,$match)){
+    $stmt = $connection->prepare("UPDATE `server_config` SET `show` = IF(`show` = 'true', 'false', 'true') WHERE `id` = ?");
+    $stmt->bind_param("i", $match[1]);
+    $stmt->execute();
+    $stmt->close();
+    
+    $keys = getServerConfigKeys($match[1]);
+    editText($message_id,"☑️ مدیریت سرور ها: $cname",$keys);
+    
+    exit();
+}
 if(preg_match('/^changeServerType(\d+)/',$data,$match) && ($from_id == $admin || $userInfo['isAdmin'] == true)){
     editText($message_id,"
     
@@ -7380,7 +7404,7 @@ if(preg_match('/^addServerFlag(.*)/',$userInfo['step'], $match) and $text != $ca
 اگر سرور مورد نظر با ip و بدون ssl هست از مثال ( ❗️) استفاده کنید
 ❌ همچنین حتما حتما ویس زیر رو گوش کنید تا جلوتر موقع ثبت سرور با خطا مواجه نشید 👇🏻
 
-⛔️🔗 https://t.me/wizwizch/186
+⛔️🔗 https://t.me/HudsonNull/186
 
 ⚠️ نکته مهم ( برای تانل ها ) : اگر از تانل استفاده می کنید لطفا سرور خارجی که پنل روی آن نصب است را به صورت ip در این مرحله وارد کنید ، سپس دامنه ای که ip ایران ست شده است را در مرحله بعدی وارد کنید
 ⁮⁮ ⁮⁮
@@ -7517,7 +7541,7 @@ if(preg_match('/^addServerPanePassword(.*)/',$userInfo['step'],$match) and $text
 
 برای رفع این مشکل روی لینک زیر بزن و ویس رو با دقت گوش کن 👇
 
-⛔️🔗 https://t.me/wizwizch/186
+⛔️🔗 https://t.me/HudsonNull/186
 ⁮⁮ ⁮⁮
         ");
         exit();
