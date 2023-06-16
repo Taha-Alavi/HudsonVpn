@@ -538,12 +538,24 @@ $tarafname = $row['name'];
 bot('sendmessage',[
 'chat_id'=> $from_id,
 'text'=> "
+کاربر دعوت شده توسط شما : 
 👤| Name: *$tarafname*
 🪪| Username: @$tarafid
 ",
 'parse_mode'=>"Markdown",
 ]);
 }
+}
+if($from_id == $prefcode){
+}
+else{
+bot('sendmessage',[
+'chat_id'=> $from_id,
+'text'=> "
+❌| شما تا به حال کاربری رو با لینک خود دعوت نکرده اید
+",
+'parse_mode'=>"Markdown",
+]); 
 }
 $connection -> close();
 }
