@@ -502,8 +502,8 @@ if($data=="inviteFriends"){
         $link = "t.me/$botId?start=" . $from_id;
         $msgId = $res->result->message_id;
         $tedadinvite = $userInfo['refnumber'];
-        $endprizewithinvite2 = $tedadinvite * 500;
-        $endprizewithinvite = number_format($endprizewithinvite2, 0, '.', ',');
+        $tedadinvite2 = $userInfo['inviteprize'];
+        $endprizewithinvite = number_format($tedadinvite2, 0, '.', ',');
         bot('sendmessage',[
         'chat_id'=> $from_id,
         'text'=> "
@@ -1180,7 +1180,7 @@ if(preg_match('/^createAccAmount(\d+)_(\d+)_(\d+)/',$userInfo['step'], $match) &
         $last_num++;
     
         $rnd = rand(1111,99999);
-        $remark = "{$rnd}-{$srv_remark}-{$from_id}";
+        $remark = "{$srv_remark}-{$rnd}-{$from_id}";
     
         if($inbound_id == 0){    
             $response = addUser($server_id, $uniqid, $protocol, $port, $expire_microdate, $remark, $volume, $netType, 'none', $rahgozar, $fid); 
@@ -1518,6 +1518,10 @@ if($userInfo['refered_by'] != null){
     
     $stmt = $connection->prepare("UPDATE `users` SET `wallet` = `wallet` + ? WHERE `userid` = ?");
     $stmt->bind_param("ii", $inviteAmount, $inviterId);
+    $stmt->execute();
+    $stmt->close();
+    $stmt = $connection->prepare("UPDATE `users` SET `inviteprize` = `inviteprize` + ? WHERE `userid` = ?");
+    $stmt->bind_param("ii", 1000, $inviterId);
     $stmt->execute();
     $stmt->close();
      
@@ -3371,7 +3375,7 @@ if(preg_match('/accept(.*)/',$data, $match) and $text != $cancelText){
     $stmt->close();
 
     $rnd = rand(1111,99999);
-    $remark = "{$srv_remark}-{$uid}-{$rnd}";
+    $remark = "{$srv_remark}-{$rnd}-{$from_id}";
 
     if($portType == "auto"){
         file_put_contents('settings/temp.txt',$port.'-'.$last_num);
@@ -4711,7 +4715,7 @@ if(preg_match('/freeTrial(\d+)/',$data,$match)) {
     $stmt->close();
 
     $rnd = rand(1111,99999);
-    $remark = "{$srv_remark}-{$uid}-{$rnd}";
+    $remark = "{$srv_remark}-{$rnd}-{$from_id}";
     
     if($portType == "auto"){
         file_put_contents('settings/temp.txt',$port.'-'.$last_num);
