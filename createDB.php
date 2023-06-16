@@ -148,6 +148,7 @@ $connection->query("CREATE TABLE `server_config` (
   `password` varchar(100) NOT NULL,
   `port_type` varchar(10) DEFAULT 'auto',
   `reality` varchar(10) DEFAULT 'false',
+  `show` varchar(10) DEFAULT 'false',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci");
 
@@ -216,6 +217,7 @@ $connection->query("CREATE TABLE `users` (
   `username` varchar(100) NOT NULL,
   `refcode` varchar(50) NOT NULL,
   `refnumber` int(11) NOT NULL DEFAULT 0,
+  `inviteprize` int(11) NOT NULL DEFAULT 0,
   `wallet` int(11) NOT NULL DEFAULT 0,
   `date` varchar(50) NOT NULL,
   `phone` varchar(15) DEFAULT NULL,
