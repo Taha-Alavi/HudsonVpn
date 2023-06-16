@@ -1043,7 +1043,7 @@ if(preg_match('/createAccCategory(\d+)_(\d+)/',$data,$match) && ($from_id == $ad
         $keyboard = array_chunk($keyboard,1);
         editText($message_id, "3️⃣ مرحله سه:
 
-        🛍| پلن مورد نظر خود را انتخاب کنید", json_encode(['inline_keyboard'=>$keyboard]));
+یکی از پلن هارو انتخاب کن و برو برای پرداختش 🤲 🕋", json_encode(['inline_keyboard'=>$keyboard]));
     }
 
 }
@@ -1061,12 +1061,12 @@ if(preg_match('/^createAccDate(\d+)/',$userInfo['step'],$match) && $text != $can
             sendMessage("عدد باید بیشتر از 0 باشه");
         }
     }else{
-        sendMessage('‼️ | لطفا ایدی عددی کاربر رو به درستی وارد کنید');
+        sendMessage('😡 | مگه نمیگم فقط عدد بفرس نمیفهمی؟ یا خودتو زدی به نفهمی؟');
     }
 }
 if(preg_match('/^createAccVolume(\d+)_(\d+)/',$userInfo['step'],$match) && $text != $cancelText){
     if(!is_numeric($text)){
-        sendMessage("‼️ | لطفا ایدی عددی کاربر رو به درستی وارد کنید");
+        sendMessage("😡 | مگه نمیگم فقط عدد بفرس نمیفهمی؟ یا خودتو زدی به نفهمی؟");
         exit();
     }elseif($text <=0){
         sendMessage("مقداری بزرگتر از 0 وارد کن");
@@ -1080,7 +1080,7 @@ if(preg_match('/^createAccVolume(\d+)_(\d+)/',$userInfo['step'],$match) && $text
 }
 if(preg_match('/^createAccAmount(\d+)_(\d+)_(\d+)/',$userInfo['step'], $match) && $text != $cancelText){
     if(!is_numeric($text)){
-        sendMessage("‼️ | لطفا ایدی عددی کاربر رو به درستی وارد کنید");
+        sendMessage("😡 | مگه نمیگم فقط عدد بفرس نمیفهمی؟ یا خودتو زدی به نفهمی؟");
         exit();
     }elseif($text <=0){
         sendMessage("مقداری بزرگتر از 0 وارد کن");
@@ -1185,7 +1185,7 @@ if(preg_match('/^createAccAmount(\d+)_(\d+)_(\d+)/',$userInfo['step'], $match) &
         $last_num++;
     
         $rnd = rand(1111,99999);
-        $remark = "{$rnd}-{$srv_remark}-{$from_id}";
+        $remark = "{$srv_remark}-{$from_id}-{$rnd}";
     
         if($inbound_id == 0){    
             $response = addUser($server_id, $uniqid, $protocol, $port, $expire_microdate, $remark, $volume, $netType, 'none', $rahgozar, $fid); 
@@ -1194,7 +1194,7 @@ if(preg_match('/^createAccAmount(\d+)_(\d+)_(\d+)/',$userInfo['step'], $match) &
         }
         
         if(is_null($response)){
-            sendMessage('❌ | اتصال به سرور برقرار نیست لطفا مدیر رو در جریان بزار');
+            sendMessage('❌ | 🥺 گلم ، اتصال به سرور برقرار نیست لطفا مدیر رو در جریان بزار ...');
             break;
         }
     	if($response == "inbound not Found"){
@@ -1202,7 +1202,7 @@ if(preg_match('/^createAccAmount(\d+)_(\d+)_(\d+)/',$userInfo['step'], $match) &
             break;
     	}
     	if(!$response->success){
-            sendMessage('❌ |  Error ...');
+            sendMessage('❌ | 😮 وای خطا داد لطفا سریع به مدیر بگو ...');
             break;
         }
     
@@ -1230,7 +1230,7 @@ if(preg_match('/^createAccAmount(\d+)_(\d+)_(\d+)/',$userInfo['step'], $match) &
     if($portType == "auto"){
         file_put_contents('settings/temp.txt',$port.'-'.$last_num);
     }
-    sendMessage("☑️| اکانت های جدید با موفقیت ساخته شد",$mainKeys);
+    sendMessage("☑️|❤️ اکانت های جدید با موفقیت ساخته شد",$mainKeys);
     setUser();
 }
 if(preg_match('/payWithCartToCart(.*)/',$data,$match)) {
@@ -1285,7 +1285,7 @@ if(preg_match('/payWithCartToCart(.*)/',$data,$match)) {
     
     setUser($data);
     delMessage();
-    sendMessage("♻️  یه تصویر از فیش واریزی یا شماره پیگیری -  ساعت پرداخت - نام پرداخت کننده رو در یک پیام برام ارسال کن :
+    sendMessage("♻️ عزیزم یه تصویر از فیش واریزی یا شماره پیگیری -  ساعت پرداخت - نام پرداخت کننده رو در یک پیام برام ارسال کن :
 
 🔰 <code>{$paymentKeys['bankAccount']}</code> - {$paymentKeys['holderName']}
 
@@ -1446,7 +1446,7 @@ $portType = $stmt->get_result()->fetch_assoc()['port_type'];
 $stmt->close();
 
 $rnd = rand(1111,99999);
-$remark = "{$srv_remark}-{$rnd}-{$from_id}";
+$remark = "{$srv_remark}-{$from_id}-{$rnd}";
 
 if($portType == "auto"){
     file_put_contents('settings/temp.txt',$port.'-'.$last_num);
@@ -1467,7 +1467,7 @@ if($inbound_id == 0){
 }
 
 if(is_null($response)){
-    alert('❌ | 🥺  ، اتصال به سرور برقرار نیست لطفا مدیر رو در جریان بزار ...');
+    alert('❌ | 🥺 گلم ، اتصال به سرور برقرار نیست لطفا مدیر رو در جریان بزار ...');
     exit;
 }
 if($response == "inbound not Found"){
@@ -1478,7 +1478,7 @@ if(!$response->success){
     alert('❌ | 😮 وای خطا داد لطفا سریع به مدیر بگو ...');
     exit;
 }
-alert('🚀 |  در حال ارسال کانفیگ ...');
+alert('🚀 | 😍 در حال ارسال کانفیگ به مشتری ...');
 
 include 'phpqrcode/qrlib.php';
 $token = RandomString(30);
@@ -1487,15 +1487,14 @@ $subLink = $botUrl . "settings/subLink.php?token=" . $token;
 $vraylink = getConnectionLink($server_id, $uniqid, $protocol, $remark, $port, $netType, $inbound_id, $rahgozar);
 foreach($vraylink as $vray_link){
 $acc_text = "
-🔰| سرویس جدید شما با موفقیت ساخته شد!
-📡| پروتکل: $protocol
-🔮| نام سرویس: $remark
-🔋| حجم سرویس: $volume گیگ
-⏰| مدت سرویس: $days روز
-⁮👤| محدودیت کاربر : ندارد!
 
-
-⚜️| config : <code>$vray_link</code>";
+😍 سفارش جدید شما
+📡 پروتکل: $protocol
+🔮 نام سرویس: $remark
+🔋حجم سرویس: $volume گیگ
+⏰ مدت سرویس: $days روز
+⁮⁮ ⁮⁮
+💝 config : <code>$vray_link</code>";
 if($botState['subLinkState'] == "on") $acc_text .= "
 
 🌐 subscription : <code>$subLink</code>
@@ -1509,7 +1508,7 @@ if($botState['subLinkState'] == "on") $acc_text .= "
     
     QRcode::png($vray_link, $file, $ecc, $pixel_Size, $frame_Size);
 	addBorderImage($file);
-	sendPhoto($botUrl . $file, $acc_text,json_encode(['inline_keyboard'=>[[['text'=>"🏘| صفحه اصلی",'callback_data'=>"mainMenu"]]]]),"HTML", $uid);
+	sendPhoto($botUrl . $file, $acc_text,json_encode(['inline_keyboard'=>[[['text'=>"صفحه اصلی 🏘",'callback_data'=>"mainMenu"]]]]),"HTML", $uid);
     unlink($file);
 }
 
@@ -1539,7 +1538,7 @@ $order = $stmt->get_result();
 $stmt->close();
 $keys = json_encode(['inline_keyboard'=>[
     [
-        ['text'=>"گزارش خرید جدید",'callback_data'=>"mainMenu"]
+        ['text'=>"بنازم خرید جدید ❤️",'callback_data'=>"mainMenu"]
     ],
     ]]);
 sendMessage("
