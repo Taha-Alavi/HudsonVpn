@@ -87,8 +87,6 @@ if(strpos($text, "/start ") !== false){
 
 
         sendMessage("🔸| کاربر @$username با لینک دعوت شما وارد ربات شد
-        
-        💵| +500 تومان (کیف پول)
         ",null,null, $inviter);
     }
     $connection -> close();
@@ -104,7 +102,7 @@ if($userInfo['phone'] == null && $from_id != $admin && $userInfo['isAdmin'] != t
             exit();
         }else{
             if(!preg_match('/^\+98(\d+)/',$phone_number) && !preg_match('/^98(\d+)/',$phone_number) && !preg_match('/^0098(\d+)/',$phone_number) && $botState['requireIranPhone'] == 'on'){
-                sendMessage("‼️| شما نمیتوانید با شماره مجازی/غیرایران وارد ربات شوید");
+                sendMessage("‼️| شما نمیتوانید با شماره مجازی وارد ربات شوید");
                 exit();
             }
             setUser($phone_number, 'phone');
@@ -114,7 +112,7 @@ if($userInfo['phone'] == null && $from_id != $admin && $userInfo['isAdmin'] != t
         }
     }else{
         sendMessage("👇|  برای استفاده از  ربات روی کلید ارسال شماره کلیک کنید", json_encode([
-			'keyboard' => [[[
+			'inline_keyboard' => [[[
 					'text' => '☎️| ارسال شماره',
 					'request_contact' => true,
 				]]],
@@ -487,7 +485,6 @@ if($userInfo['step'] == "editRewardTime" && ($from_id == $admin || $userInfo['is
 
 if($data=="inviteFriends"){
     $dokmelistinveite = json_encode(['inline_keyboard' => [
-    [['text' =>"👤| لیست افراد دعوت شده",'callback_data'=>"listinvited"]],
     [['text' =>"🔙| برگشت",'callback_data'=>"mainMenu"]],
     ]]);
     $stmt = $connection->prepare("SELECT * FROM `setting` WHERE `type` = 'INVITE_BANNER_TEXT'");
