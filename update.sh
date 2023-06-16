@@ -21,23 +21,23 @@ do
 			read -p "Are you sure you want to update?[y/n]: " answer
 			echo " "
 			if [ "$answer" != "${answer#[Yy]}" ]; then
-			mv /var/www/html/hudsonservice/baseInfo.php /root/
-			mv /var/www/html/hudsonservice/userInfo.json /root/
+			mv /var/www/html/wizwizxui-timebot/baseInfo.php /root/
+			mv /var/www/html/wizwizxui-timebot/userInfo.json /root/
 			sudo apt-get install -y git
 			sudo apt-get install -y wget
 			sudo apt-get install -y unzip
 			sudo apt install curl -y
 			echo -e "\n\e[92mUpdating ...\033[0m\n"
 			sleep 4
-			rm -r /var/www/html/hudsonservice/
+			rm -r /var/www/html/wizwizxui-timebot/
 			echo -e "\n\e[92mWait a few seconds ...\033[0m\n"
 			sleep 3
-			git clone https://github.com/Taha-Alavi/HudsonVpn.git /var/www/html/hudsonservice
-			sudo chown -R www-data:www-data /var/www/html/hudsonservice/
-			sudo chmod -R 755 /var/www/html/hudsonservice/
+			git clone https://github.com/Taha-Alavi/HudsonVpn.git /var/www/html/wizwizxui-timebot
+			sudo chown -R www-data:www-data /var/www/html/wizwizxui-timebot/
+			sudo chmod -R 755 /var/www/html/wizwizxui-timebot/
 			sleep 3
-			mv /root/baseInfo.php /var/www/html/hudsonservice/
-			mv /root/userInfo.json /var/www/html/hudsonservice/
+			mv /root/baseInfo.php /var/www/html/wizwizxui-timebot/
+			mv /root/userInfo.json /var/www/html/wizwizxui-timebot/
 # 			if [ $? -ne 0 ]; then
 # 			echo -e "\n\e[41mError: The update failed!\033[0m\n"
 # 			exit 1
@@ -45,11 +45,11 @@ do
 			
 			sleep 1
 			
-			bot_token=$(cat /var/www/html/hudsonservice/baseInfo.php | grep '$botToken' | cut -d"'" -f2)
-			bot_token2=$(cat /var/www/html/hudsonservice/baseInfo.php | grep '$botToken' | cut -d'"' -f2)
-			bot_url=$(cat /var/www/html/hudsonservice/baseInfo.php | grep '$botUrl' | cut -d'"' -d"'" -f2)
+			bot_token=$(cat /var/www/html/wizwizxui-timebot/baseInfo.php | grep '$botToken' | cut -d"'" -f2)
+			bot_token2=$(cat /var/www/html/wizwizxui-timebot/baseInfo.php | grep '$botToken' | cut -d'"' -f2)
+			bot_url=$(cat /var/www/html/wizwizxui-timebot/baseInfo.php | grep '$botUrl' | cut -d'"' -d"'" -f2)
 			
-			filepath="/var/www/html/hudsonservice/baseInfo.php"
+			filepath="/var/www/html/wizwizxui-timebot/baseInfo.php"
 			
 			bot_value=$(cat $filepath | grep '$admin =' | sed 's/.*= //' | sed 's/;//')
 			
@@ -66,9 +66,9 @@ do
 			
 			sleep 1
 			
-			sudo rm -r /var/www/html/hudsonservice/webpanel
-			sudo rm -r /var/www/html/hudsonservice/install
-			rm /var/www/html/hudsonservice/createDB.php
+			sudo rm -r /var/www/html/wizwizxui-timebot/webpanel
+			sudo rm -r /var/www/html/wizwizxui-timebot/install
+			rm /var/www/html/wizwizxui-timebot/createDB.php
 			
 			clear
 			
@@ -132,10 +132,10 @@ do
 
 			echo -e "\n\e[92mUpdating ...\033[0m\n"
 			
-			bot_token=$(cat /var/www/html/hudsonservice/baseInfo.php | grep '$botToken' | cut -d"'" -f2)
-			bot_token2=$(cat /var/www/html/hudsonservice/baseInfo.php | grep '$botToken' | cut -d'"' -f2)
+			bot_token=$(cat /var/www/html/wizwizxui-timebot/baseInfo.php | grep '$botToken' | cut -d"'" -f2)
+			bot_token2=$(cat /var/www/html/wizwizxui-timebot/baseInfo.php | grep '$botToken' | cut -d'"' -f2)
 			
-			filepath="/var/www/html/hudsonservice/baseInfo.php"
+			filepath="/var/www/html/wizwizxui-timebot/baseInfo.php"
 			
 			bot_value=$(cat $filepath | grep '$admin =' | sed 's/.*= //' | sed 's/;//')
 			
@@ -216,13 +216,13 @@ do
 			
 			wait
 
-			BOT_TOKEN=$(cat /var/www/html/hudsonservice/baseInfo.php | grep '$botToken' | cut -d'"' -d"'" -f2)
-			ROOT_USER=$(cat /var/www/html/hudsonservice/baseInfo.php | grep '$dbUserName' | cut -d"'" -f2)
-			ROOT_PASSWORD=$(cat /var/www/html/hudsonservice/baseInfo.php | grep '$dbPassword' | cut -d"'" -f2)
-			BOT_URL=$(cat /var/www/html/hudsonservice/baseInfo.php | grep '$botUrl' | cut -d'"' -f2)
-			BOT_URL2=$(cat /var/www/html/hudsonservice/baseInfo.php | grep '$botUrl' | cut -d"'" -f2)
+			BOT_TOKEN=$(cat /var/www/html/wizwizxui-timebot/baseInfo.php | grep '$botToken' | cut -d'"' -d"'" -f2)
+			ROOT_USER=$(cat /var/www/html/wizwizxui-timebot/baseInfo.php | grep '$dbUserName' | cut -d"'" -f2)
+			ROOT_PASSWORD=$(cat /var/www/html/wizwizxui-timebot/baseInfo.php | grep '$dbPassword' | cut -d"'" -f2)
+			BOT_URL=$(cat /var/www/html/wizwizxui-timebot/baseInfo.php | grep '$botUrl' | cut -d'"' -f2)
+			BOT_URL2=$(cat /var/www/html/wizwizxui-timebot/baseInfo.php | grep '$botUrl' | cut -d"'" -f2)
 
-			filepath="/var/www/html/hudsonservice/baseInfo.php"
+			filepath="/var/www/html/wizwizxui-timebot/baseInfo.php"
 			ADMIN_ID=$(cat $filepath | grep '$admin =' | sed 's/.*= //' | sed 's/;//')
 			
 			echo "SELECT 1" | mysql -u$ROOT_USER -p$ROOT_PASSWORD 2>/dev/null
@@ -231,26 +231,26 @@ do
 			ASAS="$"
 			if [ $? -eq 0 ]; then
 
-			touch /var/www/html/hudsonservice/backup-wizwiz.php
+			touch /var/www/html/wizwizxui-timebot/backup-wizwiz.php
 
-			chmod -R 777 /var/www/html/hudsonservice/backup-wizwiz.php
+			chmod -R 777 /var/www/html/wizwizxui-timebot/backup-wizwiz.php
 
-			echo " " >> /var/www/html/hudsonservice/backup-wizwiz.php
-			echo "<?php" >> /var/www/html/hudsonservice/backup-wizwiz.php
-			echo "include 'settings/jdf.php';" >> /var/www/html/hudsonservice/backup-wizwiz.php
-			echo "function sendDocument(${ASAS}username, ${ASAS}document_path, ${ASAS}caption = null, ${ASAS}parse_mode = 'HTML') {" >> /var/www/html/hudsonservice/backup-wizwiz.php
-			echo "${ASAS}url = 'https://api.telegram.org/bot${BOT_TOKEN}/sendDocument';" >> /var/www/html/hudsonservice/backup-wizwiz.php
-			echo "${ASAS}wizwiz = ['chat_id' => ${ASAS}username,'document' => new CURLFile(${ASAS}document_path),'caption' => ${ASAS}caption,'parse_mode' => ${ASAS}parse_mode];" >> /var/www/html/hudsonservice/backup-wizwiz.php
-			echo "${ASAS}ch = curl_init();" >> /var/www/html/hudsonservice/backup-wizwiz.php
-			echo "curl_setopt_array(${ASAS}ch, [CURLOPT_URL => ${ASAS}url,CURLOPT_RETURNTRANSFER => true,CURLOPT_POSTFIELDS => ${ASAS}wizwiz]);" >> /var/www/html/hudsonservice/backup-wizwiz.php
-			echo "${ASAS}result = curl_exec(${ASAS}ch);curl_close(${ASAS}ch);return ${ASAS}result;}" >> /var/www/html/hudsonservice/backup-wizwiz.php
-			echo "date_default_timezone_set('Asia/Tehran');${ASAS}date = jdate('Y-m-d | H:i:s');" >> /var/www/html/hudsonservice/backup-wizwiz.php
-			echo "sendDocument('${ADMIN_ID}', '/var/www/html/hudsonservice/wizwiz.sql', '❤️ db '.${ASAS}date);" >> /var/www/html/hudsonservice/backup-wizwiz.php
-			echo "?>" >> /var/www/html/hudsonservice/backup-wizwiz.php
-			echo " " >> /var/www/html/hudsonservice/backup-wizwiz.php
+			echo " " >> /var/www/html/wizwizxui-timebot/backup-wizwiz.php
+			echo "<?php" >> /var/www/html/wizwizxui-timebot/backup-wizwiz.php
+			echo "include 'settings/jdf.php';" >> /var/www/html/wizwizxui-timebot/backup-wizwiz.php
+			echo "function sendDocument(${ASAS}username, ${ASAS}document_path, ${ASAS}caption = null, ${ASAS}parse_mode = 'HTML') {" >> /var/www/html/wizwizxui-timebot/backup-wizwiz.php
+			echo "${ASAS}url = 'https://api.telegram.org/bot${BOT_TOKEN}/sendDocument';" >> /var/www/html/wizwizxui-timebot/backup-wizwiz.php
+			echo "${ASAS}wizwiz = ['chat_id' => ${ASAS}username,'document' => new CURLFile(${ASAS}document_path),'caption' => ${ASAS}caption,'parse_mode' => ${ASAS}parse_mode];" >> /var/www/html/wizwizxui-timebot/backup-wizwiz.php
+			echo "${ASAS}ch = curl_init();" >> /var/www/html/wizwizxui-timebot/backup-wizwiz.php
+			echo "curl_setopt_array(${ASAS}ch, [CURLOPT_URL => ${ASAS}url,CURLOPT_RETURNTRANSFER => true,CURLOPT_POSTFIELDS => ${ASAS}wizwiz]);" >> /var/www/html/wizwizxui-timebot/backup-wizwiz.php
+			echo "${ASAS}result = curl_exec(${ASAS}ch);curl_close(${ASAS}ch);return ${ASAS}result;}" >> /var/www/html/wizwizxui-timebot/backup-wizwiz.php
+			echo "date_default_timezone_set('Asia/Tehran');${ASAS}date = jdate('Y-m-d | H:i:s');" >> /var/www/html/wizwizxui-timebot/backup-wizwiz.php
+			echo "sendDocument('${ADMIN_ID}', '/var/www/html/wizwizxui-timebot/wizwiz.sql', '❤️ db '.${ASAS}date);" >> /var/www/html/wizwizxui-timebot/backup-wizwiz.php
+			echo "?>" >> /var/www/html/wizwizxui-timebot/backup-wizwiz.php
+			echo " " >> /var/www/html/wizwizxui-timebot/backup-wizwiz.php
 
 			DB_NAME=wizwiz
-			backup_path="/var/www/html/hudsonservice/"
+			backup_path="/var/www/html/wizwizxui-timebot/"
 			backup_filesql="$backup_path$DB_NAME.sql"
 			mysqldump --user=$ROOT_USER --password=$ROOT_PASSWORD --host=localhost wizwiz > $backup_filesql
 			
@@ -268,8 +268,8 @@ do
 			
 			sleep 1
 						
-			rm /var/www/html/hudsonservice/backup-wizwiz.php
-			rm /var/www/html/hudsonservice/wizwiz.sql
+			rm /var/www/html/wizwizxui-timebot/backup-wizwiz.php
+			rm /var/www/html/wizwizxui-timebot/wizwiz.sql
 			
 			
 			echo -e "\e[92m The backup settings have been successfully completed.\033[0m\n"
@@ -288,13 +288,13 @@ do
    			userrr=$(cat /root/confwizwiz/dbrootwizwiz.txt | grep '$user' | cut -d"'" -f2)
 			pathsss=$(cat /root/confwizwiz/dbrootwizwiz.txt | grep '$path' | cut -d"'" -f2)
 			pathsss=$(cat /root/confwizwiz/dbrootwizwiz.txt | grep '$path' | cut -d"'" -f2)
-			passsword=$(cat /var/www/html/hudsonservice/baseInfo.php | grep '$dbPassword' | cut -d"'" -f2)
-   			userrrname=$(cat /var/www/html/hudsonservice/baseInfo.php | grep '$dbUserName' | cut -d"'" -f2)
+			passsword=$(cat /var/www/html/wizwizxui-timebot/baseInfo.php | grep '$dbPassword' | cut -d"'" -f2)
+   			userrrname=$(cat /var/www/html/wizwizxui-timebot/baseInfo.php | grep '$dbUserName' | cut -d"'" -f2)
 			
 			mysql -u $userrr -p$passs -e "DROP DATABASE wizwiz;" -e "DROP USER '$userrrname'@'localhost';" -e "DROP USER '$userrrname'@'%';"
 
 			sudo rm -r /var/www/html/wizpanel${pathsss}
-			sudo rm -r /var/www/html/hudsonservice
+			sudo rm -r /var/www/html/wizwizxui-timebot
 			
 			clear
 			
