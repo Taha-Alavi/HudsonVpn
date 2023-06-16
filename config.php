@@ -398,7 +398,7 @@ function getServerConfigKeys($serverId,$offset = 0){
     $serverConfig= $stmt->get_result()->fetch_assoc();
     $stmt->close();
     $reality = $serverConfig['reality']=="true"?"✅ فعال":"❌ غیر فعال";
-    $whatshow = $cty['show']=="true"?"✅ فعال":"❌ غیر فعال";
+    $whatshow = $cty['show']=="1"?"✅ فعال":"❌ غیر فعال";
     $panelUrl = $serverConfig['panel_url'];
     $sni = !empty($serverConfig['sni'])?$serverConfig['sni']:" ";
     $headerType = !empty($serverConfig['header_type'])?$serverConfig['header_type']:" ";
