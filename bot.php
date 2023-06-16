@@ -4,18 +4,6 @@ include_once 'config.php';
 include_once 'settings/jdf.php';
 check();
 
-function connect_to_db() {
-
-$connection = new mysqli("localhost", "A_TAHA_A", "Taha092213003taha", "wizwiz");
-
-if ($connection -> connect_error)
-echo "Failed to connect to db: " . $connection -> connect_error;
-
-$connection -> query("SET NAMES utf8");
-
-return $connection;
-}
-    
 $robotState = $botState['botState']??"on";
 if($userInfo['step'] == "banned" && $from_id != $admin && $userInfo['isAdmin'] != true){
     sendMessage("❌ | شما نمیتوانید از ربات استفاده کنید");
@@ -43,8 +31,8 @@ if(strpos($text, "/start ") !== false){
         $first_name = !empty($first_name)?$first_name:" ";
         $username = !empty($username)?$username:" ";
         if($uinfo->num_rows == 0){
-            $sql = "INSERT INTO `users` (`userid`, `name`, `username`, `refcode`, `refnumber`, `wallet`, `date`, `refered_by`)
-                                VALUES (?,?,?, 0,0,0,?,?)";
+            $sql = "INSERT INTO `users` (`userid`, `name`, `username`, `refcode`, `wallet`, `date`, `refered_by`)
+                                VALUES (?,?,?, 0,0,?,?)";
             $stmt = $connection->prepare($sql);
             $time = time();
             $stmt->bind_param("issii", $from_id, $first_name, $username, $time, $inviter);
@@ -67,29 +55,9 @@ if(strpos($text, "/start ") !== false){
         
         setUser("referedBy" . $inviter);
         $userInfo['step'] = "referedBy" . $inviter;
-
-        $connection = connect_to_db();
-        $result = $connection -> query("SELECT * FROM users");
-        while($row = $result -> fetch_assoc()) {
-        $idinviter = $row['userid'];
-        if($inviter == $idinviter){
-        $useridinviter = $row['userid'];
-        $refnumberr = $row['refnumber'];
-        $walletwallet = $row['wallet'];
-        }
-        }
-        $nextref = $refnumberr + 1;
-        $walletwalletwalletwallet = $walletwallet + 500;
-        $updateQuery = "UPDATE users SET refnumber = '$nextref' WHERE userid = '$useridinviter'";
-        $connection->query($updateQuery);
-        $updateQuery2 = "UPDATE users SET wallet = '$walletwalletwalletwallet' WHERE userid = '$useridinviter'";
-        $connection->query($updateQuery2);
-
-
-        sendMessage("🔸| کاربر @$username با لینک دعوت شما وارد ربات شد
-        ",null,null, $inviter);
+        sendMessage("‼️| تبریک یه نفر با لینک شما وارد ربات شد",null,null, $inviter);
     }
-    $connection -> close();
+    
     $text = "/start";
 }
 if($userInfo['phone'] == null && $from_id != $admin && $userInfo['isAdmin'] != true && $botState['requirePhone'] == "on"){
@@ -102,7 +70,7 @@ if($userInfo['phone'] == null && $from_id != $admin && $userInfo['isAdmin'] != t
             exit();
         }else{
             if(!preg_match('/^\+98(\d+)/',$phone_number) && !preg_match('/^98(\d+)/',$phone_number) && !preg_match('/^0098(\d+)/',$phone_number) && $botState['requireIranPhone'] == 'on'){
-                sendMessage("‼️| شما نمیتوانید با شماره مجازی وارد ربات شوید");
+                sendMessage("‼️| شما نمیتوانید با شماره مجازی/غیرایران وارد ربات شوید");
                 exit();
             }
             setUser($phone_number, 'phone');
@@ -482,11 +450,7 @@ if($userInfo['step'] == "editRewardTime" && ($from_id == $admin || $userInfo['is
     setUser();
     exit();
 }
-
 if($data=="inviteFriends"){
-    $dokmelistinveite = json_encode(['inline_keyboard' => [
-    [['text' =>"🔙| برگشت",'callback_data'=>"mainMenu"]],
-    ]]);
     $stmt = $connection->prepare("SELECT * FROM `setting` WHERE `type` = 'INVITE_BANNER_TEXT'");
     $stmt->execute();
     $inviteText = $stmt->get_result()->fetch_assoc()['value'];
@@ -504,84 +468,53 @@ if($data=="inviteFriends"){
         $link = "t.me/$botId?start=" . $from_id;
         $msgId = $res->result->message_id;
         $tedadinvite = $userInfo['refnumber'];
-        $endprizewithinvite2 = $tedadinvite * 500;
-        $endprizewithinvite = number_format($endprizewithinvite2, 0, '.', ',');
         bot('sendmessage',[
-        'chat_id'=> $from_id,
-        'text'=> "
-        🔰| Link:  `$link`
+            'chat_id'=> $msgId,
+            'text'=> "
+            🔰| Link: `$link`
+
+
+            لینک بالا مخصوص شما هست‼️ شما با دعوت هر نفر با لینک خود مبلغ *$inviteAmount* دریافت خواهید کرد❕
     
-    
-        لینک بالا مخصوص شما هست‼️
-        شما با دعوت هر نفر با لینک خود مبلغ *$inviteAmount* دریافت خواهید کرد❕
-    
-        👤| تعداد کاربران دعوت شده : $tedadinvite نفر
-        💵| مبلغ دریافتی تا کنون : $endprizewithinvite تومان
-        ",
-        'reply_markup'=>$dokmelistinveite,
-        'parse_mode'=>"Markdown",
-        ]);
+            👤| تعداد کاربران دعوت شده : $tedadinvite نفر
+            ",
+            'parse_mode'=>"Markdown",
+            ]);
     }
     else alert("این قسمت غیر فعال است");
 }
-#---لیست ممبر دعوت شده -------
-if($data == "listinvited"){
-$result = $connection -> query("SELECT * FROM users");
-while($row = $result -> fetch_assoc()) {
-$prefcode = $row['refered_by'];
-if($from_id == $prefcode){
-$tarafid = $row['username'];
-$tarafname = $row['name'];
-bot('sendmessage',[
-'chat_id'=> $from_id,
-'text'=> "
-کاربر دعوت شده توسط شما : 
-👤| Name: *$tarafname*
-🪪| Username: @$tarafid
-",
-'parse_mode'=>"Markdown",
-]);
-}
-}
-$connection -> close();
-}
-#
 if($data=="myInfo"){
     $stmt = $connection->prepare("SELECT * FROM `orders_list` WHERE `userid` = ?");
     $stmt->bind_param("i", $from_id);
     $stmt->execute();
     $totalBuys = $stmt->get_result()->num_rows;
     $stmt->close();
-    $refnumber = $userInfo['refnumber'];
+    
     $myWallet = number_format($userInfo['wallet']) . " تومان";
     
     $keys = json_encode(['inline_keyboard'=>[
         [
-            ['text'=>$from_id,'callback_data'=>"gggggggg"],
-            ['text'=>"آیدی عددی",'callback_data'=>"gggggggg"]
+            ['text'=>$from_id,'callback_data'=>"increaseMyWallet"],
+            ['text'=>"آیدی عددی",'callback_data'=>"transferMyWallet"]
         ],
         [
-            ['text'=>"@$username",'callback_data'=>"gggggggg"],
-            ['text'=>"یوزرنیم",'callback_data'=>"gggggggg"]
+            ['text'=>"@$username",'callback_data'=>"increaseMyWallet"],
+            ['text'=>"یوزرنیم",'callback_data'=>"transferMyWallet"]
         ],
         [
-            ['text'=>$first_name,'callback_data'=>"gggggggg"],
-            ['text'=>"اسم",'callback_data'=>"gggggggg"]
-        ],
-        [
-            ['text'=>"$refnumber نفر",'callback_data'=>"inviteFriends"],
-            ['text'=>"افراد دعوت شده",'callback_data'=>"inviteFriends"]
+            ['text'=>$first_name,'callback_data'=>"increaseMyWallet"],
+            ['text'=>"اسم",'callback_data'=>"transferMyWallet"]
         ],
         [
             ['text'=>$totalBuys,'callback_data'=>"increaseMyWallet"],
-            ['text'=>"تعداد خرید ها",'callback_data'=>"increaseMyWallet"]
+            ['text'=>"تعداد خرید ها",'callback_data'=>"transferMyWallet"]
         ],
         [
             ['text'=>$myWallet,'callback_data'=>"increaseMyWallet"],
-            ['text'=>"موجودی کیف پول",'callback_data'=>"increaseMyWallet"]
+            ['text'=>"موجودی کیف پول",'callback_data'=>"transferMyWallet"]
         ],
         [
-            ['text'=>"🔻🔻🔻🔻",'callback_data'=>"gggggggg"],
+            ['text'=>"🔻🔻🔻🔻",'callback_data'=>"increaseMyWallet"],
         ],
         [
             ['text'=>"شارژ کیف پول 💰",'callback_data'=>"increaseMyWallet"],
@@ -637,7 +570,7 @@ if(preg_match('/^tranfserUserAmount(\d+)/',$userInfo['step'],$match) && $text !=
 }
 if($data=="increaseMyWallet"){
     delMessage();
-    sendMessage("  مقدار شارژ مورد نظر خود را به تومان وارد کن (بیشتر از 5000 تومان)",$cancelKey);
+    sendMessage("🙂  مقدار شارژ مورد نظر خود را به تومان وارد کن (بیشتر از 5000 تومان)",$cancelKey);
     setUser($data);
 }
 if($userInfo['step'] == "increaseMyWallet" && $text != $cancelText){
@@ -926,7 +859,7 @@ if ($data=='buySubscription' && ($botState['sellState']=="on" || ($from_id == $a
         $flag = $cat['flag'];
         $keyboard[] = ['text' => "$flag $name", 'callback_data' => "selectServer$id"];
     }
-    #$keyboard[] = ['text'=>"🔰| راهنمای خرید",'callback_data'=>"help"];
+    $keyboard[] = ['text'=>"🔰| راهنمای خرید",'callback_data'=>"help"];
     $keyboard[] = ['text'=>"⤵️ برگرد صفحه قبلی ",'callback_data'=>"mainMenu"];
     $keyboard = array_chunk($keyboard,1);
     editText($message_id, '  1️⃣ مرحله یک:
@@ -1446,7 +1379,7 @@ $portType = $stmt->get_result()->fetch_assoc()['port_type'];
 $stmt->close();
 
 $rnd = rand(1111,99999);
-$remark = "{$srv_remark}-{$rnd}-{$from_id}";
+$remark = "#{$rnd}-{$srv_remark}-{$from_id}";
 
 if($portType == "auto"){
     file_put_contents('settings/temp.txt',$port.'-'.$last_num);
@@ -2398,7 +2331,7 @@ if(preg_match('/payCustomWithWallet(.*)/',$data, $match)){
     $stmt->close();
 
     $rnd = rand(1111,99999);
-    $remark = "{$srv_remark}-{$rnd}-{$from_id}";
+    $remark = "#{$rnd}-{$srv_remark}-{$from_id}";
     
     if($portType == "auto"){
         file_put_contents('settings/temp.txt',$port.'-'.$last_num);
@@ -2731,7 +2664,7 @@ if(preg_match('/accCustom(.*)/',$data, $match) and $text != $cancelText){
     $stmt->close();
 
     $rnd = rand(1111,99999);
-    $remark = "{$srv_remark}-{$rnd}-{$from_id}";
+    $remark = "{$srv_remark}-{$uid}-{$rnd}";
 
     if($portType == "auto"){
         file_put_contents('settings/temp.txt',$port.'-'.$last_num);
@@ -2968,7 +2901,7 @@ if(preg_match('/payWithWallet(.*)/',$data, $match)){
     $stmt->close();
 
     $rnd = rand(1111,99999);
-    $remark = "{$srv_remark}-{$rnd}-{$from_id}";
+    $remark = "#{$rnd}-{$srv_remark}-{$from_id}";
 
     if($portType == "auto"){
         file_put_contents('settings/temp.txt',$port.'-'.$last_num);
@@ -3532,7 +3465,7 @@ if($data=="supportSection"){
         json_encode(['inline_keyboard'=>[
         [['text'=>"✉️| ثبت تیکت",'callback_data'=>"usersNewTicket"]],
         [['text'=>"📨| تیکت های باز",'callback_data'=>"usersOpenTickets"],['text'=>"📮| لیست تیکت ها", 'callback_data'=>"userAllTickets"]],
-        [['text' =>"👨🏻‍💻| پیوی پشتیبانی",'url'=>"https://t.me/hudson_support"]],
+        [['text' =>"👨🏻‍💻| پیوی پشتیبانی",'url'=>"https://t.me/hudson_vpn"]],
         [['text'=>"🔙| برگشت",'callback_data'=>"mainMenu"]]
         ]]));
 }
