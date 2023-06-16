@@ -911,8 +911,7 @@ if ($data=='buySubscription' && ($botState['sellState']=="on" || ($from_id == $a
         alert("فعلا فروش نداریم");
         exit();
     }
-    $showsay = "true";
-    $stmt = $connection->prepare("SELECT * FROM `server_info` WHERE `active`=1 and `state` = 1 and `show` = $showsay and `ucount` > 0 ORDER BY `id` ASC");
+    $stmt = $connection->prepare("SELECT * FROM `server_info` WHERE `active`=1 and `state` = 1 and `show` = 1 and `ucount` > 0 ORDER BY `id` ASC");
     $stmt->execute();
     $respd = $stmt->get_result();
     $stmt->close();
@@ -7307,7 +7306,7 @@ if(preg_match('/^changeRealityState(\d+)/',$data,$match)){
     exit();
 }
 if(preg_match('/^changeServerShow(\d+)/',$data,$match)){
-    $stmt = $connection->prepare("UPDATE `server_info` SET `show` = IF(`show` = 'true', 'false', 'true') WHERE `id` = ?");
+    $stmt = $connection->prepare("UPDATE `server_info` SET `show` = IF(`show` = '1', '2', '1') WHERE `id` = ?");
     $stmt->bind_param("i", $match[1]);
     $stmt->execute();
     $stmt->close();
