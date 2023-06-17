@@ -1,5 +1,8 @@
 <?php
-
+if($data == "HudsonNull"){
+    alert("‼️| این گزینه برای کلیک کردن نیست");
+    }
+    
 $connection = new mysqli('localhost',$dbUserName,$dbPassword,$dbName);
 if($connection->connect_error){
     exit("error " . $connection->connect_error);  
@@ -1055,6 +1058,8 @@ function getOrderDetailKeys($from_id, $id){
         $expire_date = jdate("Y-m-d H:i",$order['expire_date']);
         $remark = $order['remark'];
         $acc_link = json_decode($order['link']);
+        $token = json_decode($order['token']);
+        $subLink = $botUrl . "settings/subLink.php?token=" . $token;
         $protocol = $order['protocol'];
         $server_id = $order['server_id'];
         $inbound_id = $order['inbound_id'];
@@ -1100,7 +1105,7 @@ function getOrderDetailKeys($from_id, $id){
         $state = $enable == true?"فعال 🟢":"غیر فعال 🔴";
         $msg = "🔮 نام کانفیگ : $remark\n";
         foreach($acc_link as $acc_link){
-            $msg .= "\n <code>$acc_link</code>";
+            $msg .= "\n <code>$acc_link</code> $subLink";
         }
         $msg .= "\n\n️";
         $keyboard = array();
