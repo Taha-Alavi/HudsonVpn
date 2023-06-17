@@ -14,6 +14,7 @@ if($orders){
             $send = false;
     	    $from_id = $order['userid'];
     	    $token = $order['token'];
+    	    $price = $order['amount'];
             $remark = $order['remark'];
             $server_id = $order['server_id'];
             $inbound_id = $order['inbound_id'];
@@ -59,15 +60,18 @@ if($orders){
             if($expiryTime != null && $total != null){
                 $send = "";
                 if($expiryTime < $now_microdate + 86400) $send = "روز"; elseif($leftgb < 1) $send = "گیگ";
+				if($price > 0){
                 if($send != ""){  
-                    $msg = "💡 کاربر گرامی، 
-        از سرویس اشتراک $remark تنها (۱ $send) باقی مانده است. میتواند از قسمت خرید های من سرویس فعلی خود را تمدید کنید یا سرویس جدید خریداری کنید.";
+                    $msg = "‼️| اخطار:
+					از سرویس `$remark` تنها 1 $send باقی مانده است!
+					";
                     sendMessage( $msg, null, null, $from_id);
                     $newTIme = $time + 86400 * 2;
                     $stmt = $connection->prepare("UPDATE `orders_list` SET `notif`= ? WHERE `remark`=?");
                     $stmt->bind_param("is", $newTIme, $remark);
                     $stmt->execute();
                     $stmt->close();
+				}
                 }
             }
         }
@@ -131,7 +135,7 @@ if($orders){
                 if($expiryTime <= $now_microdate) $send = true; elseif($leftgb <= 0) $send = true;
                 if($send){  
                     if($inbound_id > 0) deleteClient($server_id, $inbound_id, $remark); else deleteInbound($server_id, $remark); 
-                    $msg = "💡 کاربر گرامی،
+                    $msg = "❌| اعلامیه سرور
     اشتراک سرویس $remark منقضی شد و از لیست سفارش ها حذف گردید. لطفا از فروشگاه, سرویس جدید خریداری کنید.";
                     sendMessage( $msg, null, null, $from_id);
                     $stmt = $connection->prepare("DELETE FROM `orders_list` WHERE `remark`=?");
