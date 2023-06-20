@@ -1492,7 +1492,7 @@ $acc_text = "
 🔮| نام سرویس: $remark
 🔋| حجم سرویس: $volume گیگ
 ⏰| مدت سرویس: $days روز
-⁮👤| محدودیت کاربر : 5 نفر!
+⁮👤| محدودیت کاربر : ندارد!
 
 
 ⚜️| config : <code>$vray_link</code>";
@@ -2452,7 +2452,7 @@ if(preg_match('/payCustomWithWallet(.*)/',$data, $match)){
 🔮| نام سرویس: $remark
 🔋| حجم سرویس: $volume گیگ
 ⏰| مدت سرویس: $days روز
-⁮👤| محدودیت کاربر : 5 نفر!
+⁮👤| محدودیت کاربر : ندارد!
 
 
 ⚜️| config : <code>$vray_link</code>";
@@ -2781,7 +2781,7 @@ if(preg_match('/accCustom(.*)/',$data, $match) and $text != $cancelText){
         🔮| نام سرویس: $remark
         🔋| حجم سرویس: $volume گیگ
         ⏰| مدت سرویس: $days روز
-        ⁮👤| محدودیت کاربر : 5 نفر!
+        ⁮👤| محدودیت کاربر : ندارد!
         
         
 ⚜️| config : <code>$vray_link</code>";
@@ -3022,7 +3022,7 @@ if(preg_match('/payWithWallet(.*)/',$data, $match)){
         🔮| نام سرویس: $remark
         🔋| حجم سرویس: $volume گیگ
         ⏰| مدت سرویس: $days روز
-        ⁮👤| محدودیت کاربر : 5 نفر!
+        ⁮👤| محدودیت کاربر : ندارد!
         
         
 ⚜️| config : <code>$vray_link</code>";
@@ -3424,7 +3424,7 @@ if(preg_match('/accept(.*)/',$data, $match) and $text != $cancelText){
         🔮| نام سرویس: $remark
         🔋| حجم سرویس: $volume گیگ
         ⏰| مدت سرویس: $days روز
-        ⁮👤| محدودیت کاربر : 5 نفر!
+        ⁮👤| محدودیت کاربر : ندارد!
         
         
 ⚜️| config : <code>$vray_link</code>";
@@ -4762,7 +4762,7 @@ if(preg_match('/freeTrial(\d+)/',$data,$match)) {
         🔮| نام سرویس: $remark
         🔋| حجم سرویس : $volume گیگابایت
         ⏰| مدت سرویس: $days روز
-        ⁮👤| محدودیت کاربر : 5 نفر!
+        ⁮👤| محدودیت کاربر : ندارد!
         
         
 ⚜️| config : <code>$vray_link</code>";
