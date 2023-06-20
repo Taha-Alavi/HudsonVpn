@@ -1154,6 +1154,7 @@ if(preg_match('/^createAccAmount(\d+)_(\d+)_(\d+)/',$userInfo['step'], $match) &
     $stmt->bind_param("i", $server_id);
     $stmt->execute();
     $srv_remark = $stmt->get_result()->fetch_assoc()['remark'];
+    $srv_flag = $stmt->get_result()->fetch_assoc()['flag'];
     $stmt->close();
     $savedinfo = file_get_contents('settings/temp.txt');
     $savedinfo = explode('-',$savedinfo);
@@ -1185,7 +1186,7 @@ if(preg_match('/^createAccAmount(\d+)_(\d+)_(\d+)/',$userInfo['step'], $match) &
         $last_num++;
     
         $rnd = rand(1111,99999);
-        $remark = "{$srv_remark}-{$rnd}-{$from_id}";
+        $remark = "سرویس {$rnd} - {$volume} گیگ - {$srv_remark}{$srv_flag}";
     
         if($inbound_id == 0){    
             $response = addUser($server_id, $uniqid, $protocol, $port, $expire_microdate, $remark, $volume, $netType, 'none', $rahgozar, $fid); 
@@ -1446,7 +1447,7 @@ $portType = $stmt->get_result()->fetch_assoc()['port_type'];
 $stmt->close();
 
 $rnd = rand(1111,99999);
-$remark = "{$srv_remark}-{$rnd}-{$from_id}";
+$remark = "سرویس {$rnd} - {$volume} گیگ - {$srv_remark}{$srv_flag}";
 
 if($portType == "auto"){
     file_put_contents('settings/temp.txt',$port.'-'.$last_num);
@@ -2402,7 +2403,7 @@ if(preg_match('/payCustomWithWallet(.*)/',$data, $match)){
     $stmt->close();
 
     $rnd = rand(1111,99999);
-    $remark = "{$srv_remark}-{$rnd}-{$from_id}";
+    $remark = "سرویس {$rnd} - {$volume} گیگ - {$srv_remark}{$srv_flag}";
     
     if($portType == "auto"){
         file_put_contents('settings/temp.txt',$port.'-'.$last_num);
@@ -2735,7 +2736,7 @@ if(preg_match('/accCustom(.*)/',$data, $match) and $text != $cancelText){
     $stmt->close();
 
     $rnd = rand(1111,99999);
-    $remark = "{$srv_remark}-{$rnd}-{$from_id}";
+    $remark = "سرویس {$rnd} - {$volume} گیگ - {$srv_remark}{$srv_flag}";
 
     if($portType == "auto"){
         file_put_contents('settings/temp.txt',$port.'-'.$last_num);
@@ -2972,7 +2973,7 @@ if(preg_match('/payWithWallet(.*)/',$data, $match)){
     $stmt->close();
 
     $rnd = rand(1111,99999);
-    $remark = "{$srv_remark}-{$rnd}-{$from_id}";
+    $remark = "سرویس {$rnd} - {$volume} گیگ - {$srv_remark}{$srv_flag}";
 
     if($portType == "auto"){
         file_put_contents('settings/temp.txt',$port.'-'.$last_num);
@@ -3380,7 +3381,7 @@ if(preg_match('/accept(.*)/',$data, $match) and $text != $cancelText){
     $stmt->close();
 
     $rnd = rand(1111,99999);
-    $remark = "{$srv_remark}-{$rnd}-{$from_id}";
+    $remark = "سرویس {$rnd} - {$volume} گیگ - {$srv_remark}{$srv_flag}";
 
     if($portType == "auto"){
         file_put_contents('settings/temp.txt',$port.'-'.$last_num);
@@ -4720,7 +4721,7 @@ if(preg_match('/freeTrial(\d+)/',$data,$match)) {
     $stmt->close();
 
     $rnd = rand(1111,99999);
-    $remark = "{$srv_remark}-{$rnd}-{$from_id}";
+    $remark = "سرویس {$rnd} - {$volume} گیگ - {$srv_remark}{$srv_flag}";
     
     if($portType == "auto"){
         file_put_contents('settings/temp.txt',$port.'-'.$last_num);
