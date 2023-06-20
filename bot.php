@@ -2394,6 +2394,7 @@ if(preg_match('/payCustomWithWallet(.*)/',$data, $match)){
     $stmt->bind_param("i", $server_id);
     $stmt->execute();
     $srv_remark = $stmt->get_result()->fetch_assoc()['remark'];
+    $srv_flag = $stmt->get_result()->fetch_assoc()['flag'];
     $stmt->close();
     
     $stmt = $connection->prepare("SELECT * FROM `server_config` WHERE `id`=?");
@@ -2727,6 +2728,7 @@ if(preg_match('/accCustom(.*)/',$data, $match) and $text != $cancelText){
     $stmt->bind_param("i", $server_id);
     $stmt->execute();
     $srv_remark = $stmt->get_result()->fetch_assoc()['remark'];
+    $srv_flag = $stmt->get_result()->fetch_assoc()['flag'];
     $stmt->close();
 
     $stmt = $connection->prepare("SELECT * FROM `server_config` WHERE `id`=?");
@@ -2963,6 +2965,7 @@ if(preg_match('/payWithWallet(.*)/',$data, $match)){
     $stmt->bind_param("i", $server_id);
     $stmt->execute();
     $srv_remark = $stmt->get_result()->fetch_assoc()['remark'];
+    $srv_flag = $stmt->get_result()->fetch_assoc()['flag'];
     $stmt->close();
 
 
@@ -3372,6 +3375,7 @@ if(preg_match('/accept(.*)/',$data, $match) and $text != $cancelText){
     $stmt->bind_param("i", $server_id);
     $stmt->execute();
     $srv_remark = $stmt->get_result()->fetch_assoc()['remark'];
+    $srv_flag = $stmt->get_result()->fetch_assoc()['flag'];
     $stmt->close();
 
     $stmt = $connection->prepare("SELECT * FROM `server_config` WHERE `id`=?");
@@ -4712,6 +4716,7 @@ if(preg_match('/freeTrial(\d+)/',$data,$match)) {
     $stmt->bind_param("i", $server_id);
     $stmt->execute();
     $srv_remark = $stmt->get_result()->fetch_assoc()['remark'];
+    $srv_flag = $stmt->get_result()->fetch_assoc()['flag'];
     $stmt->close();
 
     $stmt = $connection->prepare("SELECT * FROM `server_config` WHERE `id`=?");
