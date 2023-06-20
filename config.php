@@ -1049,7 +1049,7 @@ function getOrderDetailKeys($from_id, $id){
 
     	    if($cadquery) {
     	        $catname = $cadquery->fetch_assoc()['title'];
-        	    $name = $catname." ".$respd['title'];
+        	    $name = $respd['title'];
     	    }else $name = "$id";
         	
     	}else $name = "$id";
@@ -1105,7 +1105,7 @@ function getOrderDetailKeys($from_id, $id){
         $state = $enable == true?"فعال 🟢":"غیر فعال 🔴";
         $msg = "🔮 نام کانفیگ : $remark\n";
         foreach($acc_link as $acc_link){
-            $msg .= "\n \n 🔰|Link: <code>$acc_link</code>";
+            $msg .= "\n \n 🔰|Link: <code>$acc_link</code> \n \n 🌐|Subscription: $subLink";
         }
         $msg .= "\n\n️";
         $keyboard = array();
