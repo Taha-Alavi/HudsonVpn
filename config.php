@@ -1105,7 +1105,7 @@ function getOrderDetailKeys($from_id, $id){
         $state = $enable == true?"فعال 🟢":"غیر فعال 🔴";
         $msg = "🔮 نام کانفیگ : $remark\n";
         foreach($acc_link as $acc_link){
-            $msg .= "\n \n 🔰|Link: <code>$acc_link</code> \n \n 🌐|Subscription: <code>$token</code>";
+            $msg .= "\n \n 🔰|Link: <code>$acc_link</code>";
         }
         $msg .= "\n\n️";
         $keyboard = array();
