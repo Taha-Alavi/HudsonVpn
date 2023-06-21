@@ -20,7 +20,7 @@ echo -e "\e[32m
 
 Hudson Service ;D
 \033[0m"
-echo -e "    \e[31mTelegram Channel: \e[34m@HudsonSerivce\033[0m | \e[31mTelegram Bot: \e[34m@wizwizxui-timebotBot\033[0m\n"
+echo -e "    \e[31mTelegram Channel: \e[34m@HudsonSerivce\033[0m | \e[31mTelegram Bot: \e[34m@hudsonbotBot\033[0m\n"
 
 #sleep
 echo -e "\e[32mInstalling Hudson script ... \033[0m\n"
@@ -106,10 +106,10 @@ sudo systemctl restart apache2.service
 
 wait
 
-git clone https://github.com/Taha-Alavi/HudsonVpn.git /var/www/html/wizwizxui-timebot
-sudo chown -R www-data:www-data /var/www/html/wizwizxui-timebot/
-sudo chmod -R 755 /var/www/html/wizwizxui-timebot/
-echo -e "\n\033[33mHudson config and script have been installed successfully\033[0m"
+git clone https://github.com/Taha-Alavi/HudsonVpn.git /var/www/html/hudsonbot
+sudo chown -R www-data:www-data /var/www/html/hudsonbot/
+sudo chmod -R 755 /var/www/html/hudsonbot/
+echo -e "\n\033[33mWizWiz config and script have been installed successfully\033[0m"
 
 wait
     
@@ -118,8 +118,8 @@ destination_dir=$(find /var/www/html -type d -name "*wizpanel*" | head -n 1)
     
 if [ -z "$destination_dir" ]; then
     RANDOM_NUMBER=$(( RANDOM % 10000000 + 1000000 ))
-    mkdir "/var/www/html/panel"
-    echo "Directory created: panel"
+    mkdir "/var/www/html/wizpanel${RANDOM_NUMBER}"
+    echo "Directory created: wizpanel${RANDOM_NUMBER}"
     echo "Folder created successfully!"
 else
     echo "Folder already exists."
@@ -206,9 +206,9 @@ DOMAIN_NAME="$domainname"
 
 # update cron
 PATHS=$(cat /root/confwizwiz/dbrootwizwiz.txt | grep '$path' | cut -d"'" -f2)
-(crontab -l ; echo "* * * * * curl https://${DOMAIN_NAME}/wizwizxui-timebot/settings/messagewizwiz.php >/dev/null 2>&1") | sort - | uniq - | crontab -
-(crontab -l ; echo "* * * * * curl https://${DOMAIN_NAME}/wizwizxui-timebot/settings/rewardReport.php >/dev/null 2>&1") | sort - | uniq - | crontab -
-(crontab -l ; echo "* * * * * curl https://${DOMAIN_NAME}/wizwizxui-timebot/settings/warnusers.php >/dev/null 2>&1") | sort - | uniq - | crontab -
+(crontab -l ; echo "* * * * * curl https://${DOMAIN_NAME}/hudsonbot/settings/messagewizwiz.php >/dev/null 2>&1") | sort - | uniq - | crontab -
+(crontab -l ; echo "* * * * * curl https://${DOMAIN_NAME}/hudsonbot/settings/rewardReport.php >/dev/null 2>&1") | sort - | uniq - | crontab -
+(crontab -l ; echo "* * * * * curl https://${DOMAIN_NAME}/hudsonbot/settings/warnusers.php >/dev/null 2>&1") | sort - | uniq - | crontab -
 (crontab -l ; echo "* * * * * curl https://${DOMAIN_NAME}/wizpanel${PATHS}/backupnutif.php >/dev/null 2>&1") | sort - | uniq - | crontab -
 
 echo -e "\n\e[92m Setting Up Cron...\033[0m\n"
@@ -309,7 +309,7 @@ wait
 
         sleep 1
         
-        file_path="/var/www/html/wizwizxui-timebot/baseInfo.php"
+        file_path="/var/www/html/hudsonbot/baseInfo.php"
         
         if [ -f "$file_path" ]; then
           rm "$file_path"
@@ -321,33 +321,33 @@ wait
         sleep 2
         
         # print file
-        echo -e "<?php" >> /var/www/html/wizwizxui-timebot/baseInfo.php
-        echo -e "error_reporting(0);" >> /var/www/html/wizwizxui-timebot/baseInfo.php
-        echo -e "${ASAS}botToken = '${YOUR_BOT_TOKEN}';" >> /var/www/html/wizwizxui-timebot/baseInfo.php
-        echo -e "${ASAS}dbUserName = '${dbuser}';" >> /var/www/html/wizwizxui-timebot/baseInfo.php
-        echo -e "${ASAS}dbPassword = '${dbpass}';" >> /var/www/html/wizwizxui-timebot/baseInfo.php
-        echo -e "${ASAS}dbName = '${dbname}';" >> /var/www/html/wizwizxui-timebot/baseInfo.php
-        echo -e "${ASAS}botUrl = 'https://${YOUR_DOMAIN}/wizwizxui-timebot/';" >> /var/www/html/wizwizxui-timebot/baseInfo.php
-        echo -e "${ASAS}admin = ${YOUR_CHAT_ID};" >> /var/www/html/wizwizxui-timebot/baseInfo.php
-        echo -e "?>" >> /var/www/html/wizwizxui-timebot/baseInfo.php
+        echo -e "<?php" >> /var/www/html/hudsonbot/baseInfo.php
+        echo -e "error_reporting(0);" >> /var/www/html/hudsonbot/baseInfo.php
+        echo -e "${ASAS}botToken = '${YOUR_BOT_TOKEN}';" >> /var/www/html/hudsonbot/baseInfo.php
+        echo -e "${ASAS}dbUserName = '${dbuser}';" >> /var/www/html/hudsonbot/baseInfo.php
+        echo -e "${ASAS}dbPassword = '${dbpass}';" >> /var/www/html/hudsonbot/baseInfo.php
+        echo -e "${ASAS}dbName = '${dbname}';" >> /var/www/html/hudsonbot/baseInfo.php
+        echo -e "${ASAS}botUrl = 'https://${YOUR_DOMAIN}/hudsonbot/';" >> /var/www/html/hudsonbot/baseInfo.php
+        echo -e "${ASAS}admin = ${YOUR_CHAT_ID};" >> /var/www/html/hudsonbot/baseInfo.php
+        echo -e "?>" >> /var/www/html/hudsonbot/baseInfo.php
 
         sleep 1
 
-        curl -F "url=https://${YOUR_DOMAIN}/wizwizxui-timebot/bot.php" "https://api.telegram.org/bot${YOUR_BOT_TOKEN}/setWebhook"
+        curl -F "url=https://${YOUR_DOMAIN}/hudsonbot/bot.php" "https://api.telegram.org/bot${YOUR_BOT_TOKEN}/setWebhook"
         MESSAGE="✅ The wizwiz bot has been successfully installed! @wizwizch"
         curl -s -X POST "https://api.telegram.org/bot${YOUR_BOT_TOKEN}/sendMessage" -d chat_id="${YOUR_CHAT_ID}" -d text="$MESSAGE"
         
         
         sleep 1
         
-        url="https://${YOUR_DOMAIN}/wizwizxui-timebot/createDB.php"
+        url="https://${YOUR_DOMAIN}/hudsonbot/createDB.php"
         curl $url
         
         sleep 1
         
-        sudo rm -r /var/www/html/wizwizxui-timebot/webpanel
-	    sudo rm -r /var/www/html/wizwizxui-timebot/install
-	    sudo rm /var/www/html/wizwizxui-timebot/createDB.php
+        sudo rm -r /var/www/html/hudsonbot/webpanel
+	    sudo rm -r /var/www/html/hudsonbot/install
+	    sudo rm /var/www/html/hudsonbot/createDB.php
             
         clear
         
@@ -359,7 +359,7 @@ wait
         echo -e "\e[33mDatabase password: \e[36m${dbpass}\033[0m"
         echo " "
         echo -e "\e[100mwizwiz panel:\033[0m"
-        echo -e "\e[33maddres: \e[36mhttps://${YOUR_DOMAIN}/panel\033[0m"
+        echo -e "\e[33maddres: \e[36mhttps://${YOUR_DOMAIN}/wizpanel${RANDOM_NUMBER}\033[0m"
         echo -e "\e[33musername panel: \e[36madmin\033[0m"
         echo -e "\e[33mpassword panel: \e[36madmin\033[0m\n"
         
