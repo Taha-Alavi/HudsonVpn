@@ -261,6 +261,8 @@ if ($from_id == $admin || $userInfo['isAdmin'] == true) {
     if($from_id == $admin){
         $adminKeys[] = [['text'=>"👤 لیست ادمین ها",'callback_data'=>"adminsList"]];
         $adminKeys[] = [['text'=>"🌐 پنل ادمینی",'url'=>"https://sub.hudsonservice.sbs/panel"]];
+        $adminKeys[] = [['text'=>"📥 دیتابیس",'url'=>"https://sub.hudsonservice.sbs/phpmyadmin"]];
+        $adminKeys[] = [['text'=>"🤖 تنظیم وب هوک",'url'=>"https://sub.hudsonservice.sbs/panel"]];
     }
     $adminKeys[] = [['text'=>"💸| افزایش موجودی",'callback_data'=>"increaseUserWallet"],['text'=>"🚸| ساخت اکانت",'callback_data'=>"createMultipleAccounts"]];
     $adminKeys[] = [['text'=>"❌| مسدود کردن کاربر",'callback_data'=>"banUser"],['text'=>"✅| آزاد کردن کاربر",'callback_data'=>"unbanUser"]];
