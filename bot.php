@@ -670,7 +670,7 @@ if($userInfo['step'] == "increaseMyWallet" && $text != $cancelText){
 	    $temp[] = ['text' => "💳 کارت به کارت ",  'callback_data' => "increaseWalletWithCartToCart" . $text];
     }
     if($botState['nowPaymentWallet'] == "on"){
-	    $temp[] = ['text' => "💳 درگاه NowPayment ",  'url' => $botUrl . "pay/?nowpayment&hash_id=" . $hash_id];
+	    $temp[] = ['text' => "💳 پرداخت با ارزدیجیتال ",  'url' => $botUrl . "pay/?nowpayment&hash_id=" . $hash_id];
     }
     if(count($temp) == 2){
         array_push($keyboard, $temp);
@@ -2046,7 +2046,7 @@ sendMessage("
 	    $temp[] = ['text' => "💳 کارت به کارت ",  'callback_data' => "payCustomWithCartToCart$hash_id"];
     }
     if($botState['nowPaymentOther'] == "on"){
-	    $temp[] = ['text' => "💳 درگاه NowPayment ",  'url' => $botUrl . "pay/?nowpayment&hash_id=" . $hash_id];
+	    $temp[] = ['text' => "💳 پرداخت با ارزدیجیتال ",  'url' => $botUrl . "pay/?nowpayment&hash_id=" . $hash_id];
     }
     if(count($temp) == 2){
         array_push($keyboard, $temp);
@@ -2255,7 +2255,7 @@ if((preg_match('/^discountSelectPlan(\d+)_(\d+)_(\d+)/',$userInfo['step'],$match
 		    $temp[] = ['text' => "💳 کارت به کارت ",  'callback_data' => "payWithCartToCart$hash_id"];
         }
         if($botState['nowPaymentOther'] == "on"){
-    	    $temp[] = ['text' => "💳 درگاه NowPayment ",  'url' => $botUrl . "pay/?nowpayment&hash_id=" . $hash_id];
+    	    $temp[] = ['text' => "💳 پرداخت با ارزدیجیتال ",  'url' => $botUrl . "pay/?nowpayment&hash_id=" . $hash_id];
         }
         if(count($temp) == 2){
             array_push($keyboard, $temp);
@@ -5980,7 +5980,7 @@ if(preg_match('/^discountRenew(\d+)_(\d+)/',$userInfo['step'], $match) || preg_m
 	    $temp[] = ['text' => "💳 کارت به کارت مبلغ $price تومان ",  'callback_data' => "payRenewWithCartToCart$hash_id"];
     }
     if($botState['nowPaymentOther'] == "on"){
-	    $temp[] = ['text' => "💳 درگاه NowPayment ",  'url' => $botUrl . "pay/?nowpayment&hash_id=" . $hash_id];
+	    $temp[] = ['text' => "💳 پرداخت با ارزدیجیتال ",  'url' => $botUrl . "pay/?nowpayment&hash_id=" . $hash_id];
     }
     if(count($temp) == 2){
         array_push($keyboard, $temp);
@@ -6535,7 +6535,7 @@ if(preg_match('/selectPlanDayIncrease(.+)_(.+)_(.+)_(.+)/',$data,$match)){
 	    $temp[] = ['text' => "💳 کارت به کارت ",  'callback_data' => "payIncreaseDayWithCartToCart$hash_id"];
     }
     if($botState['nowPaymentOther'] == "on"){
-	    $temp[] = ['text' => "💳 درگاه NowPayment ",  'url' => $botUrl . "pay/?nowpayment&hash_id=" . $hash_id];
+	    $temp[] = ['text' => "💳 پرداخت با ارزدیجیتال ",  'url' => $botUrl . "pay/?nowpayment&hash_id=" . $hash_id];
     }
     if(count($temp) == 2){
         array_push($keyboard, $temp);
@@ -6849,7 +6849,7 @@ if(preg_match('/increaseVolumePlan(.+)_(.+)_(.+)_(.+)/',$data,$match)){
 	    $temp[] = ['text' => "💳 کارت به کارت " . number_format($planprice) . " تومان",  'callback_data' => "payIncreaseWithCartToCart$hash_id"];
     }
     if($botState['nowPaymentOther'] == "on"){
-	    $temp[] = ['text' => "💳 درگاه NowPayment ",  'url' => $botUrl . "pay/?nowpayment&hash_id=" . $hash_id];
+	    $temp[] = ['text' => "💳 پرداخت با ارزدیجیتال ",  'url' => $botUrl . "pay/?nowpayment&hash_id=" . $hash_id];
     }
     if(count($temp) == 2){
         array_push($keyboard, $temp);
