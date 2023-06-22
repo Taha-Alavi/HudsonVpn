@@ -1321,7 +1321,7 @@ if(preg_match('/payWithWeSwap(.*)/',$data,$match)) {
         $stmt->close();
         
         $keys = json_encode(['inline_keyboard'=>[
-            [['text'=>"پرداخت با درگاه وی سواپ",'url'=>"https://weswap.digital/quick?amount=$priceInTrx&currency=TRX&address=$payAddress"]],
+            [['text'=>"پرداخت با درگاه وی سواپ",'url'=>"https://weswap.digital/quick?amount=$priceInTrx&currency=TRX&address=TGordWkgpLEgzhKFjwLDsEwZjKUDEoknae"]],
             [['text'=>"پرداخت کردم ✅",'callback_data'=>"havePaiedWeSwap" . $match[1]]]
             ]]);
         sendMessage("لطفا مبلغ " . $priceInTrx . " ترون توسط لینک زیر پرداخت کنید، بعد از پرداخت حدود 1 الی 15 دقیقه صبر کنید تا پرداخت به صورت کامل انجام شود سپس روی پرداخت کردم کلیک کنید ",$keys);
