@@ -713,14 +713,16 @@ if($userInfo['step'] == "increaseMyWallet" && $text != $cancelText){
 if($data == "buywithcrypto") {
     delMessage();  
     setUser($data);
-    sendMessage("
-    پرداخت دستی با ارزدیجیتال
+    bot('sendmessage',[
+        'chat_id'=> $from_id,
+        'text'=> "
+        پرداخت دستی با ارزدیجیتال
 
-    🔗 لینک ترونTron (TRX) :
+    🔗 لینک ترون Tron(TRX) :
 
     `TGordWkgpLEgzhKFjwLDsEwZjKUDEoknae`
     
-    🔗 لینک تترTether (USDT) بستر TRC20 : 
+    🔗 لینک تتر Tether(USDT) بستر TRC20 :
     
     `TGordWkgpLEgzhKFjwLDsEwZjKUDEoknae`
     
@@ -729,8 +731,9 @@ if($data == "buywithcrypto") {
 
 
     ‼️| پس از پرداخت ، عکس فاکتور پرداختی رو برای @Hudson_Support ارسال کنید
-    
-    ",$cancelKey, "HTML");
+        ",
+        'parse_mode'=>"Markdown",
+        ]);
     exit;
 }
 #----------------------------------------------
