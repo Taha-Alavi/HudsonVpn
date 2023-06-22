@@ -672,6 +672,10 @@ if($userInfo['step'] == "increaseMyWallet" && $text != $cancelText){
     if($botState['nowPaymentWallet'] == "on"){
 	    $temp[] = ['text' => "💳 درگاه پرداخت ارزدیجیتال",  'url' => $botUrl . "pay/?nowpayment&hash_id=" . $hash_id];
     }
+    if(count($temp) == 2){
+        array_push($keyboard, $temp);
+        $temp = array();
+    }
     if($botState['nowPaymentWallet'] == "on"){
 	    $temp[] = ['text' => "💳 واریز دستی ارزدیجیتال",  'callback_data' => "buywithcrypto"];
     }
@@ -2076,6 +2080,10 @@ sendMessage("
     if($botState['nowPaymentOther'] == "on"){
 	    $temp[] = ['text' => "💳 درگاه پرداخت ارزدیجیتال",  'url' => $botUrl . "pay/?nowpayment&hash_id=" . $hash_id];
     }
+    if(count($temp) == 2){
+        array_push($keyboard, $temp);
+        $temp = array();
+    }
     if($botState['nowPaymentOther'] == "on"){
 	    $temp[] = ['text' => "💳 واریز دستی ارزدیجیتال",  'callback_data' => "buywithcrypto"];
     }
@@ -2287,6 +2295,10 @@ if((preg_match('/^discountSelectPlan(\d+)_(\d+)_(\d+)/',$userInfo['step'],$match
         }
         if($botState['nowPaymentOther'] == "on"){
             $temp[] = ['text' => "💳 درگاه پرداخت ارزدیجیتال",  'url' => $botUrl . "pay/?nowpayment&hash_id=" . $hash_id];
+        }
+        if(count($temp) == 2){
+            array_push($keyboard, $temp);
+            $temp = array();
         }
         if($botState['nowPaymentOther'] == "on"){
             $temp[] = ['text' => "💳 واریز دستی ارزدیجیتال",  'callback_data' => "buywithcrypto"];
@@ -6016,6 +6028,10 @@ if(preg_match('/^discountRenew(\d+)_(\d+)/',$userInfo['step'], $match) || preg_m
     if($botState['nowPaymentOther'] == "on"){
 	    $temp[] = ['text' => "💳 درگاه پرداخت ارزدیجیتال",  'url' => $botUrl . "pay/?nowpayment&hash_id=" . $hash_id];
     }
+    if(count($temp) == 2){
+        array_push($keyboard, $temp);
+        $temp = array();
+    }
     if($botState['nowPaymentOther'] == "on"){
 	    $temp[] = ['text' => "💳 واریز دستی ارزدیجیتال",  'callback_data' => "buywithcrypto"];
     }
@@ -6574,6 +6590,10 @@ if(preg_match('/selectPlanDayIncrease(.+)_(.+)_(.+)_(.+)/',$data,$match)){
     if($botState['nowPaymentOther'] == "on"){
 	    $temp[] = ['text' => "💳 درگاه پرداخت ارزدیجیتال",  'url' => $botUrl . "pay/?nowpayment&hash_id=" . $hash_id];
     }
+    if(count($temp) == 2){
+        array_push($keyboard, $temp);
+        $temp = array();
+    }
     if($botState['nowPaymentOther'] == "on"){
 	    $temp[] = ['text' => "💳 واریز دستی ارزدیجیتال",  'callback_data' => "buywithcrypto"];
     }
@@ -6890,6 +6910,10 @@ if(preg_match('/increaseVolumePlan(.+)_(.+)_(.+)_(.+)/',$data,$match)){
     }
     if($botState['nowPaymentOther'] == "on"){
 	    $temp[] = ['text' => "💳 پرداخت با ارزدیجیتال ",  'url' => $botUrl . "pay/?nowpayment&hash_id=" . $hash_id];
+    }
+    if(count($temp) == 2){
+        array_push($keyboard, $temp);
+        $temp = array();
     }
     if($botState['nowPaymentOther'] == "on"){
 	    $temp[] = ['text' => "💳 واریز دستی ارزدیجیتال",  'callback_data' => "buywithcrypto"];
