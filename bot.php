@@ -95,7 +95,7 @@ if(strpos($text, "/start ") !== false){
     $connection -> close();
     $text = "/start";
 }
-if($userInfo['phone'] == null && $from_id != $admin && $userInfo['isAdmin'] != true && $botState['requirePhone'] == "on"){
+if($userInfo['phone'] == null && $from_id != $admin && $userInfo['isAdmin'] != true && $botState['requirePhone'] == "on" && $text != "/start"){
     if(isset($update->message->contact)){
         $contact = $update->message->contact;
         $phone_number = $contact->phone_number;
