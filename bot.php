@@ -970,30 +970,6 @@ if ($data=='buySubscription' && ($botState['sellState']=="on" || ($from_id == $a
 
 
 
-if($data == "help"){
-    $keyboard[] = ['text'=>"⤵️ برگرد صفحه قبلی ",'callback_data'=>"buySubscription"];
-    editText($message_id, '
-🔸| سرویس ویژه :
-▪️| تانل شده ( بهترین کیفیت و سرعت )
-▪️| اتصال بر روی تمامی اپراتور ها
-▪️| سرعت و اپ تایم فوق العاده
-▪| ایپی ثابت ( تضمین ترید ) 🇩🇪
-➖➖➖➖➖➖➖➖➖➖➖➖
-🔹| سرویس عادی 1 :
-▪| فقط روی اپراتور 🟡ایرانسل و 🟣رایتل
-▪️| سرعت و اپ تایم 99%
-▪| ایپی ثابت ( تضمین ترید ) 🇩🇪
-➖➖➖➖➖➖➖➖➖➖➖➖
-🔹| سرویس عادی 2 :
-▪| کیفیت بهتر روی اپراتور 🔵همراه اول و ⚪️وایفای
-▪️| سرعت و اپ تایم 99%
-▪| ایپی ثابت ( تضمین ترید ) 🇩🇪
-    
-    ', json_encode(['inline_keyboard'=>$keyboard]));
-}
-
-
-
 
 if ($data=='createMultipleAccounts' && ($from_id == $admin || $userInfo['isAdmin'] == true)){
     $stmt = $connection->prepare("SELECT * FROM `server_info` WHERE `active`=1 and `ucount` > 0 ORDER BY `id` ASC");
@@ -1523,7 +1499,7 @@ $acc_text = "
 🔮| نام سرویس: $remark
 
 
-⚜️| جهت مشاهده لینک دسترسی و پنل مدیریت سرویس ، روی کلید **⚙️| سرویس های من** کلیک کنید
+‼️ جهت مشاهده لینک اتصال سرویس مورد نظر به صفحه اصلی رفته و بر روی ⚙️| سرویس های من بزنید
 ";
       
     $file = RandomString() .".png";
@@ -1533,7 +1509,7 @@ $acc_text = "
     
     QRcode::png($vray_link, $file, $ecc, $pixel_Size, $frame_Size);
 	addBorderImage($file);
-	sendPhoto($botUrl . $file, $acc_text,json_encode(['inline_keyboard'=>[[['text'=>"⚙️| سرویس های من",'callback_data'=>"mySubscriptions"]]]]),"HTML", $uid);
+	sendPhoto($botUrl . $file, $acc_text,json_encode(['inline_keyboard'=>[[['text'=>"صفحه اصلی",'callback_data'=>"mainmenu"]]]]),"HTML", $uid);
     unlink($file);
 }
 
@@ -2489,7 +2465,7 @@ if(preg_match('/payCustomWithWallet(.*)/',$data, $match)){
         🔮| نام سرویس: $remark
         
         
-        ⚜️| جهت مشاهده لینک دسترسی و پنل مدیریت سرویس ، روی کلید **⚙️| سرویس های من** کلیک کنید"; 
+        ‼️ جهت مشاهده لینک اتصال سرویس مورد نظر به صفحه اصلی رفته و بر روی ⚙️| سرویس های من بزنید"; 
     
         $file = RandomString() .".png";
         $ecc = 'L';
@@ -2498,7 +2474,7 @@ if(preg_match('/payCustomWithWallet(.*)/',$data, $match)){
         
         QRcode::png($vray_link, $file, $ecc, $pixel_Size, $frame_Size);
     	addBorderImage($file);
-    	sendPhoto($botUrl . $file, $acc_text,json_encode(['inline_keyboard'=>[[['text'=>"⚙️| سرویس های من",'callback_data'=>"mySubscriptions"]]]]),"HTML", $uid);
+    	sendPhoto($botUrl . $file, $acc_text,json_encode(['inline_keyboard'=>[[['text'=>"صفحه اصلی",'callback_data'=>"mainmenu"]]]]),"HTML", $uid);
     unlink($file);
     }
 
@@ -2811,7 +2787,7 @@ if(preg_match('/accCustom(.*)/',$data, $match) and $text != $cancelText){
         🔮| نام سرویس: $remark
         
         
-        ⚜️| جهت مشاهده لینک دسترسی و پنل مدیریت سرویس ، روی کلید **⚙️| سرویس های من** کلیک کنید";
+        ‼️ جهت مشاهده لینک اتصال سرویس مورد نظر به صفحه اصلی رفته و بر روی ⚙️| سرویس های من بزنید";
     
         $file = RandomString() .".png";
         $ecc = 'L';
@@ -2820,7 +2796,7 @@ if(preg_match('/accCustom(.*)/',$data, $match) and $text != $cancelText){
     
         QRcode::png($vray_link, $file, $ecc, $pixel_Size, $frame_Size);
     	addBorderImage($file);
-    	sendPhoto($botUrl . $file, $acc_text,json_encode(['inline_keyboard'=>[[['text'=>"⚙️| سرویس های من",'callback_data'=>"mySubscriptions"]]]]),"HTML", $uid);
+    	sendPhoto($botUrl . $file, $acc_text,json_encode(['inline_keyboard'=>[[['text'=>"صفحه اصلی",'callback_data'=>"mainmenu"]]]]),"HTML", $uid);
     unlink($file);
     }
     sendMessage('✅ کانفیگ و براش ارسال کردم', $mainKeys);
@@ -3045,7 +3021,7 @@ if(preg_match('/payWithWallet(.*)/',$data, $match)){
         🔮| نام سرویس: $remark
         
         
-        ⚜️| جهت مشاهده لینک دسترسی و پنل مدیریت سرویس ، روی کلید **⚙️| سرویس های من** کلیک کنید";
+        ‼️ جهت مشاهده لینک اتصال سرویس مورد نظر به صفحه اصلی رفته و بر روی ⚙️| سرویس های من بزنید";
     
         $file = RandomString() .".png";
         $ecc = 'L';
@@ -3054,7 +3030,7 @@ if(preg_match('/payWithWallet(.*)/',$data, $match)){
         
         QRcode::png($vray_link, $file, $ecc, $pixel_Size, $frame_Size);
     	addBorderImage($file);
-    	sendPhoto($botUrl . $file, $acc_text,json_encode(['inline_keyboard'=>[[['text'=>"⚙️| سرویس های من",'callback_data'=>"mySubscriptions"]]]]),"HTML", $uid);
+    	sendPhoto($botUrl . $file, $acc_text,json_encode(['inline_keyboard'=>[[['text'=>"صفحه اصلی",'callback_data'=>"mainmenu"]]]]),"HTML", $uid);
     unlink($file);
     }
 
@@ -3440,7 +3416,7 @@ if(preg_match('/accept(.*)/',$data, $match) and $text != $cancelText){
         🔮| نام سرویس: $remark
         
         
-        ⚜️| جهت مشاهده لینک دسترسی و پنل مدیریت سرویس ، روی کلید **⚙️| سرویس های من** کلیک کنید";
+        ‼️ جهت مشاهده لینک اتصال سرویس مورد نظر به صفحه اصلی رفته و بر روی ⚙️| سرویس های من بزنید";
     
         $file = RandomString() .".png";
         $ecc = 'L';
@@ -3449,7 +3425,7 @@ if(preg_match('/accept(.*)/',$data, $match) and $text != $cancelText){
     
         QRcode::png($vray_link, $file, $ecc, $pixel_Size, $frame_Size);
     	addBorderImage($file);
-    	sendPhoto($botUrl . $file, $acc_text,json_encode(['inline_keyboard'=>[[['text'=>"⚙️| سرویس های من",'callback_data'=>"mySubscriptions"]]]]),"HTML", $uid);
+    	sendPhoto($botUrl . $file, $acc_text,json_encode(['inline_keyboard'=>[[['text'=>"صفحه اصلی",'callback_data'=>"mainmenu"]]]]),"HTML", $uid);
     unlink($file);
     }
     sendMessage('✅ کانفیگ و براش ارسال کردم', $mainKeys);
@@ -4771,7 +4747,7 @@ if(preg_match('/freeTrial(\d+)/',$data,$match)) {
         🔮| نام سرویس: $remark
         
         
-        ⚜️| جهت مشاهده لینک دسترسی و پنل مدیریت سرویس ، روی کلید **⚙️| سرویس های من** کلیک کنید";
+        ‼️ جهت مشاهده لینک اتصال سرویس مورد نظر به صفحه اصلی رفته و بر روی ⚙️| سرویس های من بزنید";
     
         $file = RandomString().".png";
         $ecc = 'L';
@@ -4779,7 +4755,7 @@ if(preg_match('/freeTrial(\d+)/',$data,$match)) {
         $frame_Size = 10;
         QRcode::png($vray_link, $file, $ecc, $pixel_Size, $frame_size);
     	addBorderImage($file);
-        sendPhoto($botUrl . $file, $acc_text,json_encode(['inline_keyboard'=>[[['text'=>"⚙️| سرویس های من",'callback_data'=>"mySubscriptions"]]]]),"HTML", $uid);
+        sendPhoto($botUrl . $file, $acc_text,json_encode(['inline_keyboard'=>[[['text'=>"صفحه اصلی",'callback_data'=>"mainmenu"]]]]),"HTML", $uid);
     unlink($file);
     }
     
