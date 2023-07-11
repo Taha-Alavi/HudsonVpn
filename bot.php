@@ -5642,7 +5642,7 @@ if(preg_match('/^wizwizplanrial(\d+)/',$userInfo['step'], $match) && $text != $c
         sendMessage("بهت میگم قیمت وارد کن برداشتی یه چیز دیگه نوشتی 🫤 ( عدد وارد کن ) عجبا");
     }
 }
-if(($data == 'mySubscriptions' or $text == 'myservice' or preg_match('/changeOrdersPage(\d+)/',$data, $match) )&& ($botState['sellState']=="on" || $from_id ==$admin)){
+if(($data == 'mySubscriptions' or $text == '/myservice' or preg_match('/changeOrdersPage(\d+)/',$data, $match) )&& ($botState['sellState']=="on" || $from_id ==$admin)){
     $results_per_page = 50;  
     $stmt = $connection->prepare("SELECT * FROM `orders_list` WHERE `userid`=? AND `status`=1");  
     $stmt->bind_param("i", $from_id);
