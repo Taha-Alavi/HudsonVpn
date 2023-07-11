@@ -716,13 +716,13 @@ if($data == "buywithcrypto") {
     sendMessage("
     پرداخت دستی با ارزدیجیتال
 
-    🔗 لینک ترون Tron(TRX) :
+    🔗 لینک ترون
 
-    `TGordWkgpLEgzhKFjwLDsEwZjKUDEoknae`
+    TGordWkgpLEgzhKFjwLDsEwZjKUDEoknae
     
-    🔗 لینک تتر Tether(UDST) بستر TRC20 : 
+    🔗 لینک تتر بستر TRC20:
     
-    `TGordWkgpLEgzhKFjwLDsEwZjKUDEoknae`
+    TGordWkgpLEgzhKFjwLDsEwZjKUDEoknae
     
     لینک ارز ترون جهت انتقال👆
 
