@@ -1499,7 +1499,7 @@ $acc_text = "
 🔮| نام سرویس: $remark
 
 
-‼️ جهت مشاهده لینک اتصال سرویس مورد نظر به صفحه اصلی رفته و بر روی ⚙️| سرویس های من بزنید
+‼️ جهت مشاهده لینک اتصال به سرویس روی /myservice کلیک کنید
 ";
       
     $file = RandomString() .".png";
@@ -1509,7 +1509,7 @@ $acc_text = "
     
     QRcode::png($vray_link, $file, $ecc, $pixel_Size, $frame_Size);
 	addBorderImage($file);
-	sendPhoto($botUrl . $file, $acc_text,json_encode(['inline_keyboard'=>[[['text'=>"صفحه اصلی",'callback_data'=>"mainmenu"]]]]),"HTML", $uid);
+	sendPhoto($botUrl . $file, $acc_text,json_encode(['inline_keyboard'=>[[['text'=>"صفحه اصلی",'callback_data'=>"mainMenu"]]]]),"HTML", $uid);
     unlink($file);
 }
 
@@ -2474,7 +2474,7 @@ if(preg_match('/payCustomWithWallet(.*)/',$data, $match)){
         
         QRcode::png($vray_link, $file, $ecc, $pixel_Size, $frame_Size);
     	addBorderImage($file);
-    	sendPhoto($botUrl . $file, $acc_text,json_encode(['inline_keyboard'=>[[['text'=>"صفحه اصلی",'callback_data'=>"mainmenu"]]]]),"HTML", $uid);
+    	sendPhoto($botUrl . $file, $acc_text,json_encode(['inline_keyboard'=>[[['text'=>"صفحه اصلی",'callback_data'=>"mainMenu"]]]]),"HTML", $uid);
     unlink($file);
     }
 
@@ -2796,7 +2796,7 @@ if(preg_match('/accCustom(.*)/',$data, $match) and $text != $cancelText){
     
         QRcode::png($vray_link, $file, $ecc, $pixel_Size, $frame_Size);
     	addBorderImage($file);
-    	sendPhoto($botUrl . $file, $acc_text,json_encode(['inline_keyboard'=>[[['text'=>"صفحه اصلی",'callback_data'=>"mainmenu"]]]]),"HTML", $uid);
+    	sendPhoto($botUrl . $file, $acc_text,json_encode(['inline_keyboard'=>[[['text'=>"صفحه اصلی",'callback_data'=>"mainMenu"]]]]),"HTML", $uid);
     unlink($file);
     }
     sendMessage('✅ کانفیگ و براش ارسال کردم', $mainKeys);
@@ -3030,7 +3030,7 @@ if(preg_match('/payWithWallet(.*)/',$data, $match)){
         
         QRcode::png($vray_link, $file, $ecc, $pixel_Size, $frame_Size);
     	addBorderImage($file);
-    	sendPhoto($botUrl . $file, $acc_text,json_encode(['inline_keyboard'=>[[['text'=>"صفحه اصلی",'callback_data'=>"mainmenu"]]]]),"HTML", $uid);
+    	sendPhoto($botUrl . $file, $acc_text,json_encode(['inline_keyboard'=>[[['text'=>"صفحه اصلی",'callback_data'=>"mainMenu"]]]]),"HTML", $uid);
     unlink($file);
     }
 
@@ -3425,7 +3425,7 @@ if(preg_match('/accept(.*)/',$data, $match) and $text != $cancelText){
     
         QRcode::png($vray_link, $file, $ecc, $pixel_Size, $frame_Size);
     	addBorderImage($file);
-    	sendPhoto($botUrl . $file, $acc_text,json_encode(['inline_keyboard'=>[[['text'=>"صفحه اصلی",'callback_data'=>"mainmenu"]]]]),"HTML", $uid);
+    	sendPhoto($botUrl . $file, $acc_text,json_encode(['inline_keyboard'=>[[['text'=>"صفحه اصلی",'callback_data'=>"mainMenu"]]]]),"HTML", $uid);
     unlink($file);
     }
     sendMessage('✅ کانفیگ و براش ارسال کردم', $mainKeys);
@@ -4755,7 +4755,7 @@ if(preg_match('/freeTrial(\d+)/',$data,$match)) {
         $frame_Size = 10;
         QRcode::png($vray_link, $file, $ecc, $pixel_Size, $frame_size);
     	addBorderImage($file);
-        sendPhoto($botUrl . $file, $acc_text,json_encode(['inline_keyboard'=>[[['text'=>"صفحه اصلی",'callback_data'=>"mainmenu"]]]]),"HTML", $uid);
+        sendPhoto($botUrl . $file, $acc_text,json_encode(['inline_keyboard'=>[[['text'=>"صفحه اصلی",'callback_data'=>"mainMenu"]]]]),"HTML", $uid);
     unlink($file);
     }
     
@@ -5642,7 +5642,7 @@ if(preg_match('/^wizwizplanrial(\d+)/',$userInfo['step'], $match) && $text != $c
         sendMessage("بهت میگم قیمت وارد کن برداشتی یه چیز دیگه نوشتی 🫤 ( عدد وارد کن ) عجبا");
     }
 }
-if(($data == 'mySubscriptions' or preg_match('/changeOrdersPage(\d+)/',$data, $match) )&& ($botState['sellState']=="on" || $from_id ==$admin)){
+if(($data == 'mySubscriptions' or $text == 'myservice' or preg_match('/changeOrdersPage(\d+)/',$data, $match) )&& ($botState['sellState']=="on" || $from_id ==$admin)){
     $results_per_page = 50;  
     $stmt = $connection->prepare("SELECT * FROM `orders_list` WHERE `userid`=? AND `status`=1");  
     $stmt->bind_param("i", $from_id);
