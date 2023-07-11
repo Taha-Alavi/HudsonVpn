@@ -1520,18 +1520,10 @@ $vraylink = getConnectionLink($server_id, $uniqid, $protocol, $remark, $port, $n
 foreach($vraylink as $vray_link){
 $acc_text = "
 🔰| سرویس جدید شما با موفقیت ساخته شد!
-📡| پروتکل: $protocol
 🔮| نام سرویس: $remark
-🔋| حجم سرویس: $volume گیگ
-⏰| مدت سرویس: $days روز
-⁮👤| محدودیت کاربر : ندارد!
 
 
-⚜️| config : <code>$vray_link</code>";
-if($botState['subLinkState'] == "on") $acc_text .= "
-
-🌐 subscription : <code>$subLink</code>
-
+⚜️| جهت مشاهده لینک دسترسی و پنل مدیریت سرویس ، روی کلید **⚙️| سرویس های من** کلیک کنید
 ";
       
     $file = RandomString() .".png";
@@ -1541,7 +1533,7 @@ if($botState['subLinkState'] == "on") $acc_text .= "
     
     QRcode::png($vray_link, $file, $ecc, $pixel_Size, $frame_Size);
 	addBorderImage($file);
-	sendPhoto($botUrl . $file, $acc_text,json_encode(['inline_keyboard'=>[[['text'=>"🏘| صفحه اصلی",'callback_data'=>"mainMenu"]]]]),"HTML", $uid);
+	sendPhoto($botUrl . $file, $acc_text,json_encode(['inline_keyboard'=>[[['text'=>"⚙️| سرویس های من",'callback_data'=>"mySubscriptions"]]]]),"HTML", $uid);
     unlink($file);
 }
 
@@ -2493,18 +2485,11 @@ if(preg_match('/payCustomWithWallet(.*)/',$data, $match)){
     delMessage();
     foreach($vraylink as $vray_link){
         $acc_text = "
-🔰| سرویس جدید شما با موفقیت ساخته شد!
-📡| پروتکل: $protocol
-🔮| نام سرویس: $remark
-🔋| حجم سرویس: $volume گیگ
-⏰| مدت سرویس: $days روز
-⁮👤| محدودیت کاربر : ندارد!
-
-
-⚜️| config : <code>$vray_link</code>";
-if($botState['subLinkState'] == "on") $acc_text .= "
-
-🌐 subscription : <code>$subLink</code>"; 
+        🔰| سرویس جدید شما با موفقیت ساخته شد!
+        🔮| نام سرویس: $remark
+        
+        
+        ⚜️| جهت مشاهده لینک دسترسی و پنل مدیریت سرویس ، روی کلید **⚙️| سرویس های من** کلیک کنید"; 
     
         $file = RandomString() .".png";
         $ecc = 'L';
@@ -2513,7 +2498,7 @@ if($botState['subLinkState'] == "on") $acc_text .= "
         
         QRcode::png($vray_link, $file, $ecc, $pixel_Size, $frame_Size);
     	addBorderImage($file);
-    	sendPhoto($botUrl . $file, $acc_text,json_encode(['inline_keyboard'=>[[['text'=>"🏘| صفحه اصلی",'callback_data'=>"mainMenu"]]]]),"HTML", $uid);
+    	sendPhoto($botUrl . $file, $acc_text,json_encode(['inline_keyboard'=>[[['text'=>"⚙️| سرویس های من",'callback_data'=>"mySubscriptions"]]]]),"HTML", $uid);
     unlink($file);
     }
 
@@ -2823,17 +2808,10 @@ if(preg_match('/accCustom(.*)/',$data, $match) and $text != $cancelText){
     foreach($vraylink as $vray_link){
         $acc_text = "
         🔰| سرویس جدید شما با موفقیت ساخته شد!
-        📡| پروتکل: $protocol
         🔮| نام سرویس: $remark
-        🔋| حجم سرویس: $volume گیگ
-        ⏰| مدت سرویس: $days روز
-        ⁮👤| محدودیت کاربر : ندارد!
         
         
-⚜️| config : <code>$vray_link</code>";
-if($botState['subLinkState'] == "on") $acc_text .= "
-
-\n🌐 subscription : <code>$subLink</code>";
+        ⚜️| جهت مشاهده لینک دسترسی و پنل مدیریت سرویس ، روی کلید **⚙️| سرویس های من** کلیک کنید";
     
         $file = RandomString() .".png";
         $ecc = 'L';
@@ -2842,7 +2820,7 @@ if($botState['subLinkState'] == "on") $acc_text .= "
     
         QRcode::png($vray_link, $file, $ecc, $pixel_Size, $frame_Size);
     	addBorderImage($file);
-    	sendPhoto($botUrl . $file, $acc_text,json_encode(['inline_keyboard'=>[[['text'=>"🏘| صفحه اصلی",'callback_data'=>"mainMenu"]]]]),"HTML", $uid);
+    	sendPhoto($botUrl . $file, $acc_text,json_encode(['inline_keyboard'=>[[['text'=>"⚙️| سرویس های من",'callback_data'=>"mySubscriptions"]]]]),"HTML", $uid);
     unlink($file);
     }
     sendMessage('✅ کانفیگ و براش ارسال کردم', $mainKeys);
@@ -3064,17 +3042,10 @@ if(preg_match('/payWithWallet(.*)/',$data, $match)){
     foreach($vraylink as $vray_link){
         $acc_text = "
         🔰| سرویس جدید شما با موفقیت ساخته شد!
-        📡| پروتکل: $protocol
         🔮| نام سرویس: $remark
-        🔋| حجم سرویس: $volume گیگ
-        ⏰| مدت سرویس: $days روز
-        ⁮👤| محدودیت کاربر : ندارد!
         
         
-⚜️| config : <code>$vray_link</code>";
-if($botState['subLinkState'] == "on") $acc_text .= "
-
-\n🌐 subscription : <code>$subLink</code>";
+        ⚜️| جهت مشاهده لینک دسترسی و پنل مدیریت سرویس ، روی کلید **⚙️| سرویس های من** کلیک کنید";
     
         $file = RandomString() .".png";
         $ecc = 'L';
@@ -3083,7 +3054,7 @@ if($botState['subLinkState'] == "on") $acc_text .= "
         
         QRcode::png($vray_link, $file, $ecc, $pixel_Size, $frame_Size);
     	addBorderImage($file);
-    	sendPhoto($botUrl . $file, $acc_text,json_encode(['inline_keyboard'=>[[['text'=>"🏘| صفحه اصلی",'callback_data'=>"mainMenu"]]]]),"HTML", $uid);
+    	sendPhoto($botUrl . $file, $acc_text,json_encode(['inline_keyboard'=>[[['text'=>"⚙️| سرویس های من",'callback_data'=>"mySubscriptions"]]]]),"HTML", $uid);
     unlink($file);
     }
 
@@ -3466,17 +3437,10 @@ if(preg_match('/accept(.*)/',$data, $match) and $text != $cancelText){
     foreach($vraylink as $vray_link){
         $acc_text = "
         🔰| سرویس جدید شما با موفقیت ساخته شد!
-        📡| پروتکل: $protocol
         🔮| نام سرویس: $remark
-        🔋| حجم سرویس: $volume گیگ
-        ⏰| مدت سرویس: $days روز
-        ⁮👤| محدودیت کاربر : ندارد!
         
         
-⚜️| config : <code>$vray_link</code>";
-if($botState['subLinkState'] == "on") $acc_text .= "
-
-\n🌐 subscription : <code>$subLink</code>";
+        ⚜️| جهت مشاهده لینک دسترسی و پنل مدیریت سرویس ، روی کلید **⚙️| سرویس های من** کلیک کنید";
     
         $file = RandomString() .".png";
         $ecc = 'L';
@@ -3485,7 +3449,7 @@ if($botState['subLinkState'] == "on") $acc_text .= "
     
         QRcode::png($vray_link, $file, $ecc, $pixel_Size, $frame_Size);
     	addBorderImage($file);
-    	sendPhoto($botUrl . $file, $acc_text,json_encode(['inline_keyboard'=>[[['text'=>"🏘| صفحه اصلی",'callback_data'=>"mainMenu"]]]]),"HTML", $uid);
+    	sendPhoto($botUrl . $file, $acc_text,json_encode(['inline_keyboard'=>[[['text'=>"⚙️| سرویس های من",'callback_data'=>"mySubscriptions"]]]]),"HTML", $uid);
     unlink($file);
     }
     sendMessage('✅ کانفیگ و براش ارسال کردم', $mainKeys);
@@ -4804,17 +4768,10 @@ if(preg_match('/freeTrial(\d+)/',$data,$match)) {
     foreach($vraylink as $vray_link){
         $acc_text = "
         🔰| سرویس جدید شما با موفقیت ساخته شد!
-        📡| پروتکل: $protocol
         🔮| نام سرویس: $remark
-        🔋| حجم سرویس : $volume گیگابایت
-        ⏰| مدت سرویس: $days روز
-        ⁮👤| محدودیت کاربر : ندارد!
         
         
-⚜️| config : <code>$vray_link</code>";
-if($botState['subLinkState'] == "on") $acc_text .= "
-
-\n🌐 subscription : <code>$subLink</code>";
+        ⚜️| جهت مشاهده لینک دسترسی و پنل مدیریت سرویس ، روی کلید **⚙️| سرویس های من** کلیک کنید";
     
         $file = RandomString().".png";
         $ecc = 'L';
@@ -4822,7 +4779,7 @@ if($botState['subLinkState'] == "on") $acc_text .= "
         $frame_Size = 10;
         QRcode::png($vray_link, $file, $ecc, $pixel_Size, $frame_size);
     	addBorderImage($file);
-        sendPhoto($botUrl . $file, $acc_text,json_encode(['inline_keyboard'=>[[['text'=>"🏘| صفحه اصلی",'callback_data'=>"mainMenu"]]]]),"HTML", $uid);
+        sendPhoto($botUrl . $file, $acc_text,json_encode(['inline_keyboard'=>[[['text'=>"⚙️| سرویس های من",'callback_data'=>"mySubscriptions"]]]]),"HTML", $uid);
     unlink($file);
     }
     
