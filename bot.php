@@ -1191,13 +1191,11 @@ if(preg_match('/^createAccAmount(\d+)_(\d+)_(\d+)/',$userInfo['step'], $match) &
             $port = rand(1111,65000);
         }
         $last_num++;
-    
-        $stmt = $connection->prepare("SELECT * FROM `orders_list` WHERE `status` = ?");
-        $stmt->bind_param("i", 1);
-        $stmt->execute();
-        $totalservice2 = $stmt->get_result()->num_rows;
-        $totalservice = $totalservice2 + 200;
-        $stmt->close();
+        
+        $statement = $connection->prepare("SELECT * FROM `orders_list`");
+        $statement->execute();
+        $totalservice = $statement->get_result()->num_rows;
+        $statement->close();
         $remark = "سرویس {$totalservice} - {$volume} گیگ - {$srv_remark}";
     
         if($inbound_id == 0){    
@@ -1459,12 +1457,10 @@ $portType = $stmt->get_result()->fetch_assoc()['port_type'];
 $stmt->close();
 
 $rnd = rand(1111,99999);
-$stmt = $connection->prepare("SELECT * FROM `orders_list` WHERE `status` = ?");
-        $stmt->bind_param("i", 1);
-        $stmt->execute();
-        $totalservice2 = $stmt->get_result()->num_rows;
-        $totalservice = $totalservice2 + 200;
-        $stmt->close();
+$statement = $connection->prepare("SELECT * FROM `orders_list`");
+        $statement->execute();
+        $totalservice = $statement->get_result()->num_rows;
+        $statement->close();
         $rnd = rand(1111,99999);
         $remark = "سرویس {$totalservice} - {$volume} گیگ - {$srv_remark}";
 
@@ -2428,12 +2424,10 @@ if(preg_match('/payCustomWithWallet(.*)/',$data, $match)){
     $stmt->close();
 
     $rnd = rand(1111,99999);
-    $stmt = $connection->prepare("SELECT * FROM `orders_list` WHERE `status` = ?");
-        $stmt->bind_param("i", 1);
-        $stmt->execute();
-        $totalservice2 = $stmt->get_result()->num_rows;
-        $totalservice = $totalservice2 + 200;
-        $stmt->close();
+    $statement = $connection->prepare("SELECT * FROM `orders_list`");
+        $statement->execute();
+        $totalservice = $statement->get_result()->num_rows;
+        $statement->close();
         $rnd = rand(1111,99999);
         $remark = "سرویس {$totalservice} - {$volume} گیگ - {$srv_remark}";
     
@@ -2761,12 +2755,10 @@ if(preg_match('/accCustom(.*)/',$data, $match) and $text != $cancelText){
     $stmt->close();
 
     $rnd = rand(1111,99999);
-    $stmt = $connection->prepare("SELECT * FROM `orders_list` WHERE `status` = ?");
-        $stmt->bind_param("i", 1);
-        $stmt->execute();
-        $totalservice2 = $stmt->get_result()->num_rows;
-        $totalservice = $totalservice2 + 200;
-        $stmt->close();
+    $statement = $connection->prepare("SELECT * FROM `orders_list`");
+        $statement->execute();
+        $totalservice = $statement->get_result()->num_rows;
+        $statement->close();
         $rnd = rand(1111,99999);
         $remark = "سرویس {$totalservice} - {$volume} گیگ - {$srv_remark}";
 
@@ -2999,12 +2991,10 @@ if(preg_match('/payWithWallet(.*)/',$data, $match)){
     $stmt->close();
 
     $rnd = rand(1111,99999);
-    $stmt = $connection->prepare("SELECT * FROM `orders_list` WHERE `status` = ?");
-        $stmt->bind_param("i", 1);
-        $stmt->execute();
-        $totalservice2 = $stmt->get_result()->num_rows;
-        $totalservice = $totalservice2 + 200;
-        $stmt->close();
+    $statement = $connection->prepare("SELECT * FROM `orders_list`");
+        $statement->execute();
+        $totalservice = $statement->get_result()->num_rows;
+        $statement->close();
         $rnd = rand(1111,99999);
         $remark = "سرویس {$totalservice} - {$volume} گیگ - {$srv_remark}";
 
@@ -3407,12 +3397,10 @@ if(preg_match('/accept(.*)/',$data, $match) and $text != $cancelText){
     $stmt->close();
 
     $rnd = rand(1111,99999);
-    $stmt = $connection->prepare("SELECT * FROM `orders_list` WHERE `status` = ?");
-        $stmt->bind_param("i", 1);
-        $stmt->execute();
-        $totalservice2 = $stmt->get_result()->num_rows;
-        $totalservice = $totalservice2 + 200;
-        $stmt->close();
+    $statement = $connection->prepare("SELECT * FROM `orders_list`");
+        $statement->execute();
+        $totalservice = $statement->get_result()->num_rows;
+        $statement->close();
         $rnd = rand(1111,99999);
         $remark = "سرویس {$totalservice} - {$volume} گیگ - {$srv_remark}";
 
@@ -4747,12 +4735,10 @@ if(preg_match('/freeTrial(\d+)/',$data,$match)) {
     $stmt->close();
 
     $rnd = rand(1111,99999);
-    $stmt = $connection->prepare("SELECT * FROM `orders_list` WHERE `status` = ?");
-        $stmt->bind_param("i", 1);
-        $stmt->execute();
-        $totalservice2 = $stmt->get_result()->num_rows;
-        $totalservice = $totalservice2 + 200;
-        $stmt->close();
+    $statement = $connection->prepare("SELECT * FROM `orders_list`");
+        $statement->execute();
+        $totalservice = $statement->get_result()->num_rows;
+        $statement->close();
         $rnd = rand(1111,99999);
         $remark = "سرویس {$totalservice} - {$volume} گیگ - {$srv_remark}";
     
