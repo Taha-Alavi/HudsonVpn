@@ -1191,10 +1191,10 @@ if(preg_match('/^createAccAmount(\d+)_(\d+)_(\d+)/',$userInfo['step'], $match) &
             $port = rand(1111,65000);
         }
         $last_num++;
-        
         $statement = $connection->prepare("SELECT * FROM `orders_list`");
         $statement->execute();
-        $totalservice = $statement->get_result()->num_rows;
+        $totalservice2 = $statement->get_result()->num_rows;
+        $totalservice = $totalservice2 + 650;
         $statement->close();
         $remark = "سرویس {$totalservice} - {$volume} گیگ - {$srv_remark}";
     
@@ -1456,12 +1456,11 @@ $stmt->execute();
 $portType = $stmt->get_result()->fetch_assoc()['port_type'];
 $stmt->close();
 
-$rnd = rand(1111,99999);
 $statement = $connection->prepare("SELECT * FROM `orders_list`");
         $statement->execute();
-        $totalservice = $statement->get_result()->num_rows;
+        $totalservice2 = $statement->get_result()->num_rows;
+        $totalservice = $totalservice2 + 650;
         $statement->close();
-        $rnd = rand(1111,99999);
         $remark = "سرویس {$totalservice} - {$volume} گیگ - {$srv_remark}";
 
 if($portType == "auto"){
@@ -2423,12 +2422,11 @@ if(preg_match('/payCustomWithWallet(.*)/',$data, $match)){
     $portType = $stmt->get_result()->fetch_assoc()['port_type'];
     $stmt->close();
 
-    $rnd = rand(1111,99999);
     $statement = $connection->prepare("SELECT * FROM `orders_list`");
-        $statement->execute();
-        $totalservice = $statement->get_result()->num_rows;
-        $statement->close();
-        $rnd = rand(1111,99999);
+    $statement->execute();
+    $totalservice2 = $statement->get_result()->num_rows;
+    $totalservice = $totalservice2 + 650;
+    $statement->close();
         $remark = "سرویس {$totalservice} - {$volume} گیگ - {$srv_remark}";
     
     if($portType == "auto"){
@@ -2753,13 +2751,11 @@ if(preg_match('/accCustom(.*)/',$data, $match) and $text != $cancelText){
     $stmt->execute();
     $portType = $stmt->get_result()->fetch_assoc()['port_type'];
     $stmt->close();
-
-    $rnd = rand(1111,99999);
     $statement = $connection->prepare("SELECT * FROM `orders_list`");
-        $statement->execute();
-        $totalservice = $statement->get_result()->num_rows;
-        $statement->close();
-        $rnd = rand(1111,99999);
+    $statement->execute();
+    $totalservice2 = $statement->get_result()->num_rows;
+    $totalservice = $totalservice2 + 650;
+    $statement->close();
         $remark = "سرویس {$totalservice} - {$volume} گیگ - {$srv_remark}";
 
     if($portType == "auto"){
@@ -2990,12 +2986,11 @@ if(preg_match('/payWithWallet(.*)/',$data, $match)){
     $portType = $stmt->get_result()->fetch_assoc()['port_type'];
     $stmt->close();
 
-    $rnd = rand(1111,99999);
     $statement = $connection->prepare("SELECT * FROM `orders_list`");
-        $statement->execute();
-        $totalservice = $statement->get_result()->num_rows;
-        $statement->close();
-        $rnd = rand(1111,99999);
+    $statement->execute();
+    $totalservice2 = $statement->get_result()->num_rows;
+    $totalservice = $totalservice2 + 650;
+    $statement->close();
         $remark = "سرویس {$totalservice} - {$volume} گیگ - {$srv_remark}";
 
     if($portType == "auto"){
@@ -3395,13 +3390,11 @@ if(preg_match('/accept(.*)/',$data, $match) and $text != $cancelText){
     $stmt->execute();
     $portType = $stmt->get_result()->fetch_assoc()['port_type'];
     $stmt->close();
-
-    $rnd = rand(1111,99999);
     $statement = $connection->prepare("SELECT * FROM `orders_list`");
-        $statement->execute();
-        $totalservice = $statement->get_result()->num_rows;
-        $statement->close();
-        $rnd = rand(1111,99999);
+    $statement->execute();
+    $totalservice2 = $statement->get_result()->num_rows;
+    $totalservice = $totalservice2 + 650;
+    $statement->close();
         $remark = "سرویس {$totalservice} - {$volume} گیگ - {$srv_remark}";
 
     if($portType == "auto"){
@@ -4734,12 +4727,11 @@ if(preg_match('/freeTrial(\d+)/',$data,$match)) {
     $portType = $stmt->get_result()->fetch_assoc()['port_type'];
     $stmt->close();
 
-    $rnd = rand(1111,99999);
     $statement = $connection->prepare("SELECT * FROM `orders_list`");
-        $statement->execute();
-        $totalservice = $statement->get_result()->num_rows;
-        $statement->close();
-        $rnd = rand(1111,99999);
+    $statement->execute();
+    $totalservice2 = $statement->get_result()->num_rows;
+    $totalservice = $totalservice2 + 650;
+    $statement->close();
         $remark = "سرویس {$totalservice} - {$volume} گیگ - {$srv_remark}";
     
     if($portType == "auto"){
