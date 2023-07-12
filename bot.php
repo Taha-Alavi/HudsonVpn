@@ -1192,8 +1192,13 @@ if(preg_match('/^createAccAmount(\d+)_(\d+)_(\d+)/',$userInfo['step'], $match) &
         }
         $last_num++;
     
-        $rnd = rand(1111,99999);
-        $remark = "سرویس {$rnd} - {$volume} گیگ - {$srv_remark}";
+        $stmt = $connection->prepare("SELECT * FROM `orders_list` WHERE `status` = ?");
+        $stmt->bind_param("i", 1);
+        $stmt->execute();
+        $totalservice2 = $stmt->get_result()->num_rows;
+        $totalservice = $totalservice2 + 200;
+        $stmt->close();
+        $remark = "سرویس {$totalservice} - {$volume} گیگ - {$srv_remark}";
     
         if($inbound_id == 0){    
             $response = addUser($server_id, $uniqid, $protocol, $port, $expire_microdate, $remark, $volume, $netType, 'none', $rahgozar, $fid); 
@@ -1454,7 +1459,14 @@ $portType = $stmt->get_result()->fetch_assoc()['port_type'];
 $stmt->close();
 
 $rnd = rand(1111,99999);
-$remark = "سرویس {$rnd} - {$volume} گیگ - {$srv_remark}";
+$stmt = $connection->prepare("SELECT * FROM `orders_list` WHERE `status` = ?");
+        $stmt->bind_param("i", 1);
+        $stmt->execute();
+        $totalservice2 = $stmt->get_result()->num_rows;
+        $totalservice = $totalservice2 + 200;
+        $stmt->close();
+        $rnd = rand(1111,99999);
+        $remark = "سرویس {$totalservice} - {$volume} گیگ - {$srv_remark}";
 
 if($portType == "auto"){
     file_put_contents('settings/temp.txt',$port.'-'.$last_num);
@@ -2416,7 +2428,14 @@ if(preg_match('/payCustomWithWallet(.*)/',$data, $match)){
     $stmt->close();
 
     $rnd = rand(1111,99999);
-    $remark = "سرویس {$rnd} - {$volume} گیگ - {$srv_remark}";
+    $stmt = $connection->prepare("SELECT * FROM `orders_list` WHERE `status` = ?");
+        $stmt->bind_param("i", 1);
+        $stmt->execute();
+        $totalservice2 = $stmt->get_result()->num_rows;
+        $totalservice = $totalservice2 + 200;
+        $stmt->close();
+        $rnd = rand(1111,99999);
+        $remark = "سرویس {$totalservice} - {$volume} گیگ - {$srv_remark}";
     
     if($portType == "auto"){
         file_put_contents('settings/temp.txt',$port.'-'.$last_num);
@@ -2742,7 +2761,14 @@ if(preg_match('/accCustom(.*)/',$data, $match) and $text != $cancelText){
     $stmt->close();
 
     $rnd = rand(1111,99999);
-    $remark = "سرویس {$rnd} - {$volume} گیگ - {$srv_remark}";
+    $stmt = $connection->prepare("SELECT * FROM `orders_list` WHERE `status` = ?");
+        $stmt->bind_param("i", 1);
+        $stmt->execute();
+        $totalservice2 = $stmt->get_result()->num_rows;
+        $totalservice = $totalservice2 + 200;
+        $stmt->close();
+        $rnd = rand(1111,99999);
+        $remark = "سرویس {$totalservice} - {$volume} گیگ - {$srv_remark}";
 
     if($portType == "auto"){
         file_put_contents('settings/temp.txt',$port.'-'.$last_num);
@@ -2973,7 +2999,14 @@ if(preg_match('/payWithWallet(.*)/',$data, $match)){
     $stmt->close();
 
     $rnd = rand(1111,99999);
-    $remark = "سرویس {$rnd} - {$volume} گیگ - {$srv_remark}";
+    $stmt = $connection->prepare("SELECT * FROM `orders_list` WHERE `status` = ?");
+        $stmt->bind_param("i", 1);
+        $stmt->execute();
+        $totalservice2 = $stmt->get_result()->num_rows;
+        $totalservice = $totalservice2 + 200;
+        $stmt->close();
+        $rnd = rand(1111,99999);
+        $remark = "سرویس {$totalservice} - {$volume} گیگ - {$srv_remark}";
 
     if($portType == "auto"){
         file_put_contents('settings/temp.txt',$port.'-'.$last_num);
@@ -3374,7 +3407,14 @@ if(preg_match('/accept(.*)/',$data, $match) and $text != $cancelText){
     $stmt->close();
 
     $rnd = rand(1111,99999);
-    $remark = "سرویس {$rnd} - {$volume} گیگ - {$srv_remark}";
+    $stmt = $connection->prepare("SELECT * FROM `orders_list` WHERE `status` = ?");
+        $stmt->bind_param("i", 1);
+        $stmt->execute();
+        $totalservice2 = $stmt->get_result()->num_rows;
+        $totalservice = $totalservice2 + 200;
+        $stmt->close();
+        $rnd = rand(1111,99999);
+        $remark = "سرویس {$totalservice} - {$volume} گیگ - {$srv_remark}";
 
     if($portType == "auto"){
         file_put_contents('settings/temp.txt',$port.'-'.$last_num);
@@ -4707,7 +4747,14 @@ if(preg_match('/freeTrial(\d+)/',$data,$match)) {
     $stmt->close();
 
     $rnd = rand(1111,99999);
-    $remark = "سرویس {$rnd} - {$volume} گیگ - {$srv_remark}";
+    $stmt = $connection->prepare("SELECT * FROM `orders_list` WHERE `status` = ?");
+        $stmt->bind_param("i", 1);
+        $stmt->execute();
+        $totalservice2 = $stmt->get_result()->num_rows;
+        $totalservice = $totalservice2 + 200;
+        $stmt->close();
+        $rnd = rand(1111,99999);
+        $remark = "سرویس {$totalservice} - {$volume} گیگ - {$srv_remark}";
     
     if($portType == "auto"){
         file_put_contents('settings/temp.txt',$port.'-'.$last_num);
@@ -7884,6 +7931,10 @@ if($data == 'reciveApplications') {
 ✅ پیشنهاد ما برنامه V2rayng است زیرا کار با آن ساده است و برای تمام سیستم عامل ها قابل اجرا است، میتوانید به بخش سیستم عامل مورد نظر مراجعه کنید و لینک دانلود را دریافت کنید
 ", json_encode(['inline_keyboard'=>$keyboard]));
 }
+
+
+
+
 if ($text == $cancelText) {
     setUser();
     $stmt = $connection->prepare("DELETE FROM `server_plans` WHERE `active`=0");
@@ -7895,4 +7946,4 @@ if ($text == $cancelText) {
 
 ',$mainKeys);
 }
-?>
+?> 
