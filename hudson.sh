@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Written By: wizwiz
+# Written By: hudson
 
 if [ "$(id -u)" -ne 0 ]; then
     echo -e "\033[33mPlease run as root\033[0m"
@@ -60,9 +60,9 @@ done
 echo -e "\n\e[92mPackages Installed Continuing ...\033[0m\n"
 
 echo 'phpmyadmin phpmyadmin/dbconfig-install boolean true' | debconf-set-selections
-echo 'phpmyadmin phpmyadmin/app-password-confirm password wizwizhipass' | debconf-set-selections
-echo 'phpmyadmin phpmyadmin/mysql/admin-pass password wizwizhipass' | debconf-set-selections
-echo 'phpmyadmin phpmyadmin/mysql/app-pass password wizwizhipass' | debconf-set-selections
+echo 'phpmyadmin phpmyadmin/app-password-confirm password hudsonhipass' | debconf-set-selections
+echo 'phpmyadmin phpmyadmin/mysql/admin-pass password hudsonhipass' | debconf-set-selections
+echo 'phpmyadmin phpmyadmin/mysql/app-pass password hudsonhipass' | debconf-set-selections
 echo 'phpmyadmin phpmyadmin/reconfigure-webserver multiselect apache2' | debconf-set-selections
 sudo apt-get install phpmyadmin -y
 sudo ln -s /etc/phpmyadmin/apache.conf /etc/apache2/conf-available/phpmyadmin.conf
@@ -109,7 +109,7 @@ wait
 git clone https://github.com/Taha-Alavi/HudsonVpn.git /var/www/html/hudsonbot
 sudo chown -R www-data:www-data /var/www/html/hudsonbot/
 sudo chmod -R 755 /var/www/html/hudsonbot/
-echo -e "\n\033[33mWizWiz config and script have been installed successfully\033[0m"
+echo -e "\n\033[33mHudson config and script have been installed successfully\033[0m"
 
 wait
     
@@ -128,9 +128,9 @@ fi
  destination_dir=$(find /var/www/html -type d -name "*wizpanel*" | head -n 1)
 
  cd /var/www/html/
- wget -O wizwizpanel.zip https://github.com/Taha-Alavi/HudsonVpn/releases/download/7.5.3/wizwizpanel.zip
+ wget -O hudsonpanel.zip https://github.com/Taha-Alavi/HudsonVpn/releases/download/7.5.3/hudsonpanel.zip
 
- file_to_transfer="/var/www/html/wizwizpanel.zip"
+ file_to_transfer="/var/www/html/hudsonpanel.zip"
  destination_dir=$(find /var/www/html -type d -name "*wizpanel*" | head -n 1)
 
  if [ -z "$destination_dir" ]; then
@@ -138,34 +138,34 @@ fi
    exit 1
  fi
 
- mv "$file_to_transfer" "$destination_dir/" && yes | unzip "$destination_dir/wizwizpanel.zip" -d "$destination_dir/" && rm "$destination_dir/wizwizpanel.zip" && sudo chmod -R 755 "$destination_dir/" && sudo chown -R www-data:www-data "$destination_dir/" 
+ mv "$file_to_transfer" "$destination_dir/" && yes | unzip "$destination_dir/hudsonpanel.zip" -d "$destination_dir/" && rm "$destination_dir/hudsonpanel.zip" && sudo chmod -R 755 "$destination_dir/" && sudo chown -R www-data:www-data "$destination_dir/" 
 
 
 wait
 
 
-if [ ! -d "/root/confwizwiz" ]; then
+if [ ! -d "/root/confhudson" ]; then
 
-    sudo mkdir /root/confwizwiz
+    sudo mkdir /root/confhudson
     
     sleep 1
     
-    touch /root/confwizwiz/dbrootwizwiz.txt
-    sudo chmod -R 777 /root/confwizwiz/dbrootwizwiz.txt
+    touch /root/confhudson/dbroothudson.txt
+    sudo chmod -R 777 /root/confhudson/dbroothudson.txt
     sleep 1
     
     randomdbpasstxt=$(openssl rand -base64 10 | tr -dc 'a-zA-Z0-9' | cut -c1-8)
 
     ASAS="$"
 
-    echo "${ASAS}user = 'root';" >> /root/confwizwiz/dbrootwizwiz.txt
-    echo "${ASAS}pass = '${randomdbpasstxt}';" >> /root/confwizwiz/dbrootwizwiz.txt
-    echo "${ASAS}path = '${RANDOM_NUMBER}';" >> /root/confwizwiz/dbrootwizwiz.txt
+    echo "${ASAS}user = 'root';" >> /root/confhudson/dbroothudson.txt
+    echo "${ASAS}pass = '${randomdbpasstxt}';" >> /root/confhudson/dbroothudson.txt
+    echo "${ASAS}path = '${RANDOM_NUMBER}';" >> /root/confhudson/dbroothudson.txt
     
     sleep 1
 
-    passs=$(cat /root/confwizwiz/dbrootwizwiz.txt | grep '$pass' | cut -d"'" -f2)
-    userrr=$(cat /root/confwizwiz/dbrootwizwiz.txt | grep '$user' | cut -d"'" -f2)
+    passs=$(cat /root/confhudson/dbroothudson.txt | grep '$pass' | cut -d"'" -f2)
+    userrr=$(cat /root/confhudson/dbroothudson.txt | grep '$user' | cut -d"'" -f2)
 
     sudo mysql -u $userrr -p$passs -e "alter user '$userrr'@'localhost' identified with mysql_native_password by '$passs';FLUSH PRIVILEGES;"
 
@@ -205,8 +205,8 @@ DOMAIN_NAME="$domainname"
 # WILDCARD_DOMAIN="*.$wildcarddomain"
 
 # update cron
-PATHS=$(cat /root/confwizwiz/dbrootwizwiz.txt | grep '$path' | cut -d"'" -f2)
-(crontab -l ; echo "* * * * * curl https://${DOMAIN_NAME}/hudsonbot/settings/messagewizwiz.php >/dev/null 2>&1") | sort - | uniq - | crontab -
+PATHS=$(cat /root/confhudson/dbroothudson.txt | grep '$path' | cut -d"'" -f2)
+(crontab -l ; echo "* * * * * curl https://${DOMAIN_NAME}/hudsonbot/settings/messagehudson.php >/dev/null 2>&1") | sort - | uniq - | crontab -
 (crontab -l ; echo "* * * * * curl https://${DOMAIN_NAME}/hudsonbot/settings/rewardReport.php >/dev/null 2>&1") | sort - | uniq - | crontab -
 (crontab -l ; echo "* * * * * curl https://${DOMAIN_NAME}/hudsonbot/settings/warnusers.php >/dev/null 2>&1") | sort - | uniq - | crontab -
 (crontab -l ; echo "* * * * * curl https://${DOMAIN_NAME}/wizpanel${PATHS}/backupnutif.php >/dev/null 2>&1") | sort - | uniq - | crontab -
@@ -251,7 +251,7 @@ wait
 
 echo " "
 
-ROOT_PASSWORD=$(cat /root/confwizwiz/dbrootwizwiz.txt | grep '$pass' | cut -d"'" -f2)
+ROOT_PASSWORD=$(cat /root/confhudson/dbroothudson.txt | grep '$pass' | cut -d"'" -f2)
 ROOT_USER="root"
 echo "SELECT 1" | mysql -u$ROOT_USER -p$ROOT_PASSWORD 2>/dev/null
 
@@ -264,11 +264,11 @@ wait
 
     randomdbdb=$(openssl rand -base64 10 | tr -dc 'a-zA-Z' | cut -c1-8)
 
-    if [[ $(mysql -u root -p$ROOT_PASSWORD -e "SHOW DATABASES LIKE 'wizwiz'") ]]; then
+    if [[ $(mysql -u root -p$ROOT_PASSWORD -e "SHOW DATABASES LIKE 'hudson'") ]]; then
         clear
         echo -e "\n\e[91mYou have already created the database\033[0m\n"
     else
-        dbname=wizwiz
+        dbname=hudson
         clear
         echo -e "\n\e[32mPlease enter the database username!\033[0m"
         printf "[+] Default user name is \e[91m${randomdbdb}\e[0m ( let it blank to use this user name ): "
@@ -334,7 +334,7 @@ wait
         sleep 1
 
         curl -F "url=https://${YOUR_DOMAIN}/hudsonbot/bot.php" "https://api.telegram.org/bot${YOUR_BOT_TOKEN}/setWebhook"
-        MESSAGE="✅ The wizwiz bot has been successfully installed! @wizwizch"
+        MESSAGE="✅ The hudson bot has been successfully installed! @hudsonch"
         curl -s -X POST "https://api.telegram.org/bot${YOUR_BOT_TOKEN}/sendMessage" -d chat_id="${YOUR_CHAT_ID}" -d text="$MESSAGE"
         
         
@@ -358,7 +358,7 @@ wait
         echo -e "\e[33mDatabase username: \e[36m${dbuser}\033[0m"
         echo -e "\e[33mDatabase password: \e[36m${dbpass}\033[0m"
         echo " "
-        echo -e "\e[100mwizwiz panel:\033[0m"
+        echo -e "\e[100mhudson panel:\033[0m"
         echo -e "\e[33maddres: \e[36mhttps://${YOUR_DOMAIN}/wizpanel${RANDOM_NUMBER}\033[0m"
         echo -e "\e[33musername panel: \e[36madmin\033[0m"
         echo -e "\e[33mpassword panel: \e[36madmin\033[0m\n"
