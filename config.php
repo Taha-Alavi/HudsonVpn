@@ -231,8 +231,8 @@ if ($from_id == $admin || $userInfo['isAdmin'] == true) {
     $mainKeys[] = [['text'=>"♻️| تست رایگان",'callback_data'=>"getTestAccount"]];
 	$mainKeys[] = [['text'=>'🛍| خرید سرویس','callback_data'=>"buySubscription"]];
     $mainKeys[] = [['text'=>"👤| حساب من",'callback_data'=>"myInfo"],['text'=>'⚙️| سرویس های من','callback_data'=>'mySubscriptions']];
-    $mainKeys[] = [['text'=>'📱| لینک نرم افزار ها','callback_data'=>"reciveApplications"],['text'=>"📨| پشتیبانی",'callback_data'=>"supportSection"]];
-    $mainKeys[] = [['text'=>"🪫| مشخصات کانفیگ",'callback_data'=>"showUUIDLeft"]];
+    $mainKeys[] = [['text'=>'📱| آموزش اتصال','callback_data'=>"amozeshetesal"],['text'=>"📨| پشتیبانی",'url'=>"https://t.me/hudson_support"]];
+    $mainKeys[] = [['text'=>"🪫| مشخصات کانفیگ",'callback_data'=>"ShowPanelGoen"]];
     $mainKeys[] = [['text'=>"🧷| زیر مجموعه گیری",'callback_data'=>"inviteFriends"]];
     
     $stmt = $connection->prepare("SELECT * FROM `setting` WHERE `type` LIKE '%MAIN_BUTTONS%'");
@@ -256,22 +256,19 @@ if ($from_id == $admin || $userInfo['isAdmin'] == true) {
     $mainKeys = json_encode(['inline_keyboard'=>$mainKeys]); 
 
     $adminKeys = array();
-    $adminKeys[] = [['text'=>"📉 آمار کلی ربات",'callback_data'=>"botReports"],['text'=>"📞 پیام خصوصی ",'callback_data'=>"messageToSpeceficUser"]];
-    $adminKeys[] = [['text'=>"🔑 اطلاعات کاربر ",'callback_data'=>"userReports"]];
+    $adminKeys[] = [['text'=>"📉 آمار کلی ربات",'callback_data'=>"botReports"],['text'=>"🔑 اطلاعات کاربر ",'callback_data'=>"userReports"]];
     if($from_id == $admin){
         $adminKeys[] = [['text'=>"👤 لیست ادمین ها",'callback_data'=>"adminsList"]];
-        $adminKeys[] = [['text'=>"🌐 پنل ادمینی",'url'=>"https://sub.hudsonservice.sbs/panel"]];
-        $adminKeys[] = [['text'=>"📥 دیتابیس",'url'=>"https://sub.hudsonservice.sbs/phpmyadmin"]];
-        $adminKeys[] = [['text'=>"🤖 تنظیم وب هوک",'url'=>"https://sub.hudsonservice.sbs/panel"]];
     }
-    $adminKeys[] = [['text'=>"💸| افزایش موجودی",'callback_data'=>"increaseUserWallet"],['text'=>"🚸| ساخت اکانت",'callback_data'=>"createMultipleAccounts"]];
+    $adminKeys[] = [['text'=>"‼️| حذف اکانت",'callback_data'=>"deleteAccount"],['text'=>"🚸| ساخت اکانت",'callback_data'=>"createMultipleAccounts"]];
+    $adminKeys[] = [['text'=>"💸| افزایش موجودی",'callback_data'=>"increaseUserWallet"]];
     $adminKeys[] = [['text'=>"❌| مسدود کردن کاربر",'callback_data'=>"banUser"],['text'=>"✅| آزاد کردن کاربر",'callback_data'=>"unbanUser"]];
     $adminKeys[] = [['text'=>'♻️| تنظیمات سرور','callback_data'=>"serversSetting"]];
     $adminKeys[] = [['text'=>'🔅| مدیریت دسته ها','callback_data'=>"categoriesSetting"]];
     $adminKeys[] = [['text'=>'〽️| مدیریت پلن ها','callback_data'=>"backplan"]];
-    $adminKeys[] = [['text'=>"🎁| مدیریت تخفیف ها",'callback_data'=>"discount_codes"],['text'=>"🕹| مدیریت دکمه ها ",'callback_data'=>"mainMenuButtons"]];
+    $adminKeys[] = [['text'=>"🎁| مدیریت تخفیف ها",'callback_data'=>"discount_codes"]];
     $adminKeys[] = [['text'=>'💳| تنظیمات درگاه و کانال','callback_data'=>"gateWays_Channels"],['text'=>'⚙️| تنظیمات ربات','callback_data'=>'botSettings']];
-    $adminKeys[] = [['text'=>'📪| تیکت ها','callback_data'=>"ticketsList"],['text'=>"📨| ارسال پیام همگانی",'callback_data'=>"message2All"]];
+    $adminKeys[] = [['text'=>"📨| ارسال پیام همگانی",'callback_data'=>"message2All"]];
     $adminKeys[] = [['text'=>"▫️| موجودی سرورها",'callback_data'=>"availableServers"]];
     $adminKeys[] = [['text'=>'⤵️| برگرد به منوی اصلی ','callback_data'=>"mainMenu"]];
     $adminKeys = json_encode(['inline_keyboard'=>$adminKeys]);
@@ -283,8 +280,8 @@ if ($from_id == $admin || $userInfo['isAdmin'] == true) {
 	$keys[] = [['text'=>'🛍| خرید سرویس','callback_data'=>"buySubscription"]];
     $keys[] = [['text'=>"👤| حساب من",'callback_data'=>"myInfo"],['text'=>'⚙️| سرویس های من','callback_data'=>'mySubscriptions']];
     // $mainKeys[] = [['text'=>"▫️ موجودی سرورها ▫️",'callback_data'=>"availableServers"]];
-    $keys[] = [['text'=>'📱| لینک نرم افزار ها','callback_data'=>"reciveApplications"],['text'=>"📨| پشتیبانی",'callback_data'=>"supportSection"]];
-    $keys[] = [['text'=>"🪫| مشخصات کانفیگ",'callback_data'=>"showUUIDLeft"]];
+    $keys[] = [['text'=>'📱| آموزش اتصال','callback_data'=>"amozeshetesal"],['text'=>"📨| پشتیبانی",'url'=>"https://t.me/hudson_support"]];
+    $keys[] = [['text'=>"🪫| مشخصات کانفیگ",'callback_data'=>"ShowPanelGoen"]];
     $keys[] = [['text'=>"🧷| زیر مجموعه گیری",'callback_data'=>"inviteFriends"]];
     
     
@@ -316,8 +313,8 @@ else {
 	$keys[] = [['text'=>'🛍| خرید سرویس','callback_data'=>"buySubscription"]];
     $keys[] = [['text'=>"👤| حساب من",'callback_data'=>"myInfo"],['text'=>'⚙️| سرویس های من','callback_data'=>'mySubscriptions']];
     // $mainKeys[] = [['text'=>"▫️ موجودی سرورها ▫️",'callback_data'=>"availableServers"]];
-    $keys[] = [['text'=>'📱| لینک نرم افزار ها','callback_data'=>"reciveApplications"],['text'=>"📨| پشتیبانی",'callback_data'=>"supportSection"]];
-    $keys[] = [['text'=>"🪫| مشخصات کانفیگ",'callback_data'=>"showUUIDLeft"]];
+    $keys[] = [['text'=>'📱| آموزش اتصال','callback_data'=>"amozeshetesal"],['text'=>"📨| پشتیبانی",'url'=>"https://t.me/hudson_support"]];
+    $keys[] = [['text'=>"🪫| مشخصات کانفیگ",'callback_data'=>"ShowPanelGoen"]];
     $keys[] = [['text'=>"🧷| زیر مجموعه گیری",'callback_data'=>"inviteFriends"]];
     
     
@@ -1100,22 +1097,55 @@ function getOrderDetailKeys($from_id, $id){
                 }
             }
         }
-        $leftgb = round( ($total - $up - $down) / 1073741824, 2) . " گیگ";
-        $allgig = round( ($total) / 1073741824, 2) . " گیگ";
-        $download = number_format(round($down / 1073741), 0, '.', ',') . ' مگابایت';
-        $upload = number_format(round($up / 1073741), 0, '.', ',') . ' مگابایت';
+        if($total == "0"){
+            $leftgb = "نامحدود";
+        }elseif((($total - $up - $down) / 1073741) >= "1000"){
+            $leftgb = round( ($total - $up - $down) / 1073741824, 2) . " گیگ";
+        }elseif("1000" >= (($total - $up - $down) / 1073741)){
+            $leftgb = round( ($total - $up - $down) / 1073741, 2) . " مگابایت"; 
+        }
+        #$leftgb = round( ($total - $up - $down) / 1073741824, 2) . " گیگ";
+        if($total == "0"){
+            $allgig = "نامحدود";
+        }elseif(($total / 1073741) >= "1000"){
+            $allgig = round( $total / 1073741824, 2) . " گیگ";
+        }elseif("1000" >= ($total / 1073741)){
+            $allgig = round( $total / 1073741, 2) . " مگابایت"; 
+        }
+        
+        #$allgig = round( ($total) / 1073741824, 2) . " گیگ";
+
+        if($down == "0"){
+            $download = "بدون مصرف";
+        }elseif(($down / 1073741) >= "1000"){
+            $download = round( $down / 1073741824, 2) . " گیگ";
+        }elseif("1000" >= ($down / 1073741)){
+            $download = round( $down / 1073741, 2) . " مگابایت"; 
+        }
+
+
+
+        if($up == "0"){
+            $upload = "بدون مصرف";
+        }elseif(($up / 1073741) >= "1000"){
+            $upload = round( $up / 1073741824, 2) . " گیگ";
+        }elseif("1000" >= ($up / 1073741)){
+            $upload = round( $up / 1073741, 2) . " مگابایت"; 
+        }
+
+
+        #$download = number_format(round($down / 1073741), 0, '.', ',') . ' مگابایت';
+        #$upload = number_format(round($up / 1073741), 0, '.', ',') . ' مگابایت';
         $state = $enable == true?"فعال 🟢":"غیر فعال 🔴";
         $msg = "🔮 نام کانفیگ : $remark\n
         
-        ‼️| دقت کنید در زیر دو تا لینک اتصال برای شما وجود دارد
-        ▫️ لینک اول : برای تمامی اپراتور ها 
-        ▫️ لینک دوم : فقط برای همراه اول
-        
         ";
         foreach($acc_link as $acc_link){
-            $msg .= "\n \n 🔰|Link: <code>$acc_link</code>";
+            $msg .= "\n \n 🔰|Link:  <code>$acc_link</code>";
         }
-        $msg .= "\n\n️";
+        $msg .= "\n\n
+        ▫️ لینک اول : برای تمامی اپراتور ها \n
+        ▫️ لینک دوم : فقط برای همراه اول\n\n️📲| آموزش اتصال: /help";
         $keyboard = array();
         if($inbound_id == 0){
             if($protocol == 'trojan') {
@@ -1153,16 +1183,19 @@ function getOrderDetailKeys($from_id, $id){
             			    ['text' => " $leftgb", 'callback_data' => "HudsonNull"],
                             ['text' => "⏳| حجم باقیمانده:", 'callback_data' => "HudsonNull"],
             			],
+                        [
+                            ['text' => "➖➖➖➖➖➖", 'callback_data' => "HudsonNull"],
+            			],
             // 			[
             //                 ['text' => $netType. " 🎛 نوع شبکه ", 'callback_data' => "cantEditTrojan"],
             //             ],
-                        [
-                            ['text' => "🚦 پروتکل انتخابی", 'callback_data' => "HudsonNull"],
-                        ],
-                        [
-                            ['text' => $protocol == 'trojan' ? '☑️ trojan' : 'trojan', 'callback_data' => ($botState['changeProtocolState']=="on"?"changeAccProtocol{$fid}_{$id}_trojan":"changeProtocolIsDisable")],
-                            ['text' => $protocol == 'vless' ? '☑️ vless' : 'vless', 'callback_data' => ($botState['changeProtocolState']=="on"?"changeAccProtocol{$fid}_{$id}_vless":"changeProtocolIsDisable")],
-                        ],
+                        ##[
+                          #  ['text' => "🚦 پروتکل انتخابی", 'callback_data' => "HudsonNull"],
+                        #],
+                       ## [
+                        #    ['text' => $protocol == 'trojan' ? '☑️ trojan' : 'trojan', 'callback_data' => ($botState['changeProtocolState']=="on"?"changeAccProtocol{$fid}_{$id}_trojan":"changeProtocolIsDisable")],
+                       #     ['text' => $protocol == 'vless' ? '☑️ vless' : 'vless', 'callback_data' => ($botState['changeProtocolState']=="on"?"changeAccProtocol{$fid}_{$id}_vless":"changeProtocolIsDisable")],
+                       # ],
                     ];
                     
                     $temp = array();
@@ -1207,17 +1240,20 @@ function getOrderDetailKeys($from_id, $id){
             			    ['text' => " $leftgb", 'callback_data' => "HudsonNull"],
                             ['text' => "⏳| حجم باقیمانده:", 'callback_data' => "HudsonNull"],
             			],
+                        [
+                            ['text' => "➖➖➖➖➖➖", 'callback_data' => "HudsonNull"],
+            			],
             // 			[
             //                 ['text' => $netType. " 🎛 نوع شبکه ", 'callback_data' => "cantEditTrojan"],
             //             ],
-                        [
-                            ['text' => "🚦 پروتکل انتخابی", 'callback_data' => "HudsonNull"],
-                        ],
-                        [
-                            ['text' => $protocol == 'trojan' ? '☑️ trojan' : 'trojan', 'callback_data' => ($botState['changeProtocolState']=="on"?"changeAccProtocol{$fid}_{$id}_trojan":"changeProtocolIsDisable")],
-                            ['text' => $protocol == 'vmess' ? '☑️ vmess' : 'vmess', 'callback_data' => ($botState['changeProtocolState']=="on"?"changeAccProtocol{$fid}_{$id}_vmess":"changeProtocolIsDisable")],
-                            ['text' => $protocol == 'vless' ? '☑️ vless' : 'vless', 'callback_data' => ($botState['changeProtocolState']=="on"?"changeAccProtocol{$fid}_{$id}_vless":"changeProtocolIsDisable")],
-                        ],
+                      ##  [
+                      ##      ['text' => "🚦 پروتکل انتخابی", 'callback_data' => "HudsonNull"],
+                      ##  ],
+                     ##   [
+                      ##      ['text' => $protocol == 'trojan' ? '☑️ trojan' : 'trojan', 'callback_data' => ($botState['changeProtocolState']=="on"?"changeAccProtocol{$fid}_{$id}_trojan":"changeProtocolIsDisable")],
+                       ##     ['text' => $protocol == 'vmess' ? '☑️ vmess' : 'vmess', 'callback_data' => ($botState['changeProtocolState']=="on"?"changeAccProtocol{$fid}_{$id}_vmess":"changeProtocolIsDisable")],
+                     ##       ['text' => $protocol == 'vless' ? '☑️ vless' : 'vless', 'callback_data' => ($botState['changeProtocolState']=="on"?"changeAccProtocol{$fid}_{$id}_vless":"changeProtocolIsDisable")],
+                       ## ],
                     ];
                     
                     
@@ -1265,16 +1301,19 @@ function getOrderDetailKeys($from_id, $id){
             			    ['text' => " $leftgb", 'callback_data' => "HudsonNull"],
                             ['text' => "⏳| حجم باقیمانده:", 'callback_data' => "HudsonNull"],
             			],
+                        [
+                            ['text' => "➖➖➖➖➖➖", 'callback_data' => "HudsonNull"],
+            			],
             // 			[
             //                 ['text' => $netType. " 🎛 نوع شبکه ", 'callback_data' => "cantEditGrpc"],
             //             ],
-                        [
-                            ['text' => "🚦 پروتکل انتخابی", 'callback_data' => "HudsonNull"],
-                        ],
-                        [
-                            ['text' => $protocol == 'vmess' ? '☑️ vmess' : 'vmess', 'callback_data' => ($botState['changeProtocolState']=="on"?"changeAccProtocol{$fid}_{$id}_vmess":"changeProtocolIsDisable")],
-                            ['text' => $protocol == 'vless' ? '☑️ vless' : 'vless', 'callback_data' => ($botState['changeProtocolState']=="on"?"changeAccProtocol{$fid}_{$id}_vless":"changeProtocolIsDisable")],
-                        ]
+                       ## [
+                      ##      ['text' => "🚦 پروتکل انتخابی", 'callback_data' => "HudsonNull"],
+                     ##   ],
+                      ##  [
+                    ##        ['text' => $protocol == 'vmess' ? '☑️ vmess' : 'vmess', 'callback_data' => ($botState['changeProtocolState']=="on"?"changeAccProtocol{$fid}_{$id}_vmess":"changeProtocolIsDisable")],
+                   ##         ['text' => $protocol == 'vless' ? '☑️ vless' : 'vless', 'callback_data' => ($botState['changeProtocolState']=="on"?"changeAccProtocol{$fid}_{$id}_vless":"changeProtocolIsDisable")],
+                    ##    ]
                     ];
                     
                     
@@ -1321,16 +1360,19 @@ function getOrderDetailKeys($from_id, $id){
             			    ['text' => " $leftgb", 'callback_data' => "HudsonNull"],
                             ['text' => "⏳| حجم باقیمانده:", 'callback_data' => "HudsonNull"],
             			],
+                        [
+                            ['text' => "➖➖➖➖➖➖", 'callback_data' => "HudsonNull"],
+            			],
             // 			[
             //                 ['text' => $netType. " 🎛 نوع شبکه ", 'callback_data' => ($security=="xtls"?"cantEditGrpc":"changeNetworkType{$fid}_{$id}")],
             //             ],
-                        [
-                            ['text' => "🚦 پروتکل انتخابی", 'callback_data' => "HudsonNull"],
-                        ],
-                        [
-                            ['text' => $protocol == 'trojan' ? '☑️ trojan' : 'trojan', 'callback_data' => ($botState['changeProtocolState']=="on"?"changeAccProtocol{$fid}_{$id}_trojan":"changeProtocolIsDisable")],
-                            ['text' => $protocol == 'vless' ? '☑️ vless' : 'vless', 'callback_data' => ($botState['changeProtocolState']=="on"?"changeAccProtocol{$fid}_{$id}_vless":"changeProtocolIsDisable")],
-                        ]
+                   ##     [
+                    ##        ['text' => "🚦 پروتکل انتخابی", 'callback_data' => "HudsonNull"],
+                    ##    ],
+                   ##     [
+                     ##       ['text' => $protocol == 'trojan' ? '☑️ trojan' : 'trojan', 'callback_data' => ($botState['changeProtocolState']=="on"?"changeAccProtocol{$fid}_{$id}_trojan":"changeProtocolIsDisable")],
+                   ##         ['text' => $protocol == 'vless' ? '☑️ vless' : 'vless', 'callback_data' => ($botState['changeProtocolState']=="on"?"changeAccProtocol{$fid}_{$id}_vless":"changeProtocolIsDisable")],
+                    ##    ]
                     ];
                     
                     $temp = array();
@@ -1377,22 +1419,25 @@ function getOrderDetailKeys($from_id, $id){
             			    ['text' => " $leftgb", 'callback_data' => "HudsonNull"],
                             ['text' => "⏳| حجم باقیمانده:", 'callback_data' => "HudsonNull"],
             			],
+                        [
+                            ['text' => "➖➖➖➖➖➖", 'callback_data' => "HudsonNull"],
+            			],
             // 			[
             //                 ['text' => $netType. " 🎛 نوع شبکه ", 'callback_data' => (($security=="xtls" || $rahgozar == true)?"cantEditGrpc":"changeNetworkType{$fid}_{$id}")],
             //             ],
-                        [
-                            ['text' => "🚦 پروتکل انتخابی", 'callback_data' => "HudsonNull"],
-                        ],
-                        ($rahgozar == true?
-                        [
-                            ['text' => $protocol == 'vmess' ? '☑️ vmess' : 'vmess', 'callback_data' => ($botState['changeProtocolState']=="on"?"changeAccProtocol{$fid}_{$id}_vmess":"changeProtocolIsDisable")],
-                            ['text' => $protocol == 'vless' ? '☑️ vless' : 'vless', 'callback_data' => ($botState['changeProtocolState']=="on"?"changeAccProtocol{$fid}_{$id}_vless":"changeProtocolIsDisable")],
-                        ]:
-                            [
-                            ['text' => $protocol == 'trojan' ? '☑️ trojan' : 'trojan', 'callback_data' => ($botState['changeProtocolState']=="on"?"changeAccProtocol{$fid}_{$id}_trojan":"changeProtocolIsDisable")],
-                            ['text' => $protocol == 'vmess' ? '☑️ vmess' : 'vmess', 'callback_data' => ($botState['changeProtocolState']=="on"?"changeAccProtocol{$fid}_{$id}_vmess":"changeProtocolIsDisable")],
-                            ['text' => $protocol == 'vless' ? '☑️ vless' : 'vless', 'callback_data' => ($botState['changeProtocolState']=="on"?"changeAccProtocol{$fid}_{$id}_vless":"changeProtocolIsDisable")],
-                        ])
+                      ##  [
+                     ##       ['text' => "🚦 پروتکل انتخابی", 'callback_data' => "HudsonNull"],
+                     ##   ],
+                    ##    ($rahgozar == true?
+                     ##   [
+                     ##       ['text' => $protocol == 'vmess' ? '☑️ vmess' : 'vmess', 'callback_data' => ($botState['changeProtocolState']=="on"?"changeAccProtocol{$fid}_{$id}_vmess":"changeProtocolIsDisable")],
+                        ##    ['text' => $protocol == 'vless' ? '☑️ vless' : 'vless', 'callback_data' => ($botState['changeProtocolState']=="on"?"changeAccProtocol{$fid}_{$id}_vless":"changeProtocolIsDisable")],
+                      ##  ]:
+                     ##       [
+                     ##       ['text' => $protocol == 'trojan' ? '☑️ trojan' : 'trojan', 'callback_data' => ($botState['changeProtocolState']=="on"?"changeAccProtocol{$fid}_{$id}_trojan":"changeProtocolIsDisable")],
+                     ##       ['text' => $protocol == 'vmess' ? '☑️ vmess' : 'vmess', 'callback_data' => ($botState['changeProtocolState']=="on"?"changeAccProtocol{$fid}_{$id}_vmess":"changeProtocolIsDisable")],
+                     ##       ['text' => $protocol == 'vless' ? '☑️ vless' : 'vless', 'callback_data' => ($botState['changeProtocolState']=="on"?"changeAccProtocol{$fid}_{$id}_vless":"changeProtocolIsDisable")],
+                     ##   ])
                     ];
                     
                     $temp = array();
@@ -1440,12 +1485,15 @@ function getOrderDetailKeys($from_id, $id){
                     ['text' => " $leftgb", 'callback_data' => "HudsonNull"],
                     ['text' => "⏳| حجم باقیمانده:", 'callback_data' => "HudsonNull"],
                 ],
-    			[
-                    ['text' => "🚦 پروتکل انتخابی", 'callback_data' => "HudsonNull"],
-                ],
                 [
-                    ['text' => " $protocol پروتکل ☑️", 'callback_data' => "HudsonNull"],
-                ]
+                    ['text' => "➖➖➖➖➖➖", 'callback_data' => "HudsonNull"],
+                ],
+    			##[
+                ##    ['text' => "🚦 پروتکل انتخابی", 'callback_data' => "HudsonNull"],
+              ##  ],
+              ##  [
+              ##      ['text' => " $protocol پروتکل ☑️", 'callback_data' => "HudsonNull"],
+              ##  ]
             ];
             
             $temp = array();
@@ -1468,7 +1516,7 @@ function getOrderDetailKeys($from_id, $id){
     
     
         $extrakey = [];
-        if($botState['increaseVolumeState']=="on" and $price != 0) $extrakey[] = ['text' => "📥افزایش حجم سرویس", 'callback_data' => "increaseAVolume{$server_id}_{$inbound_id}_{$remark}"];
+        if($botState['increaseVolumeState']=="on" and $price != 0 and $total != 0) $extrakey[] = ['text' => "📥افزایش حجم سرویس", 'callback_data' => "increaseAVolume{$server_id}_{$inbound_id}_{$remark}"];
         if($botState['increaseTimeState']=="on" and $price != 0) $extrakey[] = ['text' => "افزایش زمان سرویس✨", 'callback_data' => "increaseADay{$server_id}_{$inbound_id}_{$remark}"];
         $keyboard[] = $extrakey;
         $keyboard[] = [['text' => "↪ برگشت", 'callback_data' => "mySubscriptions"]];
