@@ -141,8 +141,7 @@ do
 			
 			MESSAGE="🕹 هادسون پنل با موفقیت اپدیت شد!"
 
-			curl -s -X POST "https://api.telegram.org/bot${bot_token}/sendMessage" -d chat_id="${bot_value}" -d text="$MESSAGE"
-			curl -s -X POST "https://api.telegram.org/bot${bot_token2}/sendMessage" -d chat_id="${bot_value}" -d text="$MESSAGE"
+
 			
 			sleep 1
 			
